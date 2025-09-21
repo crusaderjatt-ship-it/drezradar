@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 0 0% 100%; /* White background */
+    --foreground: 222.2 84% 4.9%; /* Default foreground, will be overridden by charcoal */
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -13,8 +13,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 240 5.9% 10%; /* Dark charcoal for primary actions */
+    --primary-foreground: 0 0% 98%; /* Off-white for text on primary */
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -35,20 +35,20 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* DrezRadar Custom Colors */
+    --drez-pastel-pink: 330 40% 95%; /* #F8EAF1 */
+    --drez-pastel-purple: 250 100% 96%; /* #EEE8FF */
+    --drez-pastel-green: 140 60% 95%; /* #E8FAF2 */
+    --drez-charcoal: 220 10% 20%; /* A dark grey for text */
+    --drez-charcoal-light: 220 5% 40%; /* A lighter dark grey for secondary text */
   }
 
   .dark {
@@ -87,6 +87,13 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* DrezRadar Custom Colors for Dark Mode (adjust as needed) */
+    --drez-pastel-pink: 330 40% 85%;
+    --drez-pastel-purple: 250 100% 86%;
+    --drez-pastel-green: 140 60% 85%;
+    --drez-charcoal: 210 40% 98%; /* Light text on dark background */
+    --drez-charcoal-light: 215 20.2% 65.1%;
   }
 }
 
