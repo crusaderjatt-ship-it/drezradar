@@ -49,12 +49,6 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
-
-    /* DrezRadar Custom Colors */
-    --pastel-pink: 320 40% 95%; /* #F8EAF1 */
-    --pastel-purple: 258 100% 96%; /* #EEE8FF */
-    --pastel-green: 135 60% 95%; /* #E8FAF2 */
-    --charcoal: 222.2 84% 15%; /* Dark charcoal for text */
   }
 
   .dark {
@@ -93,12 +87,6 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-
-    /* DrezRadar Custom Colors for Dark Mode */
-    --pastel-pink: 320 40% 20%;
-    --pastel-purple: 258 100% 20%;
-    --pastel-green: 135 60% 20%;
-    --charcoal: 210 40% 98%; /* Lighter charcoal for dark mode text */
   }
 }
 
