@@ -3,16 +3,17 @@ import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { MadeWithDyad } from "@/components/made-with-dyad";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Image } from "lucide-react"; // Using a generic image icon for now
+import { Image as ImageIcon } from "lucide-react"; // Renamed to avoid conflict with HTML Image element
 
-// Mock data for demonstration
+// Mock data for demonstration, updated to include a main_image_url
 const mockTrends = [
   {
     platform: "TikTok",
     dress_type: "Cottagecore Dress",
     score: 92,
+    main_image_url: "https://via.placeholder.com/400x300/F8EAF1/000000?text=Cottagecore",
     sample_posts: [
       { image_url: "https://via.placeholder.com/150/F8EAF1/000000?text=TikTok1", permalink: "#" },
       { image_url: "https://via.placeholder.com/150/F8EAF1/000000?text=TikTok2", permalink: "#" },
@@ -22,6 +23,7 @@ const mockTrends = [
     platform: "Instagram",
     dress_type: "Slip Dress",
     score: 88,
+    main_image_url: "https://via.placeholder.com/400x300/EEE8FF/000000?text=Slip+Dress",
     sample_posts: [
       { image_url: "https://via.placeholder.com/150/EEE8FF/000000?text=Insta1", permalink: "#" },
       { image_url: "https://via.placeholder.com/150/EEE8FF/000000?text=Insta2", permalink: "#" },
@@ -32,6 +34,7 @@ const mockTrends = [
     platform: "Pinterest",
     dress_type: "Boho Maxi Dress",
     score: 75,
+    main_image_url: "https://via.placeholder.com/400x300/E8FAF2/000000?text=Boho+Maxi",
     sample_posts: [
       { image_url: "https://via.placeholder.com/150/E8FAF2/000000?text=Pin1", permalink: "#" },
     ],
@@ -40,6 +43,7 @@ const mockTrends = [
     platform: "X",
     dress_type: "Bodycon Dress",
     score: 60,
+    main_image_url: "https://via.placeholder.com/400x300/F8EAF1/000000?text=Bodycon",
     sample_posts: [
       { image_url: "https://via.placeholder.com/150/F8EAF1/000000?text=X1", permalink: "#" },
     ],
@@ -48,9 +52,73 @@ const mockTrends = [
     platform: "TikTok",
     dress_type: "Vintage Floral Dress",
     score: 85,
+    main_image_url: "https://via.placeholder.com/400x300/EEE8FF/000000?text=Vintage+Floral",
     sample_posts: [
       { image_url: "https://via.placeholder.com/150/EEE8FF/000000?text=TikTok3", permalink: "#" },
       { image_url: "https://via.placeholder.com/150/EEE8FF/000000?text=TikTok4", permalink: "#" },
+    ],
+  },
+  {
+    platform: "Instagram",
+    dress_type: "A-Line Dress",
+    score: 78,
+    main_image_url: "https://via.placeholder.com/400x300/E8FAF2/000000?text=A-Line",
+    sample_posts: [
+      { image_url: "https://via.placeholder.com/150/E8FAF2/000000?text=Insta4", permalink: "#" },
+    ],
+  },
+  {
+    platform: "Pinterest",
+    dress_type: "Sweater Dress",
+    score: 70,
+    main_image_url: "https://via.placeholder.com/400x300/F8EAF1/000000?text=Sweater+Dress",
+    sample_posts: [
+      { image_url: "https://via.placeholder.com/150/F8EAF1/000000?text=Pin2", permalink: "#" },
+    ],
+  },
+  {
+    platform: "TikTok",
+    dress_type: "Mini Dress",
+    score: 90,
+    main_image_url: "https://via.placeholder.com/400x300/EEE8FF/000000?text=Mini+Dress",
+    sample_posts: [
+      { image_url: "https://via.placeholder.com/150/EEE8FF/000000?text=TikTok5", permalink: "#" },
+    ],
+  },
+  {
+    platform: "Instagram",
+    dress_type: "Cocktail Dress",
+    score: 82,
+    main_image_url: "https://via.placeholder.com/400x300/E8FAF2/000000?text=Cocktail",
+    sample_posts: [
+      { image_url: "https://via.placeholder.com/150/E8FAF2/000000?text=Insta5", permalink: "#" },
+    ],
+  },
+  {
+    platform: "X",
+    dress_type: "Shirt Dress",
+    score: 65,
+    main_image_url: "https://via.placeholder.com/400x300/F8EAF1/000000?text=Shirt+Dress",
+    sample_posts: [
+      { image_url: "https://via.placeholder.com/150/F8EAF1/000000?text=X2", permalink: "#" },
+    ],
+  },
+  {
+    platform: "TikTok",
+    dress_type: "Denim Dress",
+    score: 80,
+    main_image_url: "https://via.placeholder.com/400x300/EEE8FF/000000?text=Denim+Dress",
+    sample_posts: [
+      { image_url: "https://via.placeholder.com/150/EEE8FF/000000?text=TikTok6", permalink: "#" },
+    ],
+  },
+  {
+    platform: "Pinterest",
+    dress_type: "Wrap Dress",
+    score: 72,
+    main_image_url: "https://via.placeholder.com/400x300/E8FAF2/000000?text=Wrap+Dress",
+    sample_posts: [
+      { image_url: "https://via.placeholder.com/150/E8FAF2/000000?text=Pin3", permalink: "#" },
     ],
   },
 ];
@@ -92,39 +160,42 @@ const Home = () => {
 
         {allPlatforms.map((platform) => (
           <TabsContent key={platform} value={platform}>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {(platform === "All"
                 ? mockTrends
                 : mockTrends.filter((trend) => trend.platform === platform)
-              ).map((trend, index) => (
+              ).slice(0, 10).map((trend, index) => ( // Apply slice(0, 10) here
                 <Link
                   key={index}
                   to={`/trend/${trend.platform.toLowerCase()}/${trend.dress_type.toLowerCase().replace(/\s/g, '-')}`}
                   className="block"
                 >
-                  <Card className="p-4 bg-card text-card-foreground rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 flex flex-col h-full">
-                    <div className="flex justify-between items-start mb-3">
-                      <h2 className="text-xl font-semibold text-charcoal">{trend.dress_type}</h2>
-                      <Badge className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm">
-                        Score: {trend.score}
-                      </Badge>
+                  <Card className="p-0 bg-card text-card-foreground rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200 overflow-hidden h-full flex flex-col">
+                    <div className="relative w-full h-60 bg-muted flex items-center justify-center">
+                      {trend.main_image_url ? (
+                        <img
+                          src={trend.main_image_url}
+                          alt={`${trend.dress_type} trend`}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <ImageIcon className="text-muted-foreground" size={48} />
+                      )}
                     </div>
-                    <p className="text-sm text-charcoal-light mb-4">{trend.platform}</p>
-                    <div className="grid grid-cols-3 gap-2 mt-auto">
-                      {trend.sample_posts.slice(0, 3).map((post, postIndex) => (
-                        <div key={postIndex} className="w-full h-24 bg-muted rounded-md overflow-hidden flex items-center justify-center">
-                          {post.image_url ? (
-                            <img
-                              src={post.image_url}
-                              alt={`${trend.dress_type} sample post`}
-                              className="w-full h-full object-cover"
-                            />
-                          ) : (
-                            <Image className="text-muted-foreground" size={32} />
-                          )}
-                        </div>
-                      ))}
-                    </div>
+                    <CardContent className="p-4 flex flex-col flex-grow">
+                      <div className="flex justify-between items-start mb-2">
+                        <h2 className="text-2xl font-bold text-charcoal leading-tight">{trend.dress_type}</h2>
+                        <Badge className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-base font-semibold">
+                          {trend.score}
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-charcoal-light mb-4">{trend.platform}</p>
+                      <Button asChild className="mt-auto w-full bg-pastel-purple text-charcoal hover:bg-pastel-purple/80">
+                        <Link to={`/trend/${trend.platform.toLowerCase()}/${trend.dress_type.toLowerCase().replace(/\s/g, '-')}`}>
+                          View Details
+                        </Link>
+                      </Button>
+                    </CardContent>
                   </Card>
                 </Link>
               ))}
