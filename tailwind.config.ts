@@ -62,6 +62,11 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Custom DrezRadar colors
+        "pastel-pink": "hsl(var(--pastel-pink))",
+        "pastel-purple": "hsl(var(--pastel-purple))",
+        "pastel-green": "hsl(var(--pastel-green))",
+        "charcoal": "hsl(var(--charcoal))",
       },
       borderRadius: {
         lg: "var(--radius)",
