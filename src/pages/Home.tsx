@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { MadeWithDyad } from "@/components/made-with-dyad";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Image as ImageIcon } from "lucide-react"; // Renamed to avoid conflict with HTML Image element
+import { fetchFashionNews } from "@/lib/newsapi"; // Import the news API utility
 
 // Mock data for demonstration, updated to include a main_image_url
 const mockTrends = [
@@ -125,6 +126,15 @@ const mockTrends = [
 
 const Home = () => {
   const allPlatforms = ["All", "TikTok", "Instagram", "Pinterest", "X"];
+  const [fashionNews, setFashionNews] = useState<any[]>([]);
+
+  useEffect(() => {
+    const getFashionNews = async () => {
+      const news = await fetchFashionNews();
+      setFashionNews(news);
+    };
+    getFashionNews();
+  }, []);
 
   const getRandomTrend = () => {
     const randomIndex = Math.floor(Math.random() * mockTrends.length);
@@ -203,6 +213,29 @@ const Home = () => {
           </TabsContent>
         ))}
       </Tabs>
+
+      <section className="mt-12 max-w-4xl mx-auto">
+        <h2 className="text-3xl font-bold text-charcoal mb-6 text-center">Latest Fashion News</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {fashionNews.map((article, index) => (
+            <Card key={index} className="bg-card text-card-foreground rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200 overflow-hidden">
+              {article.urlToImage && (
+                <img src={article.urlToImage} alt={article.title} className="w-full h-48 object-cover" />
+              )}
+              <CardHeader>
+                <CardTitle className="text-lg font-semibold text-charcoal line-clamp-2">{article.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-charcoal-light line-clamp-3 mb-3">{article.description}</p>
+                <a href={article.url} target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:underline">
+                  Read More
+                </a>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
       <MadeWithDyad />
     </div>
   );
