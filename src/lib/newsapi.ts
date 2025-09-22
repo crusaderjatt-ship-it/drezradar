@@ -1,11 +1,11 @@
-// In a production environment, this API key should be stored in an environment variable (e.g., VITE_NEWS_API_KEY)
+// IMPORTANT: In a production environment, this API key MUST be stored in an environment variable (e.g., VITE_NEWS_API_KEY)
 // and accessed via import.meta.env.VITE_NEWS_API_KEY for security.
 // Please obtain your own API key from NewsAPI.org and add it to a .env.local file like:
 // VITE_NEWS_API_KEY=YOUR_ACTUAL_API_KEY_HERE
-const NEWS_API_KEY = "bbb976c973b84d29b49d447616e6b1df";
+const NEWS_API_KEY = "bbb976c973b84d29b49d447616e6b1df"; // Using a placeholder key for now.
 
-// Simplified DRESSY_TERMS to be more concise
-const DRESSY_TERMS = `"dress" OR "dresses" OR "gown" OR "skirt" OR "attire" OR "outfit"`;
+// Simplified DRESSY_TERMS to be very concise
+const DRESSY_TERMS = `"fashion" OR "dress"`;
 
 const FASHION_MAGAZINE_DOMAINS = [
   "vogue.com", "harpersbazaar.com", "elle.com", "instyle.com", "cosmopolitan.com",
@@ -15,16 +15,16 @@ const FASHION_MAGAZINE_DOMAINS = [
 ].join(',');
 
 const CATEGORY_QUERIES: { [key: string]: string } = {
-  "Gen Z Trending": `("Gen Z fashion" OR Y2K OR coquette OR cottagecore OR Barbiecore OR TikTok OR "Milkmaid Dress" OR "Corset Dress" OR "Sheer Mesh Dress" OR "Puff-Sleeve Dress" OR "Cut-Out Mini Dress" OR "Ruched Bodycon Dress" OR "Metallic Mini Dress" OR "Satin Slip Dress") OR (${DRESSY_TERMS})`,
-  "Fast Fashion": `("fast fashion" OR "affordable fashion" OR Zara OR H&M OR Shein OR ASOS OR "Little Black Dress" OR "Floral Midi Dress" OR "Wrap Dress" OR "Shirt Dress" OR "Bodycon Midi Dress" OR "Knit Sweater Dress" OR "Slip Satin Midi" OR "Maxi Sundress") OR (${DRESSY_TERMS})`,
-  "Royal Classics": `("royal fashion" OR "classic elegance" OR couture OR "red carpet" OR "evening wear" OR "ball gown" OR "designer fashion" OR "timeless style" OR "Empire Waist Gown" OR "A-Line Evening Dress" OR "Sheath Gown" OR "Mermaid Gown" OR "Velvet Evening Gown" OR "Satin Floor-Length Dress") OR (${DRESSY_TERMS})`,
-  "Traditional": `("traditional dress" OR "ethnic fashion" OR lehenga OR anarkali OR kaftan OR saree OR "cultural attire" OR "folk dress" OR "Punjabi Suit" OR "Patiala Suit" OR "Salwar Kameez" OR "Indo-Western Gown" OR "Lehenga Choli") OR (${DRESSY_TERMS})`,
-  "All Fashion": `(fashion OR style OR trend OR "new collection" OR runway OR designers OR "Maxi Dress" OR "Midi Dress" OR "Mini Dress" OR "Bodycon Dress" OR "A-Line Dress" OR "Wrap Dress" OR "Slip Dress" OR "Shirt Dress" OR "Halter Dress" OR "Off-Shoulder Dress") OR (${DRESSY_TERMS})`,
+  "Gen Z Trending": `("Gen Z fashion" OR Y2K OR TikTok) OR (${DRESSY_TERMS})`,
+  "Fast Fashion": `("fast fashion" OR Zara OR H&M) OR (${DRESSY_TERMS})`,
+  "Royal Classics": `("royal fashion" OR couture OR "red carpet") OR (${DRESSY_TERMS})`,
+  "Traditional": `("traditional dress" OR "ethnic fashion" OR saree) OR (${DRESSY_TERMS})`,
+  "All Fashion": `(fashion OR style OR trend) OR (${DRESSY_TERMS})`,
 };
 
 export async function fetchFashionNews(categoryName: string, pageSize: number = 12) {
-  if (!NEWS_API_KEY) {
-    console.error("NewsAPI key is missing. Please set VITE_NEWS_API_KEY in your .env.local file.");
+  if (!NEWS_API_KEY || NEWS_API_KEY === "YOUR_ACTUAL_API_KEY_HERE") {
+    console.error("NewsAPI key is missing or is the placeholder. Please set VITE_NEWS_API_KEY in your .env.local file with a valid key from NewsAPI.org.");
     return [];
   }
 
@@ -35,6 +35,7 @@ export async function fetchFashionNews(categoryName: string, pageSize: number = 
   }
 
   const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&domains=${FASHION_MAGAZINE_DOMAINS}&sortBy=publishedAt&language=en&pageSize=${pageSize}&apiKey=${NEWS_API_KEY}`;
+  console.log("Fetching NewsAPI URL:", url); // Log the full URL for debugging
 
   try {
     const response = await fetch(url);
