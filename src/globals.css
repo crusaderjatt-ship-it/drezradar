@@ -13,16 +13,16 @@
     --popover: 0 0% 100%;
     --popover-foreground: var(--drez-charcoal);
 
-    --primary: var(--drez-charcoal); /* Primary actions/text using charcoal */
-    --primary-foreground: 0 0% 98%; /* Off-white for text on primary */
+    --primary: var(--drez-pastel-pink); /* Primary actions/text using pastel pink */
+    --primary-foreground: var(--drez-charcoal); /* Charcoal for text on primary */
 
-    --secondary: var(--drez-pastel-pink); /* Secondary actions/highlights using pastel pink */
+    --secondary: var(--drez-pastel-purple); /* Secondary actions/highlights using pastel purple */
     --secondary-foreground: var(--drez-charcoal); /* Charcoal for text on secondary */
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: var(--drez-pastel-purple); /* Accent color using pastel purple */
+    --accent: var(--drez-pastel-green); /* Accent color using pastel green */
     --accent-foreground: var(--drez-charcoal); /* Charcoal for text on accent */
 
     --destructive: 0 84.2% 60.2%;
@@ -61,17 +61,17 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%; /* Primary actions/text using light text on dark */
-    --primary-foreground: 222.2 47.4% 11.2%; /* Dark text on light primary */
+    --primary: var(--drez-pastel-pink); /* Primary actions/text using darker pastel pink */
+    --primary-foreground: var(--drez-charcoal); /* Light text on primary (charcoal is light in dark mode) */
 
-    --secondary: 330 40% 85%; /* Darker pastel pink for secondary */
-    --secondary-foreground: 210 40% 98%; /* Light text on secondary */
+    --secondary: var(--drez-pastel-purple); /* Secondary actions/highlights using darker pastel purple */
+    --secondary-foreground: var(--drez-charcoal); /* Light text on secondary */
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 250 100% 86%; /* Darker pastel purple for accent */
-    --accent-foreground: 210 40% 98%; /* Light text on accent */
+    --accent: var(--drez-pastel-green); /* Accent color using darker pastel green */
+    --accent-foreground: var(--drez-charcoal); /* Light text on accent */
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
