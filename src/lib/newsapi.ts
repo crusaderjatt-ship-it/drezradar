@@ -12,6 +12,8 @@ const FASHION_MAGAZINE_DOMAINS = [
   "vanityfair.com", "essence.com", "gq.com", "lofficielusa.com", "crfashionbook.com"
 ].join(',');
 
+// Keeping these lists for potential future use or if a more complex query is needed,
+// but they won't be directly used in the simplified 'q' parameters for now to avoid length issues.
 const FAST_FASHION_BRANDS = [
   "Shein", "Zara", "H&M", "Uniqlo", "Primark", "Forever 21", "ASOS", "Mango",
   "Topshop", "Fashion Nova", "Brandy Melville", "Halara", "GU", "Boohoo",
@@ -31,10 +33,10 @@ const LUXURY_FASHION_HOUSES = [
 
 const CATEGORY_QUERIES: { [key: string]: string } = {
   "Gen Z Trending": `(viral OR "going viral" OR trending OR "sold out" OR "bestseller") AND (TikTok OR "Gen Z" OR GenZ OR Y2K OR coquette OR cottagecore OR "butter yellow" OR "Barbiecore" OR "Shein" OR "Temu" OR "Princess Polly" OR "Halara" OR "dress" OR "dresses")`,
-  "Fast Fashion": `("fast fashion" OR "luxury fashion" OR "fashion trends" OR ${FAST_FASHION_BRANDS} OR ${LUXURY_FASHION_HOUSES} OR "dress" OR "dresses" OR "gown" OR "maxi dress" OR "midi dress" OR "bodycon" OR "wrap dress" OR "slip dress" OR "blazer dress")`,
-  "Royal Classics": `("royal fashion" OR "classic fashion" OR "couture" OR "red carpet" OR "evening wear" OR "ball gown" OR "Kate Middleton style" OR "Meghan Markle style" OR ${LUXURY_FASHION_HOUSES} OR "dress" OR "dresses")`,
+  "Fast Fashion": `("fast fashion" OR "affordable fashion" OR "high street fashion" OR "Zara" OR "H&M" OR "Shein" OR "dress" OR "dresses" OR "trends")`,
+  "Royal Classics": `("royal fashion" OR "classic fashion" OR "couture" OR "red carpet" OR "evening wear" OR "ball gown" OR "dress" OR "dresses")`,
   "Traditional": `("traditional dress" OR "ethnic fashion" OR lehenga OR "Punjabi suit" OR anarkali OR angrakha OR phulkari OR kaftan OR "Pakistani suit" OR saree OR "dress" OR "dresses")`,
-  "All Fashion": `(fashion OR style OR trend OR viral OR "going viral" OR trending OR "sold out" OR bestseller OR "most-wanted" OR "dress" OR "dresses" OR "gown" OR "maxi dress" OR "midi dress" OR "slip dress" OR "wrap dress" OR "bodycon" OR "blazer dress" OR lehenga OR anarkali OR kaftan OR ${FAST_FASHION_BRANDS} OR ${LUXURY_FASHION_HOUSES})`,
+  "All Fashion": `(fashion OR style OR trend OR "dress" OR "dresses" OR "gown" OR "maxi dress" OR "midi dress" OR "slip dress")`,
 };
 
 export async function fetchFashionNews(categoryName: string, pageSize: number = 12) {
