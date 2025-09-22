@@ -77,7 +77,7 @@ const Home = () => {
       <div className="my-8 text-center">
         <ins className="adsbygoogle"
              style={{ display: "block" }}
-             data-ad-client="ca-pub-YOUR_ADSENSE_PUBLISHER_ID"
+             data-ad-client="ca-pub-7039562928200716"
              data-ad-slot="YOUR_ADSENSE_AD_SLOT_ID"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
