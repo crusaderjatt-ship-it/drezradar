@@ -2,8 +2,7 @@
 // and accessed via import.meta.env.VITE_NEWS_API_KEY for security.
 const NEWS_API_KEY = "bbb976c973b84d29b49d447616e6b1df";
 
-// Removed DRESSY_TERMS_IN_TITLE as it was too restrictive when combined with other filters.
-// The dress-related terms will now be integrated directly into the category queries.
+const DRESSY_TERMS = `"dress" OR "dresses" OR "gown" OR "maxi dress" OR "midi dress" OR "bodycon" OR "wrap dress" OR "slip dress" OR "blazer dress" OR "lehenga" OR "anarkali" OR "kaftan" OR "punjabi suit" OR "saree"`;
 
 const FASHION_MAGAZINE_DOMAINS = [
   "vogue.com", "harpersbazaar.com", "elle.com", "instyle.com", "cosmopolitan.com",
@@ -32,11 +31,11 @@ const LUXURY_FASHION_HOUSES = [
 ].map(house => `"${house}"`).join(' OR ');
 
 const CATEGORY_QUERIES: { [key: string]: string } = {
-  "Gen Z Trending": `(viral OR "going viral" OR trending OR "sold out" OR "bestseller") AND (TikTok OR "Gen Z" OR GenZ OR Y2K OR coquette OR cottagecore OR "butter yellow" OR "Barbiecore" OR "Shein" OR "Temu" OR "Princess Polly" OR "Halara" OR "dress" OR "dresses")`,
-  "Fast Fashion": `("fast fashion" OR "affordable fashion" OR "high street fashion" OR "Zara" OR "H&M" OR "Shein" OR "dress" OR "dresses" OR "trends")`,
-  "Royal Classics": `("royal fashion" OR "classic fashion" OR "couture" OR "red carpet" OR "evening wear" OR "ball gown" OR "dress" OR "dresses")`,
-  "Traditional": `("traditional dress" OR "ethnic fashion" OR lehenga OR "Punjabi suit" OR anarkali OR angrakha OR phulkari OR kaftan OR "Pakistani suit" OR saree OR "dress" OR "dresses")`,
-  "All Fashion": `(fashion OR style OR trend OR "dress" OR "dresses" OR "gown" OR "maxi dress" OR "midi dress" OR "slip dress")`,
+  "Gen Z Trending": `(viral OR "going viral" OR trending OR "sold out" OR "bestseller" OR TikTok OR "Gen Z" OR GenZ OR Y2K OR coquette OR cottagecore OR "butter yellow" OR "Barbiecore" OR "Shein" OR "Temu" OR "Princess Polly" OR "Halara") OR (${DRESSY_TERMS})`,
+  "Fast Fashion": `("fast fashion" OR "affordable fashion" OR "high street fashion" OR "Zara" OR "H&M" OR "Shein" OR "Boohoo" OR "ASOS") OR (${DRESSY_TERMS})`,
+  "Royal Classics": `("royal fashion" OR "classic fashion" OR "couture" OR "red carpet" OR "evening wear" OR "ball gown" OR "designer dress") OR (${DRESSY_TERMS})`,
+  "Traditional": `("traditional dress" OR "ethnic fashion" OR lehenga OR "Punjabi suit" OR anarkali OR angrakha OR phulkari OR kaftan OR "Pakistani suit" OR saree) OR (${DRESSY_TERMS})`,
+  "All Fashion": `(fashion OR style OR trend) OR (${DRESSY_TERMS})`,
 };
 
 export async function fetchFashionNews(categoryName: string, pageSize: number = 12) {
