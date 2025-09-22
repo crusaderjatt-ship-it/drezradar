@@ -2,7 +2,8 @@
 // and accessed via import.meta.env.VITE_NEWS_API_KEY for security.
 const NEWS_API_KEY = "bbb976c973b84d29b49d447616e6b1df";
 
-const DRESSY_TERMS = `"dress" OR "dresses" OR "gown" OR "maxi dress" OR "midi dress" OR "bodycon" OR "wrap dress" OR "slip dress" OR "blazer dress" OR "lehenga" OR "anarkali" OR "kaftan" OR "punjabi suit" OR "saree"`;
+// Broadened DRESSY_TERMS to include more general clothing-related keywords
+const DRESSY_TERMS = `"dress" OR "dresses" OR "gown" OR "maxi dress" OR "midi dress" OR "bodycon" OR "wrap dress" OR "slip dress" OR "blazer dress" OR "lehenga" OR "anarkali" OR "kaftan" OR "punjabi suit" OR "saree" OR "skirt" OR "attire" OR "outfit"`;
 
 const FASHION_MAGAZINE_DOMAINS = [
   "vogue.com", "harpersbazaar.com", "elle.com", "instyle.com", "cosmopolitan.com",
@@ -31,11 +32,11 @@ const LUXURY_FASHION_HOUSES = [
 ].map(house => `"${house}"`).join(' OR ');
 
 const CATEGORY_QUERIES: { [key: string]: string } = {
-  "Gen Z Trending": `(viral OR "going viral" OR trending OR "sold out" OR "bestseller" OR TikTok OR "Gen Z" OR GenZ OR Y2K OR coquette OR cottagecore OR "butter yellow" OR "Barbiecore" OR "Shein" OR "Temu" OR "Princess Polly" OR "Halara") OR (${DRESSY_TERMS})`,
-  "Fast Fashion": `("fast fashion" OR "affordable fashion" OR "high street fashion" OR "Zara" OR "H&M" OR "Shein" OR "Boohoo" OR "ASOS") OR (${DRESSY_TERMS})`,
-  "Royal Classics": `("royal fashion" OR "classic fashion" OR "couture" OR "red carpet" OR "evening wear" OR "ball gown" OR "designer dress") OR (${DRESSY_TERMS})`,
-  "Traditional": `("traditional dress" OR "ethnic fashion" OR lehenga OR "Punjabi suit" OR anarkali OR angrakha OR phulkari OR kaftan OR "Pakistani suit" OR saree) OR (${DRESSY_TERMS})`,
-  "All Fashion": `(fashion OR style OR trend) OR (${DRESSY_TERMS})`,
+  "Gen Z Trending": `(TikTok OR "Gen Z fashion" OR Y2K OR coquette OR cottagecore OR "Barbiecore" OR "micro-trends" OR "viral fashion" OR "aesthetic") AND (${DRESSY_TERMS})`,
+  "Fast Fashion": `("fast fashion" OR "affordable fashion" OR "high street fashion" OR ${FAST_FASHION_BRANDS}) AND (${DRESSY_TERMS})`,
+  "Royal Classics": `("royal fashion" OR "classic elegance" OR "couture" OR "red carpet" OR "evening wear" OR "ball gown" OR "designer fashion" OR "timeless style" OR ${LUXURY_FASHION_HOUSES}) AND (${DRESSY_TERMS})`,
+  "Traditional": `("traditional dress" OR "ethnic fashion" OR lehenga OR anarkali OR kaftan OR saree OR "cultural attire" OR "folk dress") AND (${DRESSY_TERMS})`,
+  "All Fashion": `(fashion OR style OR trend OR "new collection" OR "runway" OR "designers") OR (${DRESSY_TERMS})`, // This category remains broad with an OR
 };
 
 export async function fetchFashionNews(categoryName: string, pageSize: number = 12) {
@@ -45,14 +46,11 @@ export async function fetchFashionNews(categoryName: string, pageSize: number = 
     return [];
   }
 
-  // Construct the URL with only q and the domains filter.
-  // qInTitle has been removed to make the queries less restrictive.
   const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&domains=${FASHION_MAGAZINE_DOMAINS}&sortBy=publishedAt&language=en&pageSize=${pageSize}&apiKey=${NEWS_API_KEY}`;
 
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      // Attempt to parse error message from API response
       const errorData = await response.json();
       throw new Error(`NewsAPI error: ${response.statusText} (Status: ${response.status}) - ${errorData.message || 'Unknown error'}`);
     }
