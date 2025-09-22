@@ -30,9 +30,9 @@ const LUXURY_FASHION_HOUSES = [
 
 const CATEGORY_QUERIES: { [key: string]: string } = {
   "Gen Z Trending": `(viral OR "going viral" OR trending OR "sold out" OR "bestseller") AND (TikTok OR "Gen Z" OR GenZ OR Y2K OR coquette OR cottagecore OR "butter yellow" OR "Barbiecore" OR "Shein" OR "Temu" OR "Princess Polly" OR "Halara")`,
-  "Fast Fashion": `(fashion OR style OR trend OR viral OR trending OR "selling fast" OR "sold out" OR bestseller OR ${FAST_FASHION_BRANDS} OR ${LUXURY_FASHION_HOUSES})`, // Changed to OR for broader results
-  "Royal Classics": `("evening gown" OR "ball gown" OR couture OR "red carpet" OR "royal" OR "princess" OR "duchess" OR "Kate Middleton" OR "Meghan Markle" OR "timeless" OR "classic" OR ${LUXURY_FASHION_HOUSES}) AND (fashion OR style OR trend OR viral OR trending OR "sold out" OR "most-wanted")`,
-  "Traditional": `(lehenga OR "Punjabi suit" OR anarkali OR angrakha OR phulkari OR kaftan OR "Pakistani suit" OR saree) AND (fashion OR style OR trend OR viral OR trending OR "sold out" OR "bestseller" OR "going viral")`,
+  "Fast Fashion": `(${FAST_FASHION_BRANDS} OR ${LUXURY_FASHION_HOUSES} OR "fast fashion" OR "luxury fashion" OR "fashion trends")`,
+  "Royal Classics": `("royal fashion" OR "classic fashion" OR "couture" OR "red carpet" OR "evening wear" OR "ball gown" OR "Kate Middleton style" OR "Meghan Markle style" OR ${LUXURY_FASHION_HOUSES})`,
+  "Traditional": `(lehenga OR "Punjabi suit" OR anarkali OR angrakha OR phulkari OR kaftan OR "Pakistani suit" OR saree OR "traditional dress" OR "ethnic fashion")`,
   "All Fashion": `(fashion OR style OR trend OR viral OR "going viral" OR trending OR "sold out" OR bestseller OR "most-wanted") AND ("dress" OR "dresses" OR "gown" OR "maxi dress" OR "midi dress" OR "slip dress" OR "wrap dress" OR "bodycon" OR "blazer dress" OR lehenga OR anarkali OR kaftan OR ${FAST_FASHION_BRANDS} OR ${LUXURY_FASHION_HOUSES})`,
 };
 
