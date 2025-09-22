@@ -4,7 +4,7 @@
 // VITE_NEWS_API_KEY=YOUR_ACTUAL_API_KEY_HERE
 const NEWS_API_KEY = "bbb976c973b84d29b49d447616e6b1df"; // Using a placeholder key for now.
 
-const NEWS_API_KEY = process.env.NEWS_API_KEY!;
+//const NEWS_API_KEY = process.env.NEWS_API_KEY!;
 
 // Shared verbs to capture virality
 const TREND_VERBS = `viral OR "going viral" OR trending OR "sold out" OR bestseller OR "selling fast"`;
