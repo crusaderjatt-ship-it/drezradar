@@ -50,10 +50,10 @@ const Home = () => {
   }, [activeTab]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground"> {/* Removed p-4 md:p-8 */}
-      <header className="flex items-center justify-between mb-0 px-4 md:px-8 pt-4 md:pt-8"> {/* Adjusted margins and added horizontal padding */}
+    <div className="min-h-screen bg-background text-foreground">
+      <header className="flex items-center justify-between mb-0 px-4 md:px-8 pt-4 md:pt-8">
         <div className="flex-grow flex flex-col items-center justify-center">
-          <img src="/DrezRadarLogo.png" alt="DrezRadar Logo" className="max-h-72 md:max-h-96 w-auto" />
+          <img src="/DrezRadarLogoS.png" alt="DrezRadar Logo" className="max-h-72 md:max-h-96 w-auto" /> {/* Updated logo source */}
           <p className="text-lg text-charcoal-light text-center max-w-2xl mt-2">
             Stay updated with the latest in fashion from around the globe.
           </p>
@@ -61,7 +61,7 @@ const Home = () => {
         <ThemeToggle />
       </header>
 
-      <Tabs defaultValue={fashionCategories[0].name} className="w-full max-w-6xl mx-auto px-4 md:px-8 py-4 md:py-8" onValueChange={setActiveTab}> {/* Added horizontal padding */}
+      <Tabs defaultValue={fashionCategories[0].name} className="w-full max-w-6xl mx-auto px-4 md:px-8 py-4 md:py-8" onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 bg-muted p-1 rounded-lg mb-8 h-auto">
           {fashionCategories.map((category) => (
             <TabsTrigger key={category.name} value={category.name} className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md text-charcoal-light py-2">
