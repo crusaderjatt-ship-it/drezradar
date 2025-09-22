@@ -14,7 +14,7 @@
     --popover-foreground: var(--drez-charcoal);
 
     --primary: var(--drez-metallic-purple); /* Primary actions/text using metallic purple */
-    --primary-foreground: var(--drez-charcoal); /* Charcoal for text on primary */
+    --primary-foreground: 0 0% 100%; /* White for text on primary background */
 
     --secondary: var(--drez-pastel-purple); /* Secondary actions/highlights using pastel purple */
     --secondary-foreground: var(--drez-charcoal); /* Charcoal for text on secondary */
@@ -50,6 +50,7 @@
     --drez-charcoal: 220 10% 20%; /* A dark grey for text */
     --drez-charcoal-light: 220 5% 40%; /* A lighter dark grey for secondary text */
     --drez-metallic-purple: 270 20% 35%; /* New metallic purple for light mode */
+    --drez-hot-pink: 330 80% 60%; /* Hot pink for dark mode active tab */
   }
 
   .dark {
@@ -62,8 +63,8 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: var(--drez-metallic-purple-dark); /* Primary actions/text using darker metallic purple */
-    --primary-foreground: var(--drez-charcoal); /* Light text on primary (charcoal is light in dark mode) */
+    --primary: var(--drez-hot-pink); /* Primary actions/text using hot pink in dark mode */
+    --primary-foreground: 0 0% 100%; /* White for text on primary background */
 
     --secondary: var(--drez-pastel-purple); /* Secondary actions/highlights using darker pastel purple */
     --secondary-foreground: var(--drez-charcoal); /* Light text on secondary */
