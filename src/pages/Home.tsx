@@ -53,7 +53,7 @@ const Home = () => {
     <div className="min-h-screen bg-background text-foreground">
       <header className="flex items-center justify-between mb-0 px-4 md:px-8 pt-4 md:pt-8">
         <div className="flex-grow flex flex-col items-center justify-center">
-          <img src="/DrezRadarLogoS.png" alt="DrezRadar Logo" className="max-h-72 md:max-h-96 w-auto" /> {/* Updated logo source */}
+          <img src="/DrezRadarLogoS.png" alt="DrezRadar Logo" className="max-h-36 md:max-h-48 w-auto" /> {/* Reduced logo size */}
           <p className="text-lg text-charcoal-light text-center max-w-2xl mt-2">
             Stay updated with the latest in fashion from around the globe.
           </p>
