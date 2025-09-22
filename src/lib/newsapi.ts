@@ -2,10 +2,10 @@
 // and accessed via import.meta.env.VITE_NEWS_API_KEY for security.
 const NEWS_API_KEY = "bbb976c973b84d29b49d447616e6b1df";
 
-export async function fetchFashionNews() {
+export async function fetchFashionNews(query: string = "fashion", pageSize: number = 12) {
   try {
     const response = await fetch(
-      `https://newsapi.org/v2/everything?q=fashion&sortBy=publishedAt&language=en&pageSize=6&apiKey=${NEWS_API_KEY}`
+      `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&sortBy=publishedAt&language=en&pageSize=${pageSize}&apiKey=${NEWS_API_KEY}`
     );
     if (!response.ok) {
       throw new Error(`NewsAPI error: ${response.statusText}`);
@@ -13,7 +13,7 @@ export async function fetchFashionNews() {
     const data = await response.json();
     return data.articles;
   } catch (error) {
-    console.error("Failed to fetch fashion news:", error);
+    console.error(`Failed to fetch fashion news for query "${query}":`, error);
     return [];
   }
 }
