@@ -3,43 +3,98 @@
 // For now, the key is hardcoded to resolve the declaration error.
 const NEWS_API_KEY = "bbb976c973b84d29b49d447616e6b1df";
 
-// Simplified DRESSY_TERMS to be more concise
-const DRESSY_TERMS = `"dress" OR "dresses" OR "gown" OR "skirt" OR "attire" OR "outfit"`;
+//const NEWS_API_KEY = process.env.NEWS_API_KEY!;
 
+// Shared verbs to capture virality
+const TREND_VERBS = `viral OR "going viral" OR trending OR "sold out" OR bestseller OR "selling fast"`;
+
+// High-quality fashion sources
 const FASHION_MAGAZINE_DOMAINS = [
-  "vogue.com", "harpersbazaar.com", "elle.com", "instyle.com", "cosmopolitan.com",
-  "glamour.com", "wmagazine.com", "marieclaire.com", "allure.com", "nylon.com",
-  "teenvogue.com", "wwd.com", "papermag.com", "nymag.com", "seventeen.com",
-  "vanityfair.com", "essence.com", "gq.com", "lofficielusa.com", "crfashionbook.com"
-].join(',');
+  "vogue.com","harpersbazaar.com","elle.com","instyle.com","cosmopolitan.com",
+  "glamour.com","wmagazine.com","marieclaire.com","allure.com","nylon.com",
+  "teenvogue.com","wwd.com","papermag.com","nymag.com","seventeen.com",
+  "vanityfair.com","essence.com","gq.com","lofficielusa.com","crfashionbook.com"
+].join(",");
 
-const CATEGORY_QUERIES: { [key: string]: string } = {
-  "Gen Z Trending": `("Gen Z fashion" OR Y2K OR coquette OR cottagecore OR Barbiecore OR TikTok OR "Milkmaid Dress" OR "Corset Dress" OR "Sheer Mesh Dress" OR "Puff-Sleeve Dress" OR "Cut-Out Mini Dress" OR "Ruched Bodycon Dress" OR "Metallic Mini Dress" OR "Satin Slip Dress") OR (${DRESSY_TERMS})`,
-  "Fast Fashion": `("fast fashion" OR "affordable fashion" OR Zara OR H&M OR Shein OR ASOS OR "Little Black Dress" OR "Floral Midi Dress" OR "Wrap Dress" OR "Shirt Dress" OR "Bodycon Midi Dress" OR "Knit Sweater Dress" OR "Slip Satin Midi" OR "Maxi Sundress") OR (${DRESSY_TERMS})`,
-  "Royal Classics": `("royal fashion" OR "classic elegance" OR couture OR "red carpet" OR "evening wear" OR "ball gown" OR "designer fashion" OR "timeless style" OR "Empire Waist Gown" OR "A-Line Evening Dress" OR "Sheath Gown" OR "Mermaid Gown" OR "Velvet Evening Gown" OR "Satin Floor-Length Dress") OR (${DRESSY_TERMS})`,
-  "Traditional": `("traditional dress" OR "ethnic fashion" OR lehenga OR anarkali OR kaftan OR saree OR "cultural attire" OR "folk dress" OR "Punjabi Suit" OR "Patiala Suit" OR "Salwar Kameez" OR "Indo-Western Gown" OR "Lehenga Choli") OR (${DRESSY_TERMS})`,
-  "All Fashion": `(fashion OR style OR trend OR "new collection" OR runway OR designers OR "Maxi Dress" OR "Midi Dress" OR "Mini Dress" OR "Bodycon Dress" OR "A-Line Dress" OR "Wrap Dress" OR "Slip Dress" OR "Shirt Dress" OR "Halter Dress" OR "Off-Shoulder Dress") OR (${DRESSY_TERMS})`,
+// Category-specific queries
+const CATEGORY_QUERIES: { [key: string]: { q: string; qInTitle?: string } } = {
+  "Gen Z Trending": {
+    q: `(${TREND_VERBS}) AND (TikTok OR "Gen Z" OR Y2K OR coquette OR cottagecore OR Barbiecore OR "Milkmaid Dress" OR "Corset Dress" OR "Puff-Sleeve" OR "Cut-Out" OR "Sheer Mesh")`,
+    qInTitle: `"dress" OR mini OR slip OR corset OR puff`
+  },
+  "Fast Fashion": {
+    q: `(${TREND_VERBS}) AND (Zara OR "H&M" OR Shein OR ASOS OR Boohoo OR FashionNova OR PrettyLittleThing OR Primark OR Uniqlo OR Mango)`,
+    qInTitle: `"dress" OR midi OR maxi OR wrap OR bodycon`
+  },
+  "Royal Classics": {
+    q: `(${TREND_VERBS}) AND ("red carpet" OR couture OR "royal fashion" OR "evening wear" OR "ball gown" OR "timeless elegance" OR "Oscar de la Renta" OR "Carolina Herrera")`,
+    qInTitle: `"gown" OR evening OR couture OR satin OR velvet`
+  },
+  "Traditional": {
+    q: `(${TREND_VERBS}) AND (lehenga OR anarkali OR kaftan OR saree OR "Punjabi Suit" OR "Salwar Kameez" OR "Indo-Western Gown" OR phulkari OR angrakha)`,
+    qInTitle: `lehenga OR anarkali OR saree OR kaftan OR suit`
+  },
+  "All Fashion": {
+    q: `(${TREND_VERBS}) AND (fashion OR style OR runway OR "new collection" OR designers OR "Maxi Dress" OR "Midi Dress" OR "Mini Dress")`,
+    qInTitle: `"dress" OR gown OR outfit OR attire`
+  }
 };
 
-export async function fetchFashionNews(categoryName: string, pageSize: number = 12) {
-  const query = CATEGORY_QUERIES[categoryName];
-  if (!query) {
-    console.warn(`No specific query defined for category: ${categoryName}. Falling back to generic "fashion".`);
+// Helper: ISO date N days ago
+function isoDaysAgo(days = 7) {
+  const d = new Date();
+  d.setDate(d.getDate() - days);
+  return d.toISOString().slice(0, 19);
+}
+
+export async function fetchFashionNews(
+  categoryName: string,
+  pageSize: number = 12,
+  daysBack: number = 10,
+  sortBy: "relevancy" | "popularity" = "relevancy"
+) {
+  const category = CATEGORY_QUERIES[categoryName];
+  if (!category) {
+    console.warn(`No query defined for category: ${categoryName}`);
     return [];
   }
 
-  const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&domains=${FASHION_MAGAZINE_DOMAINS}&sortBy=publishedAt&language=en&pageSize=${pageSize}&apiKey=${NEWS_API_KEY}`;
+  const { q, qInTitle } = category;
+  const from = isoDaysAgo(daysBack);
+
+  const params = new URLSearchParams({
+    q,
+    ...(qInTitle ? { qInTitle } : {}),
+    from,
+    language: "en",
+    sortBy,
+    pageSize: String(pageSize),
+    domains: FASHION_MAGAZINE_DOMAINS,
+    apiKey: NEWS_API_KEY
+  });
+
+  const url = `https://newsapi.org/v2/everything?${params.toString()}`;
 
   try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`NewsAPI error: ${response.statusText} (Status: ${response.status}) - ${errorData.message || 'Unknown error'}`);
+    const resp = await fetch(url);
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      throw new Error(`NewsAPI error ${resp.status}: ${resp.statusText} — ${err.message ?? "unknown"}`);
     }
-    const data = await response.json();
-    return data.articles;
-  } catch (error) {
-    console.error(`Failed to fetch fashion news for category "${categoryName}":`, error);
+    const data = await resp.json();
+
+    // De-dupe by title
+    const seen = new Set<string>();
+    const articles = (data.articles || []).filter((a: any) => {
+      const key = (a?.title || "").toLowerCase();
+      if (!key || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+
+    return articles;
+  } catch (e) {
+    console.error(`[NewsAPI:${categoryName}]`, e);
     return [];
   }
 }
