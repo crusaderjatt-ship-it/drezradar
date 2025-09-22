@@ -171,8 +171,6 @@ const Home = () => {
           </TabsContent>
         ))}
       </Tabs>
-
-      <MadeWithDyad />
     </div>
   );
 };
