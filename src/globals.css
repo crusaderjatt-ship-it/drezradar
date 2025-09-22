@@ -5,32 +5,32 @@
 @layer base {
   :root {
     --background: 0 0% 100%; /* White background */
-    --foreground: 222.2 84% 4.9%; /* Default foreground, will be overridden by charcoal */
+    --foreground: var(--drez-charcoal); /* Default foreground, using charcoal */
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: var(--drez-charcoal);
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: var(--drez-charcoal);
 
-    --primary: 240 5.9% 10%; /* Dark charcoal for primary actions */
+    --primary: var(--drez-charcoal); /* Primary actions/text using charcoal */
     --primary-foreground: 0 0% 98%; /* Off-white for text on primary */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: var(--drez-pastel-pink); /* Secondary actions/highlights using pastel pink */
+    --secondary-foreground: var(--drez-charcoal); /* Charcoal for text on secondary */
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: var(--drez-pastel-purple); /* Accent color using pastel purple */
+    --accent-foreground: var(--drez-charcoal); /* Charcoal for text on accent */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: var(--drez-charcoal);
 
     --radius: 0.5rem;
 
@@ -61,17 +61,17 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 210 40% 98%; /* Primary actions/text using light text on dark */
+    --primary-foreground: 222.2 47.4% 11.2%; /* Dark text on light primary */
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 330 40% 85%; /* Darker pastel pink for secondary */
+    --secondary-foreground: 210 40% 98%; /* Light text on secondary */
 
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 250 100% 86%; /* Darker pastel purple for accent */
+    --accent-foreground: 210 40% 98%; /* Light text on accent */
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;

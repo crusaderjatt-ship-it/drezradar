@@ -61,6 +61,19 @@ const Home = () => {
         <ThemeToggle />
       </header>
 
+      {/* Google AdSense Ad Unit Placeholder - REPLACE YOUR_ADSENSE_AD_SLOT_ID with your actual ID */}
+      <div className="my-8 text-center">
+        <ins className="adsbygoogle"
+             style={{ display: "block" }}
+             data-ad-client="ca-pub-YOUR_ADSENSE_PUBLISHER_ID" {/* Use your publisher ID here */}
+             data-ad-slot="YOUR_ADSENSE_AD_SLOT_ID"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </div>
+
       <Tabs defaultValue={fashionCategories[0].name} className="w-full max-w-6xl mx-auto px-4 md:px-8 py-4 md:py-8" onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 bg-muted p-1 rounded-lg mb-8 h-auto">
           {fashionCategories.map((category) => (
