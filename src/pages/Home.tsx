@@ -18,11 +18,11 @@ interface Article {
 }
 
 const fashionCategories = [
-  { name: "All Fashion", query: "fashion" },
   { name: "Gen Z Trending", query: "gen z fashion trends" },
   { name: "Fast Fashion", query: "fast fashion industry" },
   { name: "Royal Classics", query: "royal family fashion" },
   { name: "Traditional", query: "traditional ethnic fashion" },
+  { name: "All Fashion", query: "fashion" }, // Moved to last
 ];
 
 const Home = () => {
