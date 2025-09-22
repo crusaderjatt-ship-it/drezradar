@@ -18,11 +18,11 @@ interface Article {
 }
 
 const fashionCategories = [
-  { name: "Gen Z Trending", query: "gen z fashion trends" },
-  { name: "Fast Fashion", query: "fast fashion industry" },
-  { name: "Royal Classics", query: "royal family fashion" },
-  { name: "Traditional", query: "traditional ethnic fashion" },
-  { name: "All Fashion", query: "fashion" }, // Moved to last
+  { name: "Gen Z Trending" },
+  { name: "Fast Fashion" },
+  { name: "Royal Classics" },
+  { name: "Traditional" },
+  { name: "All Fashion" },
 ];
 
 const Home = () => {
@@ -36,8 +36,7 @@ const Home = () => {
       setLoading(true);
       setError(null);
       try {
-        const selectedCategory = fashionCategories.find(cat => cat.name === activeTab);
-        const news = await fetchFashionNews(selectedCategory?.query || "fashion", 12);
+        const news = await fetchFashionNews(activeTab, 12);
         setFashionNews(news);
       } catch (err) {
         setError("Failed to load fashion news. Please try again later.");
