@@ -1,8 +1,6 @@
-// IMPORTANT: In a production environment, this API key MUST be stored in an environment variable (e.g., VITE_NEWS_API_KEY)
-// and accessed via import.meta.env.VITE_NEWS_API_KEY for security.
-// Please obtain your own API key from NewsAPI.org and add it to a .env.local file like:
-// VITE_NEWS_API_KEY=YOUR_ACTUAL_API_KEY_HERE
-const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY || "YOUR_ACTUAL_API_KEY_HERE"; // Fallback to placeholder if not set
+// IMPORTANT: For production, it's highly recommended to store API keys in environment variables.
+// For this session, the provided key is directly used.
+const NEWS_API_KEY = "bbb976c973b84d29b49d447616e6b1df";
 
 // Simplified DRESSY_TERMS to be very concise
 const DRESSY_TERMS = `"fashion" OR "dress"`;
@@ -23,11 +21,6 @@ const CATEGORY_QUERIES: { [key: string]: string } = {
 };
 
 export async function fetchFashionNews(categoryName: string, pageSize: number = 12) {
-  if (!NEWS_API_KEY || NEWS_API_KEY === "YOUR_ACTUAL_API_KEY_HERE") {
-    console.error("NewsAPI key is missing or is the placeholder. Please set VITE_NEWS_API_KEY in your .env.local file with a valid key from NewsAPI.org.");
-    return [];
-  }
-
   const query = CATEGORY_QUERIES[categoryName];
   if (!query) {
     console.warn(`No specific query defined for category: ${categoryName}. Falling back to generic "fashion".`);
