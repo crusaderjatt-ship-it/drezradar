@@ -2,7 +2,8 @@
 // and accessed via import.meta.env.VITE_NEWS_API_KEY for security.
 const NEWS_API_KEY = "bbb976c973b84d29b49d447616e6b1df";
 
-const DRESSY_TERMS_IN_TITLE = `"dress" OR "dresses" OR "gown" OR "maxi dress" OR "midi dress" OR "bodycon" OR "wrap dress" OR "slip dress" OR "blazer dress" OR "lehenga" OR "anarkali" OR "kaftan" OR "punjabi suit"`;
+// Removed DRESSY_TERMS_IN_TITLE as it was too restrictive when combined with other filters.
+// The dress-related terms will now be integrated directly into the category queries.
 
 const FASHION_MAGAZINE_DOMAINS = [
   "vogue.com", "harpersbazaar.com", "elle.com", "instyle.com", "cosmopolitan.com",
@@ -29,11 +30,11 @@ const LUXURY_FASHION_HOUSES = [
 ].map(house => `"${house}"`).join(' OR ');
 
 const CATEGORY_QUERIES: { [key: string]: string } = {
-  "Gen Z Trending": `(viral OR "going viral" OR trending OR "sold out" OR "bestseller") AND (TikTok OR "Gen Z" OR GenZ OR Y2K OR coquette OR cottagecore OR "butter yellow" OR "Barbiecore" OR "Shein" OR "Temu" OR "Princess Polly" OR "Halara")`,
-  "Fast Fashion": `(${FAST_FASHION_BRANDS} OR ${LUXURY_FASHION_HOUSES} OR "fast fashion" OR "luxury fashion" OR "fashion trends")`,
-  "Royal Classics": `("royal fashion" OR "classic fashion" OR "couture" OR "red carpet" OR "evening wear" OR "ball gown" OR "Kate Middleton style" OR "Meghan Markle style" OR ${LUXURY_FASHION_HOUSES})`,
-  "Traditional": `(lehenga OR "Punjabi suit" OR anarkali OR angrakha OR phulkari OR kaftan OR "Pakistani suit" OR saree OR "traditional dress" OR "ethnic fashion")`,
-  "All Fashion": `(fashion OR style OR trend OR viral OR "going viral" OR trending OR "sold out" OR bestseller OR "most-wanted") AND ("dress" OR "dresses" OR "gown" OR "maxi dress" OR "midi dress" OR "slip dress" OR "wrap dress" OR "bodycon" OR "blazer dress" OR lehenga OR anarkali OR kaftan OR ${FAST_FASHION_BRANDS} OR ${LUXURY_FASHION_HOUSES})`,
+  "Gen Z Trending": `(viral OR "going viral" OR trending OR "sold out" OR "bestseller") AND (TikTok OR "Gen Z" OR GenZ OR Y2K OR coquette OR cottagecore OR "butter yellow" OR "Barbiecore" OR "Shein" OR "Temu" OR "Princess Polly" OR "Halara" OR "dress" OR "dresses")`,
+  "Fast Fashion": `("fast fashion" OR "luxury fashion" OR "fashion trends" OR ${FAST_FASHION_BRANDS} OR ${LUXURY_FASHION_HOUSES} OR "dress" OR "dresses" OR "gown" OR "maxi dress" OR "midi dress" OR "bodycon" OR "wrap dress" OR "slip dress" OR "blazer dress")`,
+  "Royal Classics": `("royal fashion" OR "classic fashion" OR "couture" OR "red carpet" OR "evening wear" OR "ball gown" OR "Kate Middleton style" OR "Meghan Markle style" OR ${LUXURY_FASHION_HOUSES} OR "dress" OR "dresses")`,
+  "Traditional": `("traditional dress" OR "ethnic fashion" OR lehenga OR "Punjabi suit" OR anarkali OR angrakha OR phulkari OR kaftan OR "Pakistani suit" OR saree OR "dress" OR "dresses")`,
+  "All Fashion": `(fashion OR style OR trend OR viral OR "going viral" OR trending OR "sold out" OR bestseller OR "most-wanted" OR "dress" OR "dresses" OR "gown" OR "maxi dress" OR "midi dress" OR "slip dress" OR "wrap dress" OR "bodycon" OR "blazer dress" OR lehenga OR anarkali OR kaftan OR ${FAST_FASHION_BRANDS} OR ${LUXURY_FASHION_HOUSES})`,
 };
 
 export async function fetchFashionNews(categoryName: string, pageSize: number = 12) {
@@ -43,8 +44,9 @@ export async function fetchFashionNews(categoryName: string, pageSize: number = 
     return [];
   }
 
-  // Construct the URL with both q and qInTitle, and the domains filter
-  const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&qInTitle=${encodeURIComponent(DRESSY_TERMS_IN_TITLE)}&domains=${FASHION_MAGAZINE_DOMAINS}&sortBy=publishedAt&language=en&pageSize=${pageSize}&apiKey=${NEWS_API_KEY}`;
+  // Construct the URL with only q and the domains filter.
+  // qInTitle has been removed to make the queries less restrictive.
+  const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&domains=${FASHION_MAGAZINE_DOMAINS}&sortBy=publishedAt&language=en&pageSize=${pageSize}&apiKey=${NEWS_API_KEY}`;
 
   try {
     const response = await fetch(url);
