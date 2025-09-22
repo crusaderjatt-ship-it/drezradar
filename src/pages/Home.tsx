@@ -49,6 +49,18 @@ const Home = () => {
     getFashionNews();
   }, [activeTab]);
 
+  // Effect to push AdSense ads after component mounts
+  useEffect(() => {
+    try {
+      // Check if adsbygoogle is defined before pushing
+      if (window.adsbygoogle && process.env.NODE_ENV === 'production') { // Only run in production
+        (window.adsbygoogle as any[]).push({});
+      }
+    } catch (e) {
+      console.error("Adsense script failed to load:", e);
+    }
+  }, []); // Empty dependency array means this runs once after initial render
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="flex items-center justify-between mb-0 px-4 md:px-8 pt-4 md:pt-8">
@@ -69,9 +81,6 @@ const Home = () => {
              data-ad-slot="YOUR_ADSENSE_AD_SLOT_ID"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
-        <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
       </div>
 
       <Tabs defaultValue={fashionCategories[0].name} className="w-full max-w-6xl mx-auto px-4 md:px-8 py-4 md:py-8" onValueChange={setActiveTab}>
