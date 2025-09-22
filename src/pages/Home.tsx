@@ -51,14 +51,14 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground p-4 md:p-8">
-      <header className="flex items-center justify-between mb-8"> {/* Adjusted header for toggle */}
+      <header className="flex items-center justify-between mb-8">
         <div className="flex-grow flex flex-col items-center justify-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-charcoal mb-4">DrezRadar News</h1>
+          <img src="/DrezRadarLogo.png" alt="DrezRadar Logo" className="h-16 md:h-20 mb-4" /> {/* Added logo */}
           <p className="text-lg text-charcoal-light text-center max-w-2xl">
             Stay updated with the latest in fashion from around the globe.
           </p>
         </div>
-        <ThemeToggle /> {/* Add ThemeToggle here */}
+        <ThemeToggle />
       </header>
 
       <Tabs defaultValue={fashionCategories[0].name} className="w-full max-w-6xl mx-auto" onValueChange={setActiveTab}>
