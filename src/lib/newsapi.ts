@@ -2,7 +2,7 @@
 // and accessed via import.meta.env.VITE_NEWS_API_KEY for security.
 // Please obtain your own API key from NewsAPI.org and add it to a .env.local file like:
 // VITE_NEWS_API_KEY=YOUR_ACTUAL_API_KEY_HERE
-const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY;
+const NEWS_API_KEY = "bbb976c973b84d29b49d447616e6b1df";
 
 // Simplified DRESSY_TERMS to be more concise
 const DRESSY_TERMS = `"dress" OR "dresses" OR "gown" OR "skirt" OR "attire" OR "outfit"`;
