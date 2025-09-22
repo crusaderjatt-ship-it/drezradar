@@ -86,7 +86,15 @@ const Home = () => {
       <Tabs defaultValue={fashionCategories[0].name} className="w-full max-w-6xl mx-auto px-4 md:px-8 py-4 md:py-8" onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 bg-muted p-1 rounded-lg mb-8 h-auto">
           {fashionCategories.map((category) => (
-            <TabsTrigger key={category.name} value={category.name} className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md text-charcoal-light py-2">
+            <TabsTrigger
+              key={category.name}
+              value={category.name}
+              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md text-charcoal-light py-2
+                         transition-all duration-300 ease-in-out
+                         hover:scale-[1.02] hover:shadow-md
+                         hover:bg-gradient-to-br hover:from-gray-50 hover:to-gray-100
+                         dark:hover:from-gray-800 dark:hover:to-gray-700"
+            >
               {category.name}
             </TabsTrigger>
           ))}
@@ -101,7 +109,16 @@ const Home = () => {
             ) : fashionNews.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {fashionNews.map((article, index) => (
-                  <Card key={index} className="bg-card text-card-foreground rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200 overflow-hidden flex flex-col">
+                  <Card
+                    key={index}
+                    className="bg-card text-card-foreground rounded-lg shadow-md
+                               transition-all duration-300 ease-in-out
+                               hover:shadow-xl hover:scale-[1.02]
+                               hover:bg-gradient-to-br hover:from-gray-50 hover:to-gray-100
+                               dark:hover:from-gray-800 dark:hover:to-gray-700
+                               hover:border-2 hover:border-primary
+                               overflow-hidden flex flex-col"
+                  >
                     {/* JSON-LD Schema Markup for NewsArticle */}
                     <script type="application/ld+json">
                       {JSON.stringify({
