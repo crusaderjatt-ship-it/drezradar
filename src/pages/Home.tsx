@@ -76,8 +76,39 @@ const Home = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {fashionNews.map((article, index) => (
                   <Card key={index} className="bg-card text-card-foreground rounded-lg shadow-md hover:shadow-xl transition-shadow duration-200 overflow-hidden flex flex-col">
+                    {/* JSON-LD Schema Markup for NewsArticle */}
+                    <script type="application/ld+json">
+                      {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "NewsArticle",
+                        "headline": article.title,
+                        "image": [
+                          article.urlToImage,
+                        ],
+                        "datePublished": article.publishedAt,
+                        "dateModified": article.publishedAt, // Assuming no modification date from API
+                        "author": {
+                          "@type": "Organization",
+                          "name": article.source.name
+                        },
+                        "publisher": {
+                          "@type": "Organization",
+                          "name": "DrezRadar News",
+                          "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://www.dyad.sh/favicon.ico" // Placeholder, replace with actual logo URL
+                          }
+                        },
+                        "description": article.description,
+                        "mainEntityOfPage": {
+                          "@type": "WebPage",
+                          "@id": article.url
+                        },
+                        "url": article.url
+                      })}
+                    </script>
                     {article.urlToImage && (
-                      <img src={article.urlToImage} alt={article.title} className="w-full h-48 object-cover" />
+                      <img src={article.urlToImage} alt={`Image for ${article.title}`} className="w-full h-48 object-cover" />
                     )}
                     <CardHeader className="flex-grow">
                       <CardTitle className="text-lg font-semibold text-charcoal line-clamp-2">{article.title}</CardTitle>
