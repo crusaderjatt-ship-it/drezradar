@@ -15,7 +15,8 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
   // In a real scenario, you might want to throw an error or exit
 }
 
-const DRESSY_TERMS = `"fashion" OR "dress"`;
+// Removed DRESSY_TERMS as it was making queries too broad for specific categories.
+// Specific terms are now integrated directly into each category query.
 
 const FASHION_MAGAZINE_DOMAINS = [
   "vogue.com", "harpersbazaar.com", "elle.com", "instyle.com", "cosmopolitan.com",
@@ -25,11 +26,11 @@ const FASHION_MAGAZINE_DOMAINS = [
 ].join(',');
 
 const CATEGORY_QUERIES: { [key: string]: string } = {
-  "Gen Z Trending": `("Gen Z fashion" OR Y2K OR TikTok) OR (${DRESSY_TERMS})`,
-  "Fast Fashion": `("fast fashion" OR Zara OR H&M) OR (${DRESSY_TERMS})`,
-  "Royal Classics": `("royal fashion" OR couture OR "red carpet") OR (${DRESSY_TERMS})`,
-  "Traditional": `("traditional dress" OR "ethnic fashion" OR saree) OR (${DRESSY_TERMS})`,
-  "All Fashion": `(fashion OR style OR trend) OR (${DRESSY_TERMS})`,
+  "Gen Z Trending": `("Gen Z fashion" OR Y2K OR TikTok fashion OR "street style" OR "aesthetic fashion" OR "youth fashion")`,
+  "Fast Fashion": `("fast fashion" OR Zara OR H&M OR Shein OR "affordable fashion" OR "mass market fashion" OR "quick fashion")`,
+  "Royal Classics": `("royal fashion" OR couture OR "red carpet fashion" OR "classic elegance" OR "designer gowns" OR "timeless style")`,
+  "Traditional": `("traditional dress" OR "ethnic fashion" OR saree OR kimono OR hanbok OR "cultural attire" OR "folk fashion")`,
+  "All Fashion": `(fashion OR style OR trend OR dress OR clothing OR apparel OR "fashion news")`, // This one remains broad
 };
 
 interface Article {
