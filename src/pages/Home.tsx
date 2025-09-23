@@ -36,7 +36,7 @@ const Home = () => {
       setLoading(true);
       setError(null);
       try {
-        const news = await fetchFashionNews(activeTab, 12);
+        const news = await fetchFashionNews(activeTab, 20); // Changed pageSize from 12 to 20
         setFashionNews(news);
       } catch (err) {
         setError("Failed to load fashion news. Please try again later.");
