@@ -1,45 +1,46 @@
-// IMPORTANT: For production, it's highly recommended to store API keys in environment variables.
-// For this session, the provided key is directly used.
-const NEWS_API_KEY = "bbb976c973b84d29b49d447616e6b1df";
+import { supabase } from './supabaseClient'; // Import the Supabase client
 
-// Simplified DRESSY_TERMS to be very concise
-const DRESSY_TERMS = `"fashion" OR "dress"`;
-
-const FASHION_MAGAZINE_DOMAINS = [
-  "vogue.com", "harpersbazaar.com", "elle.com", "instyle.com", "cosmopolitan.com",
-  "glamour.com", "wmagazine.com", "marieclaire.com", "allure.com", "nylon.com",
-  "teenvogue.com", "wwd.com", "papermag.com", "nymag.com", "seventeen.com",
-  "vanityfair.com", "essence.com", "gq.com", "lofficielusa.com", "crfashionbook.com"
-].join(',');
-
+// The CATEGORY_QUERIES are still useful for filtering by category in Supabase
 const CATEGORY_QUERIES: { [key: string]: string } = {
-  "Gen Z Trending": `("Gen Z fashion" OR Y2K OR TikTok) OR (${DRESSY_TERMS})`,
-  "Fast Fashion": `("fast fashion" OR Zara OR H&M) OR (${DRESSY_TERMS})`,
-  "Royal Classics": `("royal fashion" OR couture OR "red carpet") OR (${DRESSY_TERMS})`,
-  "Traditional": `("traditional dress" OR "ethnic fashion" OR saree) OR (${DRESSY_TERMS})`,
-  "All Fashion": `(fashion OR style OR trend) OR (${DRESSY_TERMS})`,
+  "Gen Z Trending": "Gen Z Trending", // Match the category name stored in Supabase
+  "Fast Fashion": "Fast Fashion",
+  "Royal Classics": "Royal Classics",
+  "Traditional": "Traditional",
+  "All Fashion": "All Fashion", // This will fetch all articles, as 'All Fashion' is a category
 };
 
-export async function fetchFashionNews(categoryName: string, pageSize: number = 12) {
-  const query = CATEGORY_QUERIES[categoryName];
-  if (!query) {
-    console.warn(`No specific query defined for category: ${categoryName}. Falling back to generic "fashion".`);
-    return [];
+interface SupabaseArticle {
+  title: string;
+  description: string;
+  url: string;
+  image_url: string; // Matches Supabase column name
+  source_name: string; // Matches Supabase column name
+  published_at: string;
+  category: string;
+}
+
+export async function fetchFashionNews(categoryName: string, pageSize: number = 12): Promise<SupabaseArticle[]> {
+  let queryBuilder = supabase
+    .from('news_articles')
+    .select('title, description, url, image_url, source_name, published_at, category')
+    .order('published_at', { ascending: false })
+    .limit(pageSize);
+
+  // If the category is not "All Fashion", filter by category
+  if (categoryName !== "All Fashion") {
+    queryBuilder = queryBuilder.eq('category', categoryName);
   }
 
-  const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&domains=${FASHION_MAGAZINE_DOMAINS}&sortBy=publishedAt&language=en&pageSize=${pageSize}&apiKey=${NEWS_API_KEY}`;
-  console.log("Fetching NewsAPI URL:", url); // Log the full URL for debugging
-
   try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(`NewsAPI error: ${response.statusText} (Status: ${response.status}) - ${errorData.message || 'Unknown error'}`);
+    const { data, error } = await queryBuilder;
+
+    if (error) {
+      throw new Error(`Supabase fetch error: ${error.message}`);
     }
-    const data = await response.json();
-    return data.articles;
+
+    return data || [];
   } catch (error) {
-    console.error(`Failed to fetch fashion news for category "${categoryName}":`, error);
+    console.error(`Failed to fetch fashion news from Supabase for category "${categoryName}":`, error);
     return [];
   }
 }

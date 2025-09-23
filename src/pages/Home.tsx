@@ -3,18 +3,18 @@ import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MadeWithDyad } from "@/components/made-with-dyad";
-import { fetchFashionNews } from "@/lib/newsapi"; // Import the news API utility
+import { fetchFashionNews } from "@/lib/newsapi"; // Import the updated news API utility
 import { ThemeToggle } from "@/components/ThemeToggle"; // Import ThemeToggle
 
+// Updated interface to match Supabase 'news_articles' table schema
 interface Article {
   title: string;
   description: string;
   url: string;
-  urlToImage: string;
-  source: {
-    name: string;
-  };
-  publishedAt: string;
+  image_url: string; // Changed from urlToImage
+  source_name: string; // Changed from source.name
+  published_at: string;
+  category: string; // Added category
 }
 
 const fashionCategories = [
@@ -126,13 +126,13 @@ const Home = () => {
                         "@type": "NewsArticle",
                         "headline": article.title,
                         "image": [
-                          article.urlToImage,
+                          article.image_url, // Changed from urlToImage
                         ],
-                        "datePublished": article.publishedAt,
-                        "dateModified": article.publishedAt, // Assuming no modification date from API
+                        "datePublished": article.published_at,
+                        "dateModified": article.published_at, // Assuming no modification date from API
                         "author": {
                           "@type": "Organization",
-                          "name": article.source.name
+                          "name": article.source_name // Changed from article.source.name
                         },
                         "publisher": {
                           "@type": "Organization",
@@ -150,12 +150,12 @@ const Home = () => {
                         "url": article.url
                       })}
                     </script>
-                    {article.urlToImage && (
-                      <img src={article.urlToImage} alt={`Image for ${article.title}`} className="w-full h-48 object-cover" />
+                    {article.image_url && (
+                      <img src={article.image_url} alt={`Image for ${article.title}`} className="w-full h-48 object-cover" />
                     )}
                     <CardHeader className="flex-grow">
                       <CardTitle className="text-lg font-semibold text-charcoal line-clamp-2">{article.title}</CardTitle>
-                      <p className="text-sm text-muted-foreground mt-1">{article.source.name} - {new Date(article.publishedAt).toLocaleDateString()}</p>
+                      <p className="text-sm text-muted-foreground mt-1">{article.source_name} - {new Date(article.published_at).toLocaleDateString()}</p>
                     </CardHeader>
                     <CardContent>
                       <p className="text-sm text-charcoal-light line-clamp-3 mb-3">{article.description}</p>
