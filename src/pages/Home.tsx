@@ -100,7 +100,8 @@ const Home = () => {
           ))}
         </TabsList>
 
-        <TabsContent key={category.name} value={category.name}>
+        {/* Corrected TabsContent usage */}
+        <TabsContent value={activeTab}>
             {loading ? (
               <div className="text-center text-charcoal-light">Loading news...</div>
             ) : error ? (
@@ -169,7 +170,6 @@ const Home = () => {
               <div className="text-center text-charcoal-light">No news found for this category.</div>
             )}
           </TabsContent>
-        ))}
       </Tabs>
     </div>
   );
