@@ -81,7 +81,7 @@ serve(async (req) => {
 
     for (const category of allCategories) {
       console.log(`Fetching news for category: ${category}`);
-      const articles = await fetchFashionNews(category, 20); // Fetch more articles per category
+      const articles = await fetchFashionNews(category, 20); // Fetch 20 articles per category
 
       if (articles.length > 0) {
         const articlesToInsert = articles.map(article => ({
@@ -94,9 +94,10 @@ serve(async (req) => {
           category: category,
         }));
 
+        // Changed onConflict to use both 'url' and 'category'
         const { data, error } = await supabase
           .from('news_articles')
-          .upsert(articlesToInsert, { onConflict: 'url', ignoreDuplicates: false })
+          .upsert(articlesToInsert, { onConflict: ['url', 'category'], ignoreDuplicates: false })
           .select(); // Select the inserted/updated data
 
         if (error) {
