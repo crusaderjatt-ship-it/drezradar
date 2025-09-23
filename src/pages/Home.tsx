@@ -88,19 +88,19 @@ const Home = () => {
             <TabsTrigger
               key={category.name}
               value={category.name}
-              className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground rounded-md text-charcoal-light py-2
-                         transition-all duration-300 ease-in-out
+              className="rounded-md py-2 transition-all duration-300 ease-in-out
+                         text-charcoal-light hover:text-white
                          hover:scale-[1.02] hover:shadow-md
-                         hover:bg-gradient-to-br hover:from-gray-50 hover:to-gray-100
-                         dark:hover:from-gray-800 dark:hover:to-gray-700"
+                         hover:bg-gradient-to-br hover:from-gray-800 hover:to-gray-700
+                         data-[state=active]:bg-primary data-[state=active]:text-primary-foreground
+                         data-[state=active]:hover:bg-primary/90 data-[state=active]:hover:text-primary-foreground"
             >
               {category.name}
             </TabsTrigger>
           ))}
         </TabsList>
 
-        {fashionCategories.map((category) => (
-          <TabsContent key={category.name} value={category.name}>
+        <TabsContent key={category.name} value={category.name}>
             {loading ? (
               <div className="text-center text-charcoal-light">Loading news...</div>
             ) : error ? (
