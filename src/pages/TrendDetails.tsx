@@ -2,7 +2,8 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Share2 } from "lucide-react"; // For social share icon
+import { Share2 } from "lucide-react";
+import { Helmet } from "react-helmet-async"; // Import Helmet
 
 // Mock data for demonstration
 const mockTrendPosts = [
@@ -85,17 +86,28 @@ const TrendDetails = () => {
     }
   };
 
+  const formattedDressType = dress_type?.replace(/-/g, ' ') || 'Fashion Trend';
+  const formattedPlatform = platform?.charAt(0).toUpperCase() + platform?.slice(1) || 'Various Platforms';
+
+  const pageTitle = `${formattedDressType} Trend on ${formattedPlatform} | DrezRadar`;
+  const pageDescription = `Explore the latest ${formattedDressType} trends on ${formattedPlatform}. See trending posts and insights from DrezRadar.`;
+
   return (
     <div className="min-h-screen bg-background text-foreground p-4 md:p-8">
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={`https://drezradar.com/trend/${platform}/${dress_type}`} />
+      </Helmet>
       <div className="max-w-6xl mx-auto">
         <Link to="/" className="text-primary hover:underline mb-4 inline-block">
           &larr; Back to Home
         </Link>
         <h1 className="text-3xl md:text-4xl font-bold text-charcoal mb-2 capitalize">
-          {dress_type?.replace(/-/g, ' ')}
+          {formattedDressType}
         </h1>
         <p className="text-lg text-charcoal-light mb-6 capitalize">
-          Trending on {platform}
+          Trending on {formattedPlatform}
         </p>
 
         <Button
@@ -127,7 +139,7 @@ const TrendDetails = () => {
             ))}
           </div>
         ) : (
-          <p className="text-charcoal-light">No posts found for this trend on {platform}.</p>
+          <p className="text-charcoal-light">No posts found for this trend on {formattedPlatform}.</p>
         )}
       </div>
     </div>

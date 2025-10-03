@@ -5,7 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { toast } from "sonner"; // Using sonner for toasts
+import { toast } from "sonner";
+import { Helmet } from "react-helmet-async"; // Import Helmet
 
 const Admin = () => {
   // Mock state for platform configurations
@@ -38,6 +39,11 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground p-4 md:p-8">
+      <Helmet>
+        <title>Admin Dashboard | DrezRadar</title>
+        <meta name="description" content="Manage DrezRadar platform configurations, data refresh, and other administrative settings." />
+        <link rel="canonical" href="https://drezradar.com/admin" />
+      </Helmet>
       <div className="max-w-4xl mx-auto">
         <Link to="/" className="text-primary hover:underline mb-8 inline-block">
           &larr; Back to Home

@@ -3,18 +3,19 @@ import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MadeWithDyad } from "@/components/made-with-dyad";
-import { fetchFashionNews } from "@/lib/newsapi"; // Import the updated news API utility
-import { ThemeToggle } from "@/components/ThemeToggle"; // Import ThemeToggle
+import { fetchFashionNews } from "@/lib/newsapi";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { Helmet } from "react-helmet-async"; // Import Helmet
 
 // Updated interface to match Supabase 'news_articles' table schema
 interface Article {
   title: string;
   description: string;
   url: string;
-  image_url: string; // Changed from urlToImage
-  source_name: string; // Changed from source.name
+  image_url: string;
+  source_name: string;
   published_at: string;
-  category: string; // Added category
+  category: string;
 }
 
 const fashionCategories = [
@@ -36,7 +37,7 @@ const Home = () => {
       setLoading(true);
       setError(null);
       try {
-        const news = await fetchFashionNews(activeTab, 20); // Changed pageSize from 12 to 20
+        const news = await fetchFashionNews(activeTab, 20);
         setFashionNews(news);
       } catch (err) {
         setError("Failed to load fashion news. Please try again later.");
@@ -52,20 +53,31 @@ const Home = () => {
   useEffect(() => {
     try {
       // Check if adsbygoogle is defined before pushing
-      if (window.adsbygoogle && process.env.NODE_ENV === 'production') { // Only run in production
+      if (window.adsbygoogle && process.env.NODE_ENV === 'production') {
         (window.adsbygoogle as any[]).push({});
       }
     } catch (e) {
       console.error("Adsense script failed to load:", e);
     }
-  }, []); // Empty dependency array means this runs once after initial render
+  }, []);
+
+  const pageTitle = activeTab === "All Fashion"
+    ? "DrezRadar News: Top Fashion Trends & Global Updates"
+    : `${activeTab} Fashion News | DrezRadar`;
+  const pageDescription = "Stay updated with the latest fashion news, trends, and insights from around the globe, including Gen Z, Fast Fashion, Royal Classics, and Traditional styles. Your go-to source for all things fashion.";
+
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={`https://drezradar.com/${activeTab === "All Fashion" ? "" : `?category=${encodeURIComponent(activeTab)}`}`} />
+      </Helmet>
       <header className="flex items-center justify-between mb-0 px-4 md:px-8 pt-4 md:pt-8">
         <div className="flex-grow flex flex-col items-center justify-center">
-          <a href="https://drezradar.com" target="_blank" rel="noopener noreferrer"> {/* Added hyperlink */}
-            <img src={`${import.meta.env.BASE_URL}DrezRadarLogoS.png`} alt="DrezRadar Logo" className="max-h-36 md:max-h-48 w-auto" /> {/* Reduced logo size */}
+          <a href="https://drezradar.com" target="_blank" rel="noopener noreferrer">
+            <img src={`${import.meta.env.BASE_URL}DrezRadarLogoS.png`} alt="DrezRadar Logo" className="max-h-36 md:max-h-48 w-auto" />
           </a>
           <p className="text-lg text-charcoal-light text-center max-w-2xl mt-2">
             Stay updated with the latest in fashion from around the globe.
@@ -128,20 +140,20 @@ const Home = () => {
                         "@type": "NewsArticle",
                         "headline": article.title,
                         "image": [
-                          article.image_url, // Changed from urlToImage
+                          article.image_url,
                         ],
                         "datePublished": article.published_at,
-                        "dateModified": article.published_at, // Assuming no modification date from API
+                        "dateModified": article.published_at,
                         "author": {
                           "@type": "Organization",
-                          "name": article.source_name // Changed from article.source.name
+                          "name": article.source_name
                         },
                         "publisher": {
                           "@type": "Organization",
                           "name": "DrezRadar News",
                           "logo": {
                             "@type": "ImageObject",
-                            "url": "https://www.dyad.sh/favicon.ico" // Placeholder, replace with actual logo URL
+                            "url": "https://www.dyad.sh/favicon.ico"
                           }
                         },
                         "description": article.description,

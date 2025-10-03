@@ -1,9 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async"; // Import Helmet
 
 const Profile = () => {
   return (
     <div className="min-h-screen bg-background text-foreground p-4 md:p-8 flex flex-col items-center justify-center">
+      <Helmet>
+        <title>User Profile & Preferences | DrezRadar</title>
+        <meta name="description" content="Manage your DrezRadar profile and preferences, including favorite dress types and notification settings." />
+        <link rel="canonical" href="https://drezradar.com/profile" />
+      </Helmet>
       <div className="max-w-md w-full text-center">
         <Link to="/" className="text-primary hover:underline mb-8 inline-block">
           &larr; Back to Home
