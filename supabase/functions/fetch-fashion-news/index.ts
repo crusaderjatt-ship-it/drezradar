@@ -15,9 +15,6 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
   // In a real scenario, you might want to throw an error or exit
 }
 
-// Removed DRESSY_TERMS as it was making queries too broad for specific categories.
-// Specific terms are now integrated directly into each category query.
-
 const FASHION_MAGAZINE_DOMAINS = [
   "vogue.com", "harpersbazaar.com", "elle.com", "instyle.com", "cosmopolitan.com",
   "glamour.com", "wmagazine.com", "marieclaire.com", "allure.com", "nylon.com",
