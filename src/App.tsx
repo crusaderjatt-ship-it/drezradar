@@ -7,9 +7,11 @@ import Home from "./pages/Home";
 import TrendDetails from "./pages/TrendDetails";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
+import Login from "./pages/Login"; // Import the new Login page
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./components/ThemeProvider";
-import { HelmetProvider } from "react-helmet-async"; // Import HelmetProvider
+import { HelmetProvider } from "react-helmet-async";
+import { SessionContextProvider } from "./components/SessionContextProvider"; // Import SessionContextProvider
 
 const queryClient = new QueryClient();
 
@@ -19,16 +21,19 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <HelmetProvider> {/* Wrap BrowserRouter with HelmetProvider */}
+        <HelmetProvider>
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/trend/:platform/:dress_type" element={<TrendDetails />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/admin" element={<Admin />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+            <SessionContextProvider> {/* Wrap routes with SessionContextProvider */}
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/trend/:platform/:dress_type" element={<TrendDetails />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/login" element={<Login />} /> {/* Add the Login route */}
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </SessionContextProvider>
           </BrowserRouter>
         </HelmetProvider>
       </TooltipProvider>
