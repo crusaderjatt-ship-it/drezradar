@@ -1,71 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Share2 } from "lucide-react";
-import { Helmet } from "react-helmet-async"; // Import Helmet
+import { Helmet } from "react-helmet-async";
+import { fetchTrendPosts } from "@/lib/trendsapi"; // Import the new API utility
 
-// Mock data for demonstration
-const mockTrendPosts = [
-  {
-    platform_post_id: "1",
-    platform: "tiktok",
-    dress_type: "cottagecore-dress",
-    caption: "Loving this cottagecore vibe! #cottagecore #dress #fashion",
-    image_url: "https://via.placeholder.com/300/F8EAF1/000000?text=Post1",
-    permalink: "https://tiktok.com/post/1",
-    posted_at: "2023-10-26T10:00:00Z",
-    metrics: { views: 120000, likes: 15000, comments: 500, saves: 1200 },
-  },
-  {
-    platform_post_id: "2",
-    platform: "tiktok",
-    dress_type: "cottagecore-dress",
-    caption: "Dreamy dress for a dreamy day. #cottagecorefashion #ootd",
-    image_url: "https://via.placeholder.com/300/EEE8FF/000000?text=Post2",
-    permalink: "https://tiktok.com/post/2",
-    posted_at: "2023-10-26T11:30:00Z",
-    metrics: { views: 95000, likes: 10000, comments: 300, saves: 800 },
-  },
-  {
-    platform_post_id: "3",
-    platform: "instagram",
-    dress_type: "slip-dress",
-    caption: "Effortless elegance with a classic slip dress. #slipdress #style",
-    image_url: "https://via.placeholder.com/300/E8FAF2/000000?text=Post3",
-    permalink: "https://instagram.com/post/3",
-    posted_at: "2023-10-25T14:00:00Z",
-    metrics: { views: 80000, likes: 8000, comments: 200, saves: 600 },
-  },
-  {
-    platform_post_id: "4",
-    platform: "instagram",
-    dress_type: "slip-dress",
-    caption: "Date night ready in my favorite slip. #fashionista #datenight",
-    image_url: "https://via.placeholder.com/300/F8EAF1/000000?text=Post4",
-    permalink: "https://instagram.com/post/4",
-    posted_at: "2023-10-25T16:45:00Z",
-    metrics: { views: 70000, likes: 7500, comments: 180, saves: 550 },
-  },
-  {
-    platform_post_id: "5",
-    platform: "pinterest",
-    dress_type: "boho-maxi-dress",
-    caption: "Boho vibes all summer long. #maxidress #bohostyle",
-    image_url: "https://via.placeholder.com/300/EEE8FF/000000?text=Post5",
-    permalink: "https://pinterest.com/pin/5",
-    posted_at: "2023-10-24T09:00:00Z",
-    metrics: { views: 60000, likes: 6000, comments: 100, saves: 400 },
-  },
-];
+// Define the interface for a trend post, matching the expected Supabase schema
+interface TrendPost {
+  platform_post_id: string;
+  platform: string;
+  dress_type: string;
+  caption: string;
+  image_url: string;
+  permalink: string;
+  posted_at: string;
+  views: number;
+  likes: number;
+  comments: number;
+  saves: number;
+}
 
 const TrendDetails = () => {
   const { platform, dress_type } = useParams<{ platform: string; dress_type: string }>();
+  const [trendPosts, setTrendPosts] = useState<TrendPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const filteredPosts = mockTrendPosts.filter(
-    (post) =>
-      post.platform === platform && post.dress_type === dress_type
-  );
+  useEffect(() => {
+    const getTrendPosts = async () => {
+      if (!platform || !dress_type) {
+        setError("Invalid trend parameters.");
+        setLoading(false);
+        return;
+      }
+      setLoading(true);
+      setError(null);
+      try {
+        const posts = await fetchTrendPosts(platform, dress_type, 20); // Fetch 20 posts
+        setTrendPosts(posts);
+      } catch (err) {
+        setError("Failed to load trend posts. Please try again later.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getTrendPosts();
+  }, [platform, dress_type]);
 
   const handleShare = () => {
     const shareUrl = window.location.href;
@@ -80,9 +62,7 @@ const TrendDetails = () => {
       .then(() => console.log('Successful share'))
       .catch((error) => console.log('Error sharing', error));
     } else {
-      // Fallback for browsers that don't support Web Share API
       alert(`You can share this link: ${shareUrl}`);
-      // You could also open a new window with specific share links for Twitter, Facebook, etc.
     }
   };
 
@@ -117,9 +97,13 @@ const TrendDetails = () => {
           <Share2 className="mr-2 h-4 w-4" /> Share Trend
         </Button>
 
-        {filteredPosts.length > 0 ? (
+        {loading ? (
+          <div className="text-center text-charcoal-light">Loading trend posts...</div>
+        ) : error ? (
+          <div className="text-center text-destructive">{error}</div>
+        ) : trendPosts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {filteredPosts.map((post, index) => (
+            {trendPosts.map((post, index) => (
               <Card key={index} className="p-4 bg-card text-card-foreground rounded-lg shadow-md flex flex-col">
                 <a href={post.permalink} target="_blank" rel="noopener noreferrer" className="block">
                   <img
