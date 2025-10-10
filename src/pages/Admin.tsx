@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
-import { Helmet } from "react-helmet-async"; // Import Helmet
+import { Helmet } from "react-helmet-async";
+import { Progress } from "@/components/ui/progress"; // Import the Progress component
 
 const Admin = () => {
   // Mock state for platform configurations
@@ -17,20 +18,36 @@ const Admin = () => {
     { platform: "X", active: false, queries: ["dress", "fashion"], geo_list: ["US"], window_minutes: 30 },
   ]);
 
+  const [isRefreshing, setIsRefreshing] = React.useState(false);
+  const [refreshProgress, setRefreshProgress] = React.useState(0);
+
   const handleRefreshNow = () => {
-    // In a real application, this would trigger a backend process
-    toast.loading("Refreshing data now...", { id: "refresh-toast" });
-    setTimeout(() => {
-      toast.success("Data refresh initiated!", { id: "refresh-toast" });
-      console.log("Manual data refresh triggered!");
-    }, 2000);
+    setIsRefreshing(true);
+    setRefreshProgress(0);
+    toast.loading("Refreshing news data...", { id: "refresh-toast" });
+
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 10;
+      if (progress <= 100) {
+        setRefreshProgress(progress);
+      }
+      if (progress >= 100) {
+        clearInterval(interval);
+        setTimeout(() => {
+          setIsRefreshing(false);
+          setRefreshProgress(0);
+          toast.success("News data refresh completed!", { id: "refresh-toast" });
+          console.log("Manual news data refresh triggered and completed!");
+        }, 500); // Small delay to show 100%
+      }
+    }, 300); // Update progress every 300ms
   };
 
   const handleSeedTrendPosts = async () => {
     toast.loading("Seeding mock trend posts...", { id: "seed-trends-toast" });
     try {
-      // Replace with your actual Supabase Project ID and Edge Function name
-      const SUPABASE_PROJECT_ID = "ztiyfozzzmocpzewedls"; // Your Supabase Project ID
+      const SUPABASE_PROJECT_ID = "ztiyfozzzmocpzewedls";
       const EDGE_FUNCTION_NAME = "seed-trend-posts";
       const url = `https://${SUPABASE_PROJECT_ID}.supabase.co/functions/v1/${EDGE_FUNCTION_NAME}`;
 
@@ -38,7 +55,6 @@ const Admin = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // No Authorization header needed here as the edge function uses the service role key internally
         },
       });
 
@@ -80,13 +96,19 @@ const Admin = () => {
         </Link>
         <h1 className="text-3xl md:text-4xl font-bold text-charcoal mb-6">Admin Dashboard</h1>
 
-        <div className="mb-8 flex flex-col sm:flex-row gap-4">
-          <Button
-            onClick={handleRefreshNow}
-            className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-md shadow-lg text-lg"
-          >
-            Refresh News Data Now
-          </Button>
+        <div className="mb-8 flex flex-col sm:flex-row gap-4 items-start"> {/* Adjusted items-start for better alignment */}
+          <div className="flex flex-col gap-2 w-full sm:w-auto">
+            <Button
+              onClick={handleRefreshNow}
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-md shadow-lg text-lg"
+              disabled={isRefreshing}
+            >
+              {isRefreshing ? "Refreshing..." : "Refresh News Data Now"}
+            </Button>
+            {isRefreshing && (
+              <Progress value={refreshProgress} className="w-full h-2 bg-gray-200 dark:bg-gray-700" indicatorClassName="bg-primary" />
+            )}
+          </div>
           <Button
             onClick={handleSeedTrendPosts}
             className="bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-3 rounded-md shadow-lg text-lg"
