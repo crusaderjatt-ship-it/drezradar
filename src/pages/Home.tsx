@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchFashionNews } from "@/lib/newsapi";
 import { Helmet } from "react-helmet-async"; // Import Helmet
-// The Header component is now rendered globally in App.tsx, so its import is removed from here.
+import SignUpCallToAction from "@/components/SignUpCallToAction"; // Import the new component
 
 // Updated interface to match Supabase 'news_articles' table schema
 interface Article {
@@ -176,6 +176,7 @@ const Home = () => {
             )}
           </TabsContent>
       </Tabs>
+      <SignUpCallToAction /> {/* Added the sign-up call to action here */}
     </div>
   );
 };
