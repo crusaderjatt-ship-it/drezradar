@@ -9,14 +9,14 @@ import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
-import PrivacyPolicy from "./pages/PrivacyPolicy"; // New import
-import TermsOfService from "./pages/TermsOfService"; // New import
-import About from "./pages/About"; // New import
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import About from "./pages/About";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { HelmetProvider } from "react-helmet-async";
 import { SessionContextProvider } from "./components/SessionContextProvider";
 import Header from "./components/Header";
-import Footer from "./components/Footer"; // New import
+import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -30,20 +30,23 @@ const App = () => (
         <HelmetProvider>
           <BrowserRouter>
             <SessionContextProvider>
-              <div className="flex flex-col min-h-screen"> {/* Added flex container for sticky footer */}
+              <div className="flex flex-col min-h-screen">
                 <Header />
-                <main className="flex-grow"> {/* Main content area */}
+                <main className="flex-grow">
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/trend/:platform/:dress_type" element={<TrendDetails />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/privacy-policy" element={<PrivacyPolicy />} /> {/* New route */}
-                    <Route path="/terms-of-service" element={<TermsOfService />} /> {/* New route */}
-                    <Route path="/about" element={<About />} /> {/* New route */}
+                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                    <Route path="/terms-of-service" element={<TermsOfService />} />
+                    <Route path="/about" element={<About />} />
 
                     {/* Protected Routes */}
                     <Route element={<ProtectedRoute />}>
                       <Route path="/profile" element={<Profile />} />
+                    </Route>
+                    {/* Admin Protected Route */}
+                    <Route element={<ProtectedRoute adminOnly={true} />}>
                       <Route path="/admin" element={<Admin />} />
                     </Route>
 
@@ -51,7 +54,7 @@ const App = () => (
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>
-                <Footer /> {/* Render the Footer */}
+                <Footer />
               </div>
             </SessionContextProvider>
           </BrowserRouter>

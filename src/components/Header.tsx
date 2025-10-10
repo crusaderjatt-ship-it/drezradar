@@ -36,7 +36,6 @@ const Header: React.FC = () => {
   const navLinks = (
     <>
       <Link to="/" className="text-charcoal-light hover:text-primary transition-colors dark:text-gray-300 dark:hover:text-primary">Home</Link>
-      <Link to="/admin" className="text-charcoal-light hover:text-primary transition-colors dark:text-gray-300 dark:hover:text-primary">Admin</Link>
       {session ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -48,6 +47,11 @@ const Header: React.FC = () => {
             <DropdownMenuItem>
               <Link to="/profile" className="w-full text-charcoal-light dark:text-gray-300">Profile</Link>
             </DropdownMenuItem>
+            {session.user?.email === 'randhawa.m@gmail.com' && (
+              <DropdownMenuItem>
+                <Link to="/admin" className="w-full text-charcoal-light dark:text-gray-300">Admin Dashboard</Link>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem onClick={handleLogout} className="text-destructive dark:text-red-400">
               Log out
             </DropdownMenuItem>
