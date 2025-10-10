@@ -52,13 +52,14 @@ const Home = () => {
   useEffect(() => {
     try {
       // Check if adsbygoogle is defined before pushing
-      if (window.adsbygoogle && process.env.NODE_ENV === 'production') {
+      // Only push if there are articles to display
+      if (window.adsbygoogle && process.env.NODE_ENV === 'production' && fashionNews.length > 0) {
         (window.adsbygoogle as any[]).push({});
       }
     } catch (e) {
       console.error("Adsense script failed to load:", e);
     }
-  }, []);
+  }, [fashionNews]); // Re-run when fashionNews changes
 
   const pageTitle = activeTab === "All Fashion"
     ? "DrezRadar News: Top Fashion Trends & Global Updates"
@@ -74,15 +75,17 @@ const Home = () => {
         <link rel="canonical" href={`https://drezradar.com/${activeTab === "All Fashion" ? "" : `?category=${encodeURIComponent(activeTab)}`}`} />
       </Helmet>
 
-      {/* Google AdSense Ad Unit Placeholder - REPLACE YOUR_ADSENSE_AD_SLOT_ID with your actual ID */}
-      <div className="my-8 text-center">
-        <ins className="adsbygoogle"
-             style={{ display: "block" }}
-             data-ad-client="ca-pub-7039562928200716"
-             data-ad-slot="4536248322"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-      </div>
+      {/* Google AdSense Ad Unit Placeholder - ONLY RENDER IF THERE IS CONTENT */}
+      {!loading && fashionNews.length > 0 && (
+        <div className="my-8 text-center">
+          <ins className="adsbygoogle"
+               style={{ display: "block" }}
+               data-ad-client="ca-pub-7039562928200716"
+               data-ad-slot="4536248322"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+        </div>
+      )}
 
       <Tabs defaultValue={fashionCategories[0].name} className="w-full max-w-6xl mx-auto px-4 md:px-8 py-4 md:py-8" onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 bg-muted p-1 rounded-lg mb-8 h-auto">
