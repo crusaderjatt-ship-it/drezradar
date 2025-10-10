@@ -14,7 +14,7 @@ export function ThemeToggle() {
   };
 
   return (
-    <Button variant="outline" size="icon" onClick={toggleTheme} className="bg-background text-foreground border-border">
+    <Button variant="ghost" size="icon" onClick={toggleTheme}>
       {theme === "light" ? (
         <Sun className="h-[1.2rem] w-[1.2rem]" />
       ) : (

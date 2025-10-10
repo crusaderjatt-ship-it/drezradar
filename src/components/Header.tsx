@@ -46,7 +46,9 @@ const Header: React.FC = () => {
 
   const navLinks = (
     <>
-      <Link to="/" className="text-charcoal-light hover:text-primary transition-colors dark:text-gray-300 dark:hover:text-primary">Home</Link>
+      <Button variant="ghost" asChild> {/* Wrap Link in Button with ghost variant */}
+        <Link to="/" className="text-charcoal-light hover:text-primary transition-colors dark:text-gray-300 dark:hover:text-primary">Home</Link>
+      </Button>
       {session ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
