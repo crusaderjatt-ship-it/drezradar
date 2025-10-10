@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { useSupabase } from "@/components/SessionContextProvider"; // Import useSupabase
+import { useSupabase } from "@/components/SessionContextProvider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -24,9 +24,11 @@ const Profile = () => {
 
   useEffect(() => {
     if (!session) {
-      navigate('/login'); // Redirect to login if not authenticated
+      navigate('/login');
       return;
     }
+
+    console.log("Current session user ID:", session.user.id); // Log user ID for debugging
 
     const getProfile = async () => {
       setLoading(true);
@@ -37,7 +39,11 @@ const Profile = () => {
           .eq('id', session.user.id)
           .single();
 
-        if (error && error.code === 'PGRST116') { // No rows found error code
+        if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found, which we handle
+          throw error;
+        }
+
+        if (!data) {
           console.warn('No profile found for user, attempting to create one.');
           // No profile found, create one
           const { error: insertError } = await supabase
@@ -45,18 +51,15 @@ const Profile = () => {
             .insert({ id: session.user.id, first_name: null, last_name: null, avatar_url: null });
 
           if (insertError) {
-            throw insertError; // Propagate error if insert fails
+            throw insertError;
           }
-          // If insert successful, set default profile
           setProfile({ first_name: null, last_name: null, avatar_url: null });
           toast.success('New profile created for you!');
-        } else if (error) {
-          throw error; // Propagate other errors
-        } else if (data) {
+        } else {
           setProfile(data);
         }
       } catch (error: any) {
-        console.error('Error fetching or creating profile:', error); // Log full error object
+        console.error('Error fetching or creating profile:', error);
         toast.error('Failed to load profile data.');
       } finally {
         setLoading(false);
@@ -85,14 +88,14 @@ const Profile = () => {
     try {
       const { error } = await supabase
         .from('profiles')
-        .update({ ...profile, updated_at: new Date().toISOString() }) // Explicitly update updated_at
+        .update({ ...profile, updated_at: new Date().toISOString() })
         .eq('id', session.user.id);
 
       if (error) throw error;
 
       toast.success('Profile updated successfully!');
     } catch (error: any) {
-      console.error('Error updating profile:', error); // Log full error object
+      console.error('Error updating profile:', error);
       toast.error('Failed to update profile.');
     } finally {
       setLoading(false);
