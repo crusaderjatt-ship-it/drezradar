@@ -4,8 +4,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import { fetchFashionNews } from "@/lib/newsapi";
-import { ThemeToggle } from "@/components/ThemeToggle";
 import { Helmet } from "react-helmet-async"; // Import Helmet
+import Header from "@/components/Header"; // Import the new Header component
 
 // Updated interface to match Supabase 'news_articles' table schema
 interface Article {
@@ -74,17 +74,7 @@ const Home = () => {
         <meta name="description" content={pageDescription} />
         <link rel="canonical" href={`https://drezradar.com/${activeTab === "All Fashion" ? "" : `?category=${encodeURIComponent(activeTab)}`}`} />
       </Helmet>
-      <header className="flex items-center justify-between mb-0 px-4 md:px-8 pt-4 md:pt-8">
-        <div className="flex-grow flex flex-col items-center justify-center">
-          <a href="https://drezradar.com" target="_blank" rel="noopener noreferrer">
-            <img src={`${import.meta.env.BASE_URL}DrezRadarLogoS.png`} alt="DrezRadar Logo" className="max-h-36 md:max-h-48 w-auto" />
-          </a>
-          <p className="text-lg text-charcoal-light text-center max-w-2xl mt-2">
-            Stay updated with the latest in fashion from around the globe.
-          </p>
-        </div>
-        <ThemeToggle />
-      </header>
+      <Header /> {/* Use the new Header component */}
 
       {/* Google AdSense Ad Unit Placeholder - REPLACE YOUR_ADSENSE_AD_SLOT_ID with your actual ID */}
       <div className="my-8 text-center">
