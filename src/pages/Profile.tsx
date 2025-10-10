@@ -37,13 +37,26 @@ const Profile = () => {
           .eq('id', session.user.id)
           .single();
 
-        if (error) throw error;
+        if (error && error.code === 'PGRST116') { // No rows found error code
+          console.warn('No profile found for user, attempting to create one.');
+          // No profile found, create one
+          const { error: insertError } = await supabase
+            .from('profiles')
+            .insert({ id: session.user.id, first_name: null, last_name: null, avatar_url: null });
 
-        if (data) {
+          if (insertError) {
+            throw insertError; // Propagate error if insert fails
+          }
+          // If insert successful, set default profile
+          setProfile({ first_name: null, last_name: null, avatar_url: null });
+          toast.success('New profile created for you!');
+        } else if (error) {
+          throw error; // Propagate other errors
+        } else if (data) {
           setProfile(data);
         }
       } catch (error: any) {
-        console.error('Error fetching profile:', error); // Log full error object
+        console.error('Error fetching or creating profile:', error); // Log full error object
         toast.error('Failed to load profile data.');
       } finally {
         setLoading(false);
@@ -72,7 +85,7 @@ const Profile = () => {
     try {
       const { error } = await supabase
         .from('profiles')
-        .update(profile)
+        .update({ ...profile, updated_at: new Date().toISOString() }) // Explicitly update updated_at
         .eq('id', session.user.id);
 
       if (error) throw error;
