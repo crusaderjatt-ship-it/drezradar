@@ -74,7 +74,7 @@ const Home = () => {
         <meta name="description" content={pageDescription} />
         <link rel="canonical" href={`https://drezradar.com/${activeTab === "All Fashion" ? "" : `?category=${encodeURIComponent(activeTab)}`}`} />
       </Helmet>
-      <Header /> {/* Use the new Header component */}
+      {/* Removed <Header /> from here as it's now in App.tsx */}
 
       {/* Google AdSense Ad Unit Placeholder - REPLACE YOUR_ADSENSE_AD_SLOT_ID with your actual ID */}
       <div className="my-8 text-center">
