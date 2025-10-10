@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchFashionNews } from "@/lib/newsapi";
 import { Helmet } from "react-helmet-async"; // Import Helmet
-// Removed import for Header as it's now rendered globally in App.tsx
+// The Header component is now rendered globally in App.tsx, so its import is removed from here.
 
 // Updated interface to match Supabase 'news_articles' table schema
 interface Article {
@@ -73,7 +73,6 @@ const Home = () => {
         <meta name="description" content={pageDescription} />
         <link rel="canonical" href={`https://drezradar.com/${activeTab === "All Fashion" ? "" : `?category=${encodeURIComponent(activeTab)}`}`} />
       </Helmet>
-      {/* The Header component is now rendered globally in App.tsx, so it's removed from here. */}
 
       {/* Google AdSense Ad Unit Placeholder - REPLACE YOUR_ADSENSE_AD_SLOT_ID with your actual ID */}
       <div className="my-8 text-center">
