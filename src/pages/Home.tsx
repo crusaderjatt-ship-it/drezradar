@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"; // Import useLocation
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchFashionNews } from "@/lib/newsapi";
-import { Helmet } from "react-helmet-async"; // Import Helmet
-import SignUpCallToAction from "@/components/SignUpCallToAction"; // Import the new component
+import { Helmet } from "react-helmet-async";
+import SignUpCallToAction from "@/components/SignUpCallToAction";
 
-// Updated interface to match Supabase 'news_articles' table schema
 interface Article {
   title: string;
   description: string;
@@ -30,6 +29,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState(fashionCategories[0].name);
+  const location = useLocation(); // Initialize useLocation
 
   useEffect(() => {
     const getFashionNews = async () => {
@@ -51,21 +51,28 @@ const Home = () => {
   // Effect to push AdSense ads after component mounts
   useEffect(() => {
     try {
-      // Check if adsbygoogle is defined before pushing
-      // Only push if there are articles to display
       if (window.adsbygoogle && process.env.NODE_ENV === 'production' && fashionNews.length > 0) {
         (window.adsbygoogle as any[]).push({});
       }
     } catch (e) {
       console.error("Adsense script failed to load:", e);
     }
-  }, [fashionNews]); // Re-run when fashionNews changes
+  }, [fashionNews]);
+
+  // Effect to scroll to the sign-up section if the hash is present
+  useEffect(() => {
+    if (location.hash === '#signup-cta') {
+      const element = document.getElementById('signup-call-to-action');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location.hash]); // Re-run when the URL hash changes
 
   const pageTitle = activeTab === "All Fashion"
     ? "DrezRadar News: Top Fashion Trends & Global Updates"
     : `${activeTab} Fashion News | DrezRadar`;
   const pageDescription = "Stay updated with the latest fashion news, trends, and insights from around the globe, including Gen Z, Fast Fashion, Royal Classics, and Traditional styles. Your go-to source for all things fashion.";
-
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -105,7 +112,6 @@ const Home = () => {
           ))}
         </TabsList>
 
-        {/* Corrected TabsContent usage */}
         <TabsContent value={activeTab}>
             {loading ? (
               <div className="text-center text-charcoal-light">Loading news...</div>
@@ -124,7 +130,6 @@ const Home = () => {
                                hover:border-2 hover:border-primary
                                overflow-hidden flex flex-col"
                   >
-                    {/* JSON-LD Schema Markup for NewsArticle */}
                     <script type="application/ld+json">
                       {JSON.stringify({
                         "@context": "https://schema.org",
@@ -176,7 +181,7 @@ const Home = () => {
             )}
           </TabsContent>
       </Tabs>
-      <SignUpCallToAction /> {/* Added the sign-up call to action here */}
+      <SignUpCallToAction />
     </div>
   );
 };

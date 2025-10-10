@@ -8,7 +8,7 @@ import { Sparkles, UserPlus, Heart } from 'lucide-react';
 
 const SignUpCallToAction: React.FC = () => {
   return (
-    <Card className="w-full max-w-4xl mx-auto bg-card text-card-foreground shadow-lg rounded-lg p-6 my-12 border-primary/20 border-2">
+    <Card id="signup-call-to-action" className="w-full max-w-4xl mx-auto bg-card text-card-foreground shadow-lg rounded-lg p-6 my-12 border-primary/20 border-2">
       <CardHeader className="text-center">
         <CardTitle className="text-3xl font-bold text-charcoal dark:text-foreground mb-2">
           Unlock More with DrezRadar!

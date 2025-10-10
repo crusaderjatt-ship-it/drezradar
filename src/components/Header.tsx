@@ -1,12 +1,11 @@
 "use client";
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { useSupabase } from '@/components/SessionContextProvider';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,6 +19,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 const Header: React.FC = () => {
   const { session, supabase } = useSupabase();
   const navigate = useNavigate();
+  const location = useLocation(); // Initialize useLocation
   const isMobile = useIsMobile();
 
   const handleLogout = async () => {
@@ -30,6 +30,19 @@ const Header: React.FC = () => {
     } else {
       toast.success('Logged out successfully!');
       navigate('/login');
+    }
+  };
+
+  const handleSignUpClick = () => {
+    if (location.pathname === '/') {
+      // If already on the home page, scroll directly
+      const element = document.getElementById('signup-call-to-action');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // If on another page, navigate to home with the hash
+      navigate('/#signup-cta');
     }
   };
 
@@ -58,9 +71,7 @@ const Header: React.FC = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Link to="/login">
-          <Button variant="ghost" className="text-charcoal-light hover:text-primary dark:text-gray-300 dark:hover:text-primary">Login</Button>
-        </Link>
+        <Button variant="ghost" onClick={handleSignUpClick} className="text-charcoal-light hover:text-primary dark:text-gray-300 dark:hover:text-primary">Sign Up</Button>
       )}
     </>
   );
