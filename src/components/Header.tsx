@@ -46,7 +46,7 @@ const Header: React.FC = () => {
 
   const navLinks = (
     <>
-      <Button variant="ghost" asChild> {/* Wrap Link in Button with ghost variant */}
+      <Button variant="ghost" asChild>
         <Link to="/" className="text-charcoal-light hover:text-primary transition-colors dark:text-gray-300 dark:hover:text-primary">Home</Link>
       </Button>
       {session ? (
@@ -56,7 +56,7 @@ const Header: React.FC = () => {
               <UserCircle2 className="h-6 w-6 text-charcoal-light dark:text-gray-300" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56" align="end"> {/* Removed forceMount */}
+          <DropdownMenuContent className="w-56" align="end">
             <DropdownMenuItem className="hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
               <Link to="/profile" className="w-full text-charcoal-light dark:text-gray-300 hover:text-white">Profile</Link>
             </DropdownMenuItem>
@@ -96,8 +96,11 @@ const Header: React.FC = () => {
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
-                <MenuIcon className="h-6 w-6 text-charcoal-light dark:text-gray-300" />
-                <span className="sr-only">Toggle navigation menu</span>
+                {/* Wrapped MenuIcon and span in a single span to satisfy React.Children.only */}
+                <span>
+                  <MenuIcon className="h-6 w-6 text-charcoal-light dark:text-gray-300" />
+                  <span className="sr-only">Toggle navigation menu</span>
+                </span>
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[250px] sm:w-[300px] bg-background p-6 flex flex-col space-y-4">
