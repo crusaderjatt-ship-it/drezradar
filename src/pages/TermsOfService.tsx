@@ -36,14 +36,14 @@ const TermsOfService: React.FC = () => {
 
         <h2 className="text-2xl font-semibold text-charcoal mt-8 mb-4 dark:text-foreground">License</h2>
         <p>
-          Unless otherwise stated, DrezRadar and/or its licensors own the intellectual property rights for all material on DrezRadar. All intellectual property rights are reserved. You may access this from DrezRadar for your own personal use subjected to restrictions set in these terms and conditions.
+          Unless otherwise stated, DrezRadar owns the intellectual property rights for the DrezRadar platform, its original content, and design. All intellectual property rights for the platform are reserved. The news articles displayed on DrezRadar are sourced from third-party publishers via NewsAPI and their intellectual property rights remain with their respective original creators and publishers. You may access the DrezRadar platform and its content for your own personal, non-commercial use, subject to these terms and conditions.
         </p>
         <p>You must not:</p>
         <ul className="list-disc list-inside">
-          <li>Republish material from DrezRadar</li>
-          <li>Sell, rent or sub-license material from DrezRadar</li>
-          <li>Reproduce, duplicate or copy material from DrezRadar</li>
-          <li>Redistribute content from DrezRadar</li>
+          <li>Republish material from DrezRadar (including aggregated news articles) without proper authorization from the original source.</li>
+          <li>Sell, rent or sub-license material from DrezRadar.</li>
+          <li>Reproduce, duplicate or copy material from DrezRadar.</li>
+          <li>Redistribute content from DrezRadar.</li>
         </ul>
         <p>
           This Agreement shall begin on the date hereof.
