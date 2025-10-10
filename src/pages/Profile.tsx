@@ -43,7 +43,7 @@ const Profile = () => {
           setProfile(data);
         }
       } catch (error: any) {
-        console.error('Error fetching profile:', error.message);
+        console.error('Error fetching profile:', error); // Log full error object
         toast.error('Failed to load profile data.');
       } finally {
         setLoading(false);
@@ -79,7 +79,7 @@ const Profile = () => {
 
       toast.success('Profile updated successfully!');
     } catch (error: any) {
-      console.error('Error updating profile:', error.message);
+      console.error('Error updating profile:', error); // Log full error object
       toast.error('Failed to update profile.');
     } finally {
       setLoading(false);
