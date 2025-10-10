@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MadeWithDyad } from "@/components/made-with-dyad";
 import { fetchFashionNews } from "@/lib/newsapi";
 import { Helmet } from "react-helmet-async"; // Import Helmet
 import Header from "@/components/Header"; // Import the new Header component
@@ -74,7 +73,7 @@ const Home = () => {
         <meta name="description" content={pageDescription} />
         <link rel="canonical" href={`https://drezradar.com/${activeTab === "All Fashion" ? "" : `?category=${encodeURIComponent(activeTab)}`}`} />
       </Helmet>
-      {/* Removed <Header /> from here as it's now in App.tsx */}
+      <Header />
 
       {/* Google AdSense Ad Unit Placeholder - REPLACE YOUR_ADSENSE_AD_SLOT_ID with your actual ID */}
       <div className="my-8 text-center">
