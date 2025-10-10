@@ -13,13 +13,13 @@ import { toast } from "sonner";
 interface ProfileData {
   first_name: string | null;
   last_name: string | null;
-  avatar_url: string | null;
+  // avatar_url: string | null; // Removed for now to resolve schema cache error
 }
 
 const Profile = () => {
   const { supabase, session } = useSupabase();
   const navigate = useNavigate();
-  const [profile, setProfile] = useState<ProfileData>({ first_name: null, last_name: null, avatar_url: null });
+  const [profile, setProfile] = useState<ProfileData>({ first_name: null, last_name: null });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Profile = () => {
       try {
         const { data, error } = await supabase
           .from('profiles')
-          .select('first_name, last_name, avatar_url')
+          .select('first_name, last_name') // Removed avatar_url from select
           .eq('id', session.user.id)
           .single();
 
@@ -47,11 +47,20 @@ const Profile = () => {
         if (data) {
           setProfile(data);
         } else {
-          console.warn('No profile data found for this user.');
-          toast.error('No profile found. Please ensure your account has a profile.');
+          console.warn('No profile data found for this user. Attempting to create a basic profile.');
+          // If no data is returned, create a basic profile
+          const { error: insertError } = await supabase
+            .from('profiles')
+            .insert({ id: session.user.id, first_name: null, last_name: null }); // Removed avatar_url from insert
+
+          if (insertError) {
+            throw insertError;
+          }
+          setProfile({ first_name: null, last_name: null });
+          toast.success('New profile created for you!');
         }
       } catch (error: any) {
-        console.error('Failed to load profile data:', error);
+        console.error('Failed to load or create profile data:', error);
         toast.error('Failed to load profile data.');
       } finally {
         setLoading(false);
@@ -80,7 +89,7 @@ const Profile = () => {
     try {
       const { error } = await supabase
         .from('profiles')
-        .update({ ...profile, updated_at: new Date().toISOString() })
+        .update({ first_name: profile.first_name, last_name: profile.last_name, updated_at: new Date().toISOString() }) // Explicitly update only first_name, last_name, updated_at
         .eq('id', session.user.id);
 
       if (error) {
