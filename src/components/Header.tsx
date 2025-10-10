@@ -95,8 +95,7 @@ const Header: React.FC = () => {
         {isMobile ? (
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
-                {/* Wrapped MenuIcon and span in a single span to satisfy React.Children.only */}
+              <Button variant="ghost" size="icon" asChild> {/* Added asChild here */}
                 <span>
                   <MenuIcon className="h-6 w-6 text-charcoal-light dark:text-gray-300" />
                   <span className="sr-only">Toggle navigation menu</span>
