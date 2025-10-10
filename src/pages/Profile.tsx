@@ -39,27 +39,22 @@ const Profile = () => {
           .eq('id', session.user.id)
           .single();
 
-        if (error && error.code !== 'PGRST116') { // PGRST116 means no rows found, which we handle
+        if (error) {
+          // Log the full error object for debugging
+          console.error('Error fetching profile:', error);
           throw error;
         }
 
-        if (!data) {
-          console.warn('No profile found for user, attempting to create one.');
-          // No profile found, create one
-          const { error: insertError } = await supabase
-            .from('profiles')
-            .insert({ id: session.user.id, first_name: null, last_name: null, avatar_url: null });
-
-          if (insertError) {
-            throw insertError;
-          }
-          setProfile({ first_name: null, last_name: null, avatar_url: null });
-          toast.success('New profile created for you!');
-        } else {
+        if (data) {
           setProfile(data);
+        } else {
+          // If no data is returned, it means no profile exists.
+          // We'll let the user know and expect them to create one via signup or manually.
+          console.warn('No profile data found for this user.');
+          toast.error('No profile found. Please ensure your account has a profile.');
         }
       } catch (error: any) {
-        console.error('Error fetching or creating profile:', error);
+        console.error('Failed to load profile data:', error); // Log full error object
         toast.error('Failed to load profile data.');
       } finally {
         setLoading(false);
@@ -91,11 +86,15 @@ const Profile = () => {
         .update({ ...profile, updated_at: new Date().toISOString() })
         .eq('id', session.user.id);
 
-      if (error) throw error;
+      if (error) {
+        // Log the full error object for debugging
+        console.error('Error updating profile:', error);
+        throw error;
+      }
 
       toast.success('Profile updated successfully!');
     } catch (error: any) {
-      console.error('Error updating profile:', error);
+      console.error('Failed to update profile:', error); // Log full error object
       toast.error('Failed to update profile.');
     } finally {
       setLoading(false);
