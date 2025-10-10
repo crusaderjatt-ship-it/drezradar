@@ -55,15 +55,15 @@ const Header: React.FC = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end" forceMount>
-            <DropdownMenuItem>
-              <Link to="/profile" className="w-full text-charcoal-light dark:text-gray-300">Profile</Link>
+            <DropdownMenuItem className="hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
+              <Link to="/profile" className="w-full text-charcoal-light dark:text-gray-300 hover:text-white">Profile</Link>
             </DropdownMenuItem>
             {session.user?.email === 'randhawa.m@gmail.com' && (
-              <DropdownMenuItem>
-                <Link to="/admin" className="w-full text-charcoal-light dark:text-gray-300">Admin Dashboard</Link>
+              <DropdownMenuItem className="hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
+                <Link to="/admin" className="w-full text-charcoal-light dark:text-gray-300 hover:text-white">Admin Dashboard</Link>
               </DropdownMenuItem>
             )}
-            <DropdownMenuItem onClick={handleLogout} className="text-destructive dark:text-red-400">
+            <DropdownMenuItem onClick={handleLogout} className="text-destructive dark:text-red-400 hover:bg-gray-800 focus:bg-gray-800">
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -73,7 +73,7 @@ const Header: React.FC = () => {
           variant="ghost"
           onClick={handleSignUpClick}
           className="text-charcoal-light hover:text-primary dark:text-gray-300 dark:hover:text-primary
-                     hover:bg-primary/10 dark:hover:bg-primary/20" // Added explicit hover background
+                     hover:bg-primary/10 dark:hover:bg-primary/20"
         >
           Sign Up
         </Button>
