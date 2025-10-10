@@ -26,6 +26,36 @@ const Admin = () => {
     }, 2000);
   };
 
+  const handleSeedTrendPosts = async () => {
+    toast.loading("Seeding mock trend posts...", { id: "seed-trends-toast" });
+    try {
+      // Replace with your actual Supabase Project ID and Edge Function name
+      const SUPABASE_PROJECT_ID = "ztiyfozzzmocpzewedls"; // Your Supabase Project ID
+      const EDGE_FUNCTION_NAME = "seed-trend-posts";
+      const url = `https://${SUPABASE_PROJECT_ID}.supabase.co/functions/v1/${EDGE_FUNCTION_NAME}`;
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // No Authorization header needed here as the edge function uses the service role key internally
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to seed trend posts.');
+      }
+
+      const data = await response.json();
+      toast.success(data.message || "Mock trend posts seeded successfully!", { id: "seed-trends-toast" });
+      console.log("Seed trend posts response:", data);
+    } catch (error: any) {
+      toast.error(`Error seeding trend posts: ${error.message}`, { id: "seed-trends-toast" });
+      console.error("Error seeding trend posts:", error);
+    }
+  };
+
   const handleConfigChange = (index: number, field: string, value: any) => {
     const newConfigs = [...platformConfigs];
     if (field === "queries" || field === "geo_list") {
@@ -50,15 +80,21 @@ const Admin = () => {
         </Link>
         <h1 className="text-3xl md:text-4xl font-bold text-charcoal mb-6">Admin Dashboard</h1>
 
-        <div className="mb-8">
+        <div className="mb-8 flex flex-col sm:flex-row gap-4">
           <Button
             onClick={handleRefreshNow}
             className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-md shadow-lg text-lg"
           >
-            Refresh Data Now
+            Refresh News Data Now
           </Button>
-          <p className="text-sm text-charcoal-light mt-2">
-            Triggers an immediate data fetch and processing cycle.
+          <Button
+            onClick={handleSeedTrendPosts}
+            className="bg-accent text-accent-foreground hover:bg-accent/90 px-6 py-3 rounded-md shadow-lg text-lg"
+          >
+            Seed Mock Trend Posts
+          </Button>
+          <p className="text-sm text-charcoal-light mt-2 sm:mt-0">
+            Triggers an immediate data fetch and processing cycle for news, and seeds mock trend posts.
           </p>
         </div>
 
