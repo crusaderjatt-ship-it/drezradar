@@ -50,11 +50,11 @@ const Header: React.FC = () => {
       {session ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+            <Button variant="ghost" className="relative h-8 w-8 rounded-full hover:bg-gray-800 dark:hover:bg-gray-700 hover:text-white">
               <UserCircle2 className="h-6 w-6 text-charcoal-light dark:text-gray-300" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56" align="end" forceMount>
+          <DropdownMenuContent className="w-56" align="end"> {/* Removed forceMount */}
             <DropdownMenuItem className="hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
               <Link to="/profile" className="w-full text-charcoal-light dark:text-gray-300 hover:text-white">Profile</Link>
             </DropdownMenuItem>

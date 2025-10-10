@@ -89,7 +89,7 @@ const Admin = () => {
           </Button>
           <Button
             onClick={handleSeedTrendPosts}
-            className="bg-accent text-accent-foreground hover:bg-accent/90 px-6 py-3 rounded-md shadow-lg text-lg"
+            className="bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-3 rounded-md shadow-lg text-lg"
           >
             Seed Mock Trend Posts
           </Button>
