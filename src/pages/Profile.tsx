@@ -40,7 +40,6 @@ const Profile = () => {
           .single();
 
         if (error) {
-          // Log the full error object for debugging
           console.error('Error fetching profile:', error);
           throw error;
         }
@@ -48,13 +47,11 @@ const Profile = () => {
         if (data) {
           setProfile(data);
         } else {
-          // If no data is returned, it means no profile exists.
-          // We'll let the user know and expect them to create one via signup or manually.
           console.warn('No profile data found for this user.');
           toast.error('No profile found. Please ensure your account has a profile.');
         }
       } catch (error: any) {
-        console.error('Failed to load profile data:', error); // Log full error object
+        console.error('Failed to load profile data:', error);
         toast.error('Failed to load profile data.');
       } finally {
         setLoading(false);
@@ -87,14 +84,13 @@ const Profile = () => {
         .eq('id', session.user.id);
 
       if (error) {
-        // Log the full error object for debugging
         console.error('Error updating profile:', error);
         throw error;
       }
 
       toast.success('Profile updated successfully!');
     } catch (error: any) {
-      console.error('Failed to update profile:', error); // Log full error object
+      console.error('Failed to update profile:', error);
       toast.error('Failed to update profile.');
     } finally {
       setLoading(false);
