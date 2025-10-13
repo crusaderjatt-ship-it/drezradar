@@ -95,7 +95,7 @@ const Header: React.FC = () => {
         {isMobile ? (
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" asChild> {/* Added asChild here */}
+              <Button variant="ghost" size="icon"> {/* Removed asChild from Button */}
                 <span>
                   <MenuIcon className="h-6 w-6 text-charcoal-light dark:text-gray-300" />
                   <span className="sr-only">Toggle navigation menu</span>
