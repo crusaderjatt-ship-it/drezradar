@@ -46,26 +46,26 @@ const Header: React.FC = () => {
 
   const navLinks = (
     <>
-      <Button variant="ghost" asChild>
-        <Link to="/" className="text-charcoal-light hover:text-primary transition-colors dark:text-gray-300 dark:hover:text-primary">Home</Link>
+      <Button variant="ghost" asChild className="hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white">
+        <Link to="/" className="text-charcoal-light dark:text-gray-300">Home</Link>
       </Button>
       {session ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="relative h-8 w-8 rounded-full hover:bg-gray-800 dark:hover:bg-gray-700 hover:text-white">
+            <Button variant="ghost" className="relative h-8 w-8 rounded-full bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white">
               <UserCircle2 className="h-6 w-6 text-charcoal-light dark:text-gray-300" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56" align="end">
-            <DropdownMenuItem className="hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
-              <Link to="/profile" className="w-full text-charcoal-light dark:text-gray-300 hover:text-white">Profile</Link>
+            <DropdownMenuItem className="hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white focus:bg-gray-100 dark:focus:bg-gray-700">
+              <Link to="/profile" className="w-full text-charcoal-light dark:text-gray-300">Profile</Link>
             </DropdownMenuItem>
             {session.user?.email === 'randhawa.m@gmail.com' && (
-              <DropdownMenuItem className="hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
-                <Link to="/admin" className="w-full text-charcoal-light dark:text-gray-300 hover:text-white">Admin Dashboard</Link>
+              <DropdownMenuItem className="hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white focus:bg-gray-100 dark:focus:bg-gray-700">
+                <Link to="/admin" className="w-full text-charcoal-light dark:text-gray-300">Admin Dashboard</Link>
               </DropdownMenuItem>
             )}
-            <DropdownMenuItem onClick={handleLogout} className="text-destructive dark:text-red-400 hover:bg-gray-800 focus:bg-gray-800">
+            <DropdownMenuItem onClick={handleLogout} className="text-destructive dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:bg-gray-100 dark:focus:bg-gray-700">
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
           variant="ghost"
           onClick={handleSignUpClick}
           className="text-charcoal-light hover:text-primary dark:text-gray-300 dark:hover:text-primary
-                     hover:bg-primary/10 dark:hover:bg-primary/20"
+                     hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
         >
           Sign Up
         </Button>
@@ -95,7 +95,7 @@ const Header: React.FC = () => {
         {isMobile ? (
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white">
                 <span>
                   <MenuIcon className="h-6 w-6 text-charcoal-light dark:text-gray-300" />
                   <span className="sr-only">Toggle navigation menu</span>

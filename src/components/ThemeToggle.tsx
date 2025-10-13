@@ -14,7 +14,7 @@ export function ThemeToggle() {
   };
 
   return (
-    <Button variant="ghost" size="icon" onClick={toggleTheme}>
+    <Button variant="ghost" size="icon" onClick={toggleTheme} className="bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white">
       {theme === "light" ? (
         <Sun className="h-[1.2rem] w-[1.2rem]" />
       ) : (
