@@ -104,23 +104,23 @@ const Header: React.FC = () => {
             </SheetTrigger>
             <SheetContent side="right" className="w-[250px] sm:w-[300px] bg-background p-6 flex flex-col space-y-4">
               <div className="flex flex-col space-y-4">
-                <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-accent hover:text-drez-hot-pink">
+                <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white">
                   <Link to="/" className="w-full text-charcoal-light dark:text-gray-300">Home</Link>
                 </Button>
                 {session ? (
                   <>
-                    <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-accent hover:text-drez-hot-pink">
+                    <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white">
                       <Link to="/profile" className="w-full text-charcoal-light dark:text-gray-300">Profile</Link>
                     </Button>
                     {session.user?.email === 'randhawa.m@gmail.com' && (
-                      <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-accent hover:text-drez-hot-pink">
+                      <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white">
                         <Link to="/admin" className="w-full text-charcoal-light dark:text-gray-300">Admin Dashboard</Link>
                       </Button>
                     )}
                     <Button
                       variant="ghost"
                       onClick={handleLogout}
-                      className="justify-start px-4 py-2 rounded-md text-destructive dark:text-red-400 hover:bg-accent hover:text-drez-hot-pink"
+                      className="justify-start px-4 py-2 rounded-md text-destructive dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
                       Log out
                     </Button>
@@ -130,7 +130,7 @@ const Header: React.FC = () => {
                     variant="ghost"
                     onClick={handleSignUpClick}
                     className="justify-start px-4 py-2 rounded-md text-charcoal-light dark:text-gray-300
-                               hover:bg-accent hover:text-drez-hot-pink"
+                               hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white"
                   >
                     Sign Up
                   </Button>
