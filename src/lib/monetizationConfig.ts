@@ -19,8 +19,8 @@ export const MONETIZATION_CONFIG = {
   // Affiliate Links Configuration
   affiliates: {
     amazon: {
-      baseUrl: 'https://amazon.com/s',
-      affiliateTag: 'tag=randhawa-21', // Your Amazon Associates tracking ID
+      baseUrl: 'https://amazon.in/s',
+      affiliateTag: 'tag=randhawa-21', // Your Amazon India Associates tracking ID
       enabled: true,
     },
     asos: {
