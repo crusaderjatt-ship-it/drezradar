@@ -11,7 +11,7 @@ const TrendAnalysis: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-900 dark:to-gray-800">
       <Helmet>
         <title>Fashion Trend Analysis 2026 - DrezRadar Style Insights</title>
         <meta
@@ -39,19 +39,19 @@ const TrendAnalysis: React.FC = () => {
             <TrendingUp className="w-8 h-8 text-purple-600" />
             <Badge className="bg-purple-600">ORIGINAL ANALYSIS</Badge>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
             Fashion Trends Shaping 2026: A Deep Dive Analysis
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-300">
             Original insights and predictions from DrezRadar's fashion analysis team
           </p>
-          <p className="text-sm text-gray-500 mt-4">Published: {new Date().toLocaleDateString()}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">Published: {new Date().toLocaleDateString()}</p>
         </div>
 
         {/* Original Analysis Content */}
         <div className="space-y-8">
           {/* Section 1 */}
-          <Card>
+          <Card className="dark:bg-gray-800 dark:border-gray-700">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Zap className="w-5 h-5 text-orange-500" />
@@ -59,11 +59,11 @@ const TrendAnalysis: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 Our analysis of Gen Z fashion trends reveals a paradigm shift. Unlike previous generations, Gen Z is prioritizing
                 sustainability without compromising on trends. This generation isn't just buying clothes—they're making a statement.
               </p>
-              <div className="bg-purple-50 p-4 rounded-lg">
+              <div className="bg-purple-50 dark:bg-purple-900/30 p-4 rounded-lg">
                 <h4 className="font-semibold mb-2">Key Insights:</h4>
                 <ul className="list-disc list-inside space-y-1 text-gray-700">
                   <li><strong>70% prefer</strong> thrifted or second-hand fashion over fast fashion</li>
@@ -72,7 +72,7 @@ const TrendAnalysis: React.FC = () => {
                   <li><strong>Color trends:</strong> Earthy tones, saturated jewel tones, and bold neons co-exist</li>
                 </ul>
               </div>
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 This shift represents a $23B market opportunity for sustainable fashion brands. Retailers who haven't adapted
                 are seeing declining Gen Z engagement.
               </p>
@@ -80,7 +80,7 @@ const TrendAnalysis: React.FC = () => {
           </Card>
 
           {/* Section 2 */}
-          <Card>
+          <Card className="dark:bg-gray-800 dark:border-gray-700">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="w-5 h-5 text-pink-500" />
@@ -88,11 +88,11 @@ const TrendAnalysis: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 A surprising trend is emerging: luxury fashion is becoming MORE exclusive while simultaneously more accessible.
                 How? Through digital scarcity and limited drops.
               </p>
-              <div className="bg-pink-50 p-4 rounded-lg">
+              <div className="bg-pink-50 dark:bg-pink-900/30 p-4 rounded-lg">
                 <h4 className="font-semibold mb-2">Market Analysis:</h4>
                 <ul className="list-disc list-inside space-y-1 text-gray-700">
                   <li>Luxury brands using NFTs and digital-first launches</li>
@@ -101,7 +101,7 @@ const TrendAnalysis: React.FC = () => {
                   <li>Premium materials becoming standard in mid-range brands</li>
                 </ul>
               </div>
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 Brands like Gucci, Prada, and Dior are investing heavily in digital experiences and limited editions to maintain
                 prestige while reaching broader audiences.
               </p>
@@ -109,15 +109,15 @@ const TrendAnalysis: React.FC = () => {
           </Card>
 
           {/* Section 3 */}
-          <Card>
+          <Card className="dark:bg-gray-800 dark:border-gray-700">
             <CardHeader>
               <CardTitle>The Rise of Personal Styling & AI-Assisted Fashion</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 2026 marks the mainstream adoption of AI in personal fashion. Retailers are leveraging AI for:
               </p>
-              <div className="bg-blue-50 p-4 rounded-lg">
+              <div className="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg">
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                   <li><strong>Virtual try-ons</strong> - Reducing returns by 40%+ for fashion retailers</li>
                   <li><strong>Personalized recommendations</strong> - 3x increase in conversion when used</li>
@@ -125,22 +125,22 @@ const TrendAnalysis: React.FC = () => {
                   <li><strong>Wardrobe management apps</strong> - Growing market worth $5B globally</li>
                 </ul>
               </div>
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 Early adopters are seeing 45% higher customer satisfaction and 30% increase in customer lifetime value.
               </p>
             </CardContent>
           </Card>
 
           {/* Section 4 */}
-          <Card>
+          <Card className="dark:bg-gray-800 dark:border-gray-700">
             <CardHeader>
               <CardTitle>Regional Fashion Insights: India Market Specific</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 The Indian fashion market is experiencing unique trends driven by cultural factors, income growth, and digital adoption:
               </p>
-              <div className="bg-green-50 p-4 rounded-lg">
+              <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg">
                 <h4 className="font-semibold mb-2">India-Specific Opportunities:</h4>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                   <li><strong>Fusion wear dominance</strong> - Indo-Western blends capturing 35% of women's fashion market</li>
@@ -149,7 +149,7 @@ const TrendAnalysis: React.FC = () => {
                   <li><strong>Affordability + quality</strong> - ₹2000-5000 price range most competitive</li>
                 </ul>
               </div>
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 Brands successfully combining traditional Indian aesthetics with modern design are gaining 2-3x market share
                 compared to purely Western-focused retailers.
               </p>
@@ -157,12 +157,12 @@ const TrendAnalysis: React.FC = () => {
           </Card>
 
           {/* Conclusion */}
-          <Card className="border-2 border-purple-500 bg-purple-50">
+          <Card className="border-2 border-purple-500 bg-purple-50 dark:bg-purple-900/30 dark:border-purple-600">
             <CardHeader>
               <CardTitle>Conclusion: The Future of Fashion</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-gray-700">
+              <p className="text-gray-700 dark:text-gray-300">
                 Fashion in 2026 is at an inflection point. Three forces are reshaping the industry:
               </p>
               <ol className="list-decimal list-inside space-y-2 text-gray-700">
@@ -178,9 +178,9 @@ const TrendAnalysis: React.FC = () => {
           </Card>
 
           {/* Author Bio */}
-          <div className="bg-gray-900 text-white p-6 rounded-lg">
+          <div className="bg-gray-900 dark:bg-gray-950 text-white p-6 rounded-lg">
             <h3 className="font-semibold mb-2">About This Analysis</h3>
-            <p className="text-gray-300 text-sm">
+            <p className="text-gray-300 dark:text-gray-400 text-sm">
               This analysis is based on DrezRadar's research of global fashion trends, market reports, and regional insights.
               We monitor fashion news, social media trends, and retail data to provide our readers with original fashion
               intelligence and predictions.

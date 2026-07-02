@@ -119,7 +119,7 @@ const AmazonSale: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <Helmet>
         <title>Amazon India Sale Deals 2026 - Best Discounts on Fashion, Beauty & More</title>
         <meta
@@ -195,10 +195,10 @@ const AmazonSale: React.FC = () => {
         </div>
 
         {/* Search & Filters */}
-        <div className="bg-white p-6 rounded-lg shadow-lg mb-8 space-y-4">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg dark:shadow-gray-900/50 mb-8 space-y-4">
           {/* Search Bar */}
           <div>
-            <label className="block text-sm font-semibold mb-2">Search Products</label>
+            <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Search Products</label>
             <div className="relative">
               <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
               <Input
@@ -213,7 +213,7 @@ const AmazonSale: React.FC = () => {
 
           {/* Category Filter */}
           <div>
-            <label className="block text-sm font-semibold mb-2">Category</label>
+            <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Category</label>
             <div className="flex flex-wrap gap-2">
               {categories.map(cat => (
                 <button
@@ -222,7 +222,7 @@ const AmazonSale: React.FC = () => {
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                     selectedCategory === cat
                       ? 'bg-orange-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                   }`}
                 >
                   {cat}
@@ -233,7 +233,7 @@ const AmazonSale: React.FC = () => {
 
           {/* Discount Filter */}
           <div>
-            <label className="block text-sm font-semibold mb-2">Discount Level</label>
+            <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Discount Level</label>
             <div className="flex flex-wrap gap-2">
               {discountLevels.map(level => (
                 <button
@@ -242,7 +242,7 @@ const AmazonSale: React.FC = () => {
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                     minDiscount === level.value
                       ? 'bg-orange-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                   }`}
                 >
                   {level.label}
@@ -251,14 +251,14 @@ const AmazonSale: React.FC = () => {
             </div>
           </div>
 
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             Last refreshed: {lastRefresh.toLocaleTimeString()} | Updates every 30 minutes
           </p>
         </div>
 
         {/* Results Count */}
         <div className="mb-6">
-          <p className="text-lg font-semibold text-gray-800">
+          <p className="text-lg font-semibold text-gray-800 dark:text-white">
             Showing {filteredProducts.length} of {PRODUCTS.length} deals
             {searchQuery && ` for "${searchQuery}"`}
           </p>
@@ -270,7 +270,7 @@ const AmazonSale: React.FC = () => {
             {filteredProducts.map(product => (
               <Card
                 key={product.id}
-                className="hover:shadow-xl transition-all duration-300 transform hover:scale-105 cursor-pointer overflow-hidden"
+                className="hover:shadow-xl dark:hover:shadow-gray-900/50 transition-all duration-300 transform hover:scale-105 cursor-pointer overflow-hidden dark:bg-gray-800 dark:border-gray-700"
               >
                 <CardHeader className="pb-4">
                   <div className="flex justify-between items-start gap-4">
@@ -279,25 +279,25 @@ const AmazonSale: React.FC = () => {
                       {product.discountPercent}% OFF
                     </Badge>
                   </div>
-                  <CardTitle className="text-lg mt-4">{product.name}</CardTitle>
-                  <p className="text-sm text-gray-600">{product.description}</p>
+                  <CardTitle className="text-lg mt-4 dark:text-white">{product.name}</CardTitle>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{product.description}</p>
                 </CardHeader>
 
                 <CardContent className="space-y-4">
                   {/* Price Information */}
-                  <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-gray-600">Original Price:</span>
-                      <span className="text-lg font-semibold text-gray-900">₹{product.typicalPrice.toLocaleString()}</span>
+                      <span className="text-gray-600 dark:text-gray-400">Original Price:</span>
+                      <span className="text-lg font-semibold text-gray-900 dark:text-white">₹{product.typicalPrice.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Sale Price:</span>
+                      <span className="text-gray-600 dark:text-gray-400">Sale Price:</span>
                       <span className="text-2xl font-bold text-green-600">
                         ₹{Math.round(product.typicalPrice * (1 - product.discountPercent / 100)).toLocaleString()}
                       </span>
                     </div>
-                    <div className="mt-3 pt-3 border-t text-center">
-                      <span className="text-sm font-semibold text-orange-600">
+                    <div className="mt-3 pt-3 border-t dark:border-gray-600 text-center">
+                      <span className="text-sm font-semibold text-orange-600 dark:text-orange-400">
                         You Save: ₹{Math.round(product.typicalPrice * (product.discountPercent / 100)).toLocaleString()}
                       </span>
                     </div>
@@ -327,7 +327,7 @@ const AmazonSale: React.FC = () => {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-xl text-gray-600">No products match your search. Try different keywords!</p>
+            <p className="text-xl text-gray-600 dark:text-gray-400">No products match your search. Try different keywords!</p>
           </div>
         )}
 

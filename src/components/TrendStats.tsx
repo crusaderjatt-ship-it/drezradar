@@ -9,7 +9,7 @@ interface TrendStatProps {
 }
 
 const TrendStat: React.FC<TrendStatProps> = ({ icon, stat, label, color }) => (
-  <div className={`p-4 rounded-xl ${color} text-white backdrop-blur-sm hover:scale-105 transition-transform`}>
+  <div className={`p-4 rounded-xl ${color} text-white backdrop-blur-sm hover:scale-105 transition-transform shadow-lg dark:shadow-xl`}>
     <div className="flex items-center gap-3">
       <div className="text-3xl">{icon}</div>
       <div>
@@ -91,11 +91,11 @@ export const TrendStats: React.FC<{ category: string }> = ({ category }) => {
               key={idx}
               className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900
                          p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700
-                         hover:border-pink-500 hover:shadow-lg transition-all"
+                         hover:border-pink-500 hover:shadow-lg dark:hover:shadow-pink-500/20 transition-all"
             >
               <div className="text-3xl mb-2">{item.icon}</div>
               <div className="font-semibold text-gray-900 dark:text-white">{item.trend}</div>
-              <div className="text-sm text-green-600 font-bold mt-1">{item.growth}</div>
+              <div className="text-sm text-green-600 dark:text-green-400 font-bold mt-1">{item.growth}</div>
             </div>
           ))}
         </div>
