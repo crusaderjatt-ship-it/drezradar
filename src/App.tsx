@@ -13,6 +13,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import About from "./pages/About";
 import AmazonSale from "./pages/AmazonSale";
+import TrendAnalysis from "./pages/TrendAnalysis";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { HelmetProvider } from "react-helmet-async";
 import { SessionContextProvider } from "./components/SessionContextProvider";
@@ -37,6 +38,7 @@ const App = () => (
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/amazon-sale" element={<AmazonSale />} />
+                    <Route path="/trend-analysis" element={<TrendAnalysis />} />
                     <Route path="/trend/:platform/:dress_type" element={<TrendDetails />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />

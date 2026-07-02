@@ -208,8 +208,6 @@ const AmazonSale: React.FC = () => {
         {/* Schema markup for AI search engines */}
         <script type="application/ld+json">{JSON.stringify(schemaMarkup)}</script>
 
-        {/* Google AdSense */}
-        <ins className="adsbygoogle" style={{ display: 'block' }} data-ad-client="ca-pub-7039562928200716" data-ad-slot="4536248322" data-ad-format="auto" data-full-width-responsive="true"></ins>
       </Helmet>
 
       {/* Hero Section */}
