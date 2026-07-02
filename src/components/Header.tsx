@@ -49,6 +49,9 @@ const Header: React.FC = () => {
       <Button variant="ghost" asChild className="hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white">
         <Link to="/" className="text-charcoal-light dark:text-gray-300">Home</Link>
       </Button>
+      <Button variant="ghost" asChild className="hover:bg-orange-100 dark:hover:bg-orange-900 hover:text-orange-600 dark:hover:text-orange-400 font-semibold">
+        <Link to="/amazon-sale" className="text-charcoal-light dark:text-gray-300">🔥 Amazon Sale</Link>
+      </Button>
       {session ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

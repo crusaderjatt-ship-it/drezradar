@@ -1,14 +1,31 @@
 // Affiliate links configuration for fashion retailers
 // This module helps monetize articles by adding affiliate links to mentioned products/brands
 
+import { ALL_AMAZON_KEYWORDS } from './amazonSaleKeywords';
+
 export interface AffiliateLink {
   retailer: 'amazon' | 'asos' | 'sephora' | 'revolve' | 'shein' | 'zara';
   url: string;
   label: string;
 }
 
+// Generate dynamic Amazon links from keywords
+const generateAmazonLinksFromKeywords = (): Record<string, AffiliateLink[]> => {
+  const map: Record<string, AffiliateLink[]> = {};
+  ALL_AMAZON_KEYWORDS.forEach(keyword => {
+    map[keyword.toLowerCase()] = [
+      {
+        retailer: 'amazon',
+        url: `https://amazon.in/s?k=${encodeURIComponent(keyword)}&tag=randhawa-21`,
+        label: 'View on Amazon'
+      }
+    ];
+  });
+  return map;
+};
+
 // Brand-to-affiliate mapping
-// When an article mentions these brands, we can suggest affiliate links
+// When an article mentions these brands or keywords, we can suggest affiliate links
 const BRAND_AFFILIATE_MAP: Record<string, AffiliateLink[]> = {
   'sephora': [
     {
@@ -140,12 +157,13 @@ export function extractBrandMentions(text: string): string[] {
   return [...new Set(mentions)]; // Remove duplicates
 }
 
-// Get affiliate links for mentioned brands
+// Get affiliate links for mentioned brands and keywords
 export function getAffiliateLinksForBrands(brands: string[]): AffiliateLink[] {
+  const allBrandMap = { ...BRAND_AFFILIATE_MAP, ...generateAmazonLinksFromKeywords() };
   const links: AffiliateLink[] = [];
 
   brands.forEach(brand => {
-    const brandLinks = BRAND_AFFILIATE_MAP[brand.toLowerCase()];
+    const brandLinks = allBrandMap[brand.toLowerCase()];
     if (brandLinks) {
       links.push(...brandLinks);
     }

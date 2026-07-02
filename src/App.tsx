@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import About from "./pages/About";
+import AmazonSale from "./pages/AmazonSale";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { HelmetProvider } from "react-helmet-async";
 import { SessionContextProvider } from "./components/SessionContextProvider";
@@ -35,6 +36,7 @@ const App = () => (
                 <main className="flex-grow">
                   <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/amazon-sale" element={<AmazonSale />} />
                     <Route path="/trend/:platform/:dress_type" element={<TrendDetails />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/privacy-policy" element={<PrivacyPolicy />} />
