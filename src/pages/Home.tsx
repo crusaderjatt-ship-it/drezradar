@@ -4,7 +4,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchFashionNews } from "@/lib/newsapi";
 import { Helmet } from "react-helmet-async";
-import SignUpCallToAction from "@/components/SignUpCallToAction";
 import { ShopButton } from "@/components/ShopButton";
 import { getShopSuggestions } from "@/lib/affiliateLinks";
 
@@ -223,7 +222,6 @@ const Home = () => {
             )}
           </TabsContent>
       </Tabs>
-      <SignUpCallToAction />
     </div>
   );
 };
