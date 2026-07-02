@@ -6,6 +6,8 @@ import { fetchFashionNews } from "@/lib/newsapi";
 import { Helmet } from "react-helmet-async";
 import { ShopButton } from "@/components/ShopButton";
 import { getShopSuggestions } from "@/lib/affiliateLinks";
+import { TrendStats } from "@/components/TrendStats";
+import SmartAdPlaceholder from "@/components/SmartAdPlaceholder";
 
 interface Article {
   title: string;
@@ -89,18 +91,6 @@ const Home = () => {
         <link rel="canonical" href={`https://drezradar.com/${activeTab === "All Fashion" ? "" : `?category=${encodeURIComponent(activeTab)}`}`} />
       </Helmet>
 
-      {/* Google AdSense Ad Unit Placeholder - ONLY RENDER IF THERE IS CONTENT */}
-      {!loading && fashionNews.length > 0 && (
-        <div className="my-8 text-center">
-          <ins className="adsbygoogle"
-               style={{ display: "block" }}
-               data-ad-client="ca-pub-7039562928200716"
-               data-ad-slot="4536248322"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
-        </div>
-      )}
-
       <Tabs defaultValue={fashionCategories[0].name} className="w-full max-w-6xl mx-auto px-4 md:px-8 py-4 md:py-8" onValueChange={setActiveTab}>
         <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 bg-muted p-1 rounded-lg mb-8 h-auto">
           {fashionCategories.map((category) => (
@@ -120,6 +110,20 @@ const Home = () => {
         </TabsList>
 
         <TabsContent value={activeTab}>
+            {/* Trend Stats and Key Metrics */}
+            {!loading && fashionNews.length > 0 && (
+              <div className="mb-10">
+                <TrendStats category={activeTab} />
+              </div>
+            )}
+
+            {/* Smart Ad Placeholder - Collapses when no ads */}
+            {!loading && fashionNews.length > 0 && (
+              <div className="my-6">
+                <SmartAdPlaceholder adSlot="4536248322" />
+              </div>
+            )}
+
             {loading ? (
               <div className="text-center text-charcoal-light">Loading news...</div>
             ) : error ? (
@@ -191,15 +195,10 @@ const Home = () => {
                           </CardContent>
                         </Card>
 
-                        {/* Insert ads every 3 articles */}
+                        {/* Insert smart ads every 3 articles */}
                         {(index + 1) % 3 === 0 && index !== fashionNews.length - 1 && (
-                          <div key={`ad-${index}`} className="col-span-1 sm:col-span-2 lg:col-span-3 my-4">
-                            <ins className="adsbygoogle"
-                                 style={{ display: "block" }}
-                                 data-ad-client="ca-pub-7039562928200716"
-                                 data-ad-slot="4536248322"
-                                 data-ad-format="auto"
-                                 data-full-width-responsive="true"></ins>
+                          <div key={`ad-${index}`} className="col-span-1 sm:col-span-2 lg:col-span-3">
+                            <SmartAdPlaceholder adSlot="1471700627" className="my-4" />
                           </div>
                         )}
                       </React.Fragment>
@@ -207,15 +206,8 @@ const Home = () => {
                   })}
                 </div>
 
-                {/* Final ad at the bottom */}
-                <div className="my-8 text-center">
-                  <ins className="adsbygoogle"
-                       style={{ display: "block" }}
-                       data-ad-client="ca-pub-7039562928200716"
-                       data-ad-slot="4536248322"
-                       data-ad-format="auto"
-                       data-full-width-responsive="true"></ins>
-                </div>
+                {/* Final smart ad at the bottom */}
+                <SmartAdPlaceholder adSlot="4536248322" className="my-8 text-center" />
               </div>
             ) : (
               <div className="text-center text-charcoal-light">No news found for this category.</div>
