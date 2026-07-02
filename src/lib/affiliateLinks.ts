@@ -13,14 +13,14 @@ const BRAND_AFFILIATE_MAP: Record<string, AffiliateLink[]> = {
   'sephora': [
     {
       retailer: 'amazon',
-      url: 'https://amazon.com/s?k=Sephora&tag=drezradar-20',
+      url: 'https://amazon.in/s?k=Sephora&tag=randhawa-21',
       label: 'View on Amazon'
     }
   ],
   'kate spade': [
     {
       retailer: 'amazon',
-      url: 'https://amazon.com/s?k=Kate+Spade&tag=drezradar-20',
+      url: 'https://amazon.in/s?k=Kate+Spade&tag=randhawa-21',
       label: 'View on Amazon'
     }
   ],
@@ -55,70 +55,70 @@ const BRAND_AFFILIATE_MAP: Record<string, AffiliateLink[]> = {
   'gucci': [
     {
       retailer: 'amazon',
-      url: 'https://amazon.com/s?k=Gucci&tag=drezradar-20',
+      url: 'https://amazon.in/s?k=Gucci&tag=randhawa-21',
       label: 'View on Amazon'
     }
   ],
   'louis vuitton': [
     {
       retailer: 'amazon',
-      url: 'https://amazon.com/s?k=Louis+Vuitton&tag=drezradar-20',
+      url: 'https://amazon.in/s?k=Louis+Vuitton&tag=randhawa-21',
       label: 'View on Amazon'
     }
   ],
   'prada': [
     {
       retailer: 'amazon',
-      url: 'https://amazon.com/s?k=Prada&tag=drezradar-20',
+      url: 'https://amazon.in/s?k=Prada&tag=randhawa-21',
       label: 'View on Amazon'
     }
   ],
   'chanel': [
     {
       retailer: 'amazon',
-      url: 'https://amazon.com/s?k=Chanel&tag=drezradar-20',
+      url: 'https://amazon.in/s?k=Chanel&tag=randhawa-21',
       label: 'View on Amazon'
     }
   ],
   'dior': [
     {
       retailer: 'amazon',
-      url: 'https://amazon.com/s?k=Dior&tag=drezradar-20',
+      url: 'https://amazon.in/s?k=Dior&tag=randhawa-21',
       label: 'View on Amazon'
     }
   ],
   'saint laurent': [
     {
       retailer: 'amazon',
-      url: 'https://amazon.com/s?k=Saint+Laurent&tag=drezradar-20',
+      url: 'https://amazon.in/s?k=Saint+Laurent&tag=randhawa-21',
       label: 'View on Amazon'
     }
   ],
   'valentino': [
     {
       retailer: 'amazon',
-      url: 'https://amazon.com/s?k=Valentino&tag=drezradar-20',
+      url: 'https://amazon.in/s?k=Valentino&tag=randhawa-21',
       label: 'View on Amazon'
     }
   ],
   'loreal': [
     {
       retailer: 'amazon',
-      url: 'https://amazon.com/s?k=LOreal&tag=drezradar-20',
+      url: 'https://amazon.in/s?k=LOreal&tag=randhawa-21',
       label: 'View on Amazon'
     }
   ],
   'mac': [
     {
       retailer: 'amazon',
-      url: 'https://amazon.com/s?k=MAC+Cosmetics&tag=drezradar-20',
+      url: 'https://amazon.in/s?k=MAC+Cosmetics&tag=randhawa-21',
       label: 'View on Amazon'
     }
   ],
   'nykaa': [
     {
       retailer: 'amazon',
-      url: 'https://amazon.com/s?k=beauty&tag=drezradar-20',
+      url: 'https://amazon.in/s?k=beauty&tag=randhawa-21',
       label: 'View on Amazon'
     }
   ]
