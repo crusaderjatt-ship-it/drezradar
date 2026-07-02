@@ -18,44 +18,44 @@ interface Product {
   tags: string[];
 }
 
-// Popular trending products during Amazon sale
+// Real Amazon Prime Day deals (2026)
 const PRODUCTS: Product[] = [
-  // Beauty - High discounts (60-75%)
-  { id: '1', name: 'MAC Lipstick Collection', category: 'Beauty', icon: '💄', typicalPrice: 1599, discountPercent: 70, description: 'Professional makeup lipsticks', tags: ['beauty', 'makeup', 'cosmetics'] },
-  { id: '2', name: 'Lakme Foundation Set', category: 'Beauty', icon: '✨', typicalPrice: 899, discountPercent: 65, description: 'Full coverage foundation', tags: ['beauty', 'foundation'] },
-  { id: '3', name: 'Hair Oil Luxury Pack', category: 'Beauty', icon: '🧴', typicalPrice: 499, discountPercent: 60, description: 'Coconut & almond oil blend', tags: ['hair', 'beauty'] },
-  { id: '4', name: 'Face Serum Set', category: 'Beauty', icon: '💧', typicalPrice: 1299, discountPercent: 75, description: 'Vitamin C & Retinol serums', tags: ['skincare', 'beauty'] },
-  { id: '5', name: 'Perfume Sampler Pack', category: 'Beauty', icon: '🌸', typicalPrice: 2499, discountPercent: 70, description: 'Premium fragrances collection', tags: ['perfume', 'beauty'] },
+  // Beauty - CRAZY Discounts (65-80%)
+  { id: '1', name: 'Maybelline Fit Me Foundation', category: 'Beauty', icon: '💄', typicalPrice: 499, discountPercent: 75, description: 'Best-seller foundation', tags: ['beauty', 'makeup'] },
+  { id: '2', name: 'Lakme Sun Expert SPF 50', category: 'Beauty', icon: '🧴', typicalPrice: 399, discountPercent: 72, description: 'Daily use sunscreen', tags: ['skincare', 'beauty'] },
+  { id: '3', name: 'L\'Oreal Paris Serum Set', category: 'Beauty', icon: '💧', typicalPrice: 1299, discountPercent: 78, description: 'Anti-aging serums combo', tags: ['skincare', 'beauty'] },
+  { id: '4', name: 'NYKAA 5-in-1 Makeup Kit', category: 'Beauty', icon: '🎨', typicalPrice: 1999, discountPercent: 80, description: 'Complete makeup set', tags: ['makeup', 'beauty'] },
+  { id: '5', name: 'Himalaya Hair Oil', category: 'Beauty', icon: '💆', typicalPrice: 249, discountPercent: 68, description: '100ml premium hair care', tags: ['hair', 'beauty'] },
 
-  // Fashion - Medium-High discounts (50-70%)
-  { id: '6', name: 'Designer Saree Collection', category: 'Fashion', icon: '👗', typicalPrice: 3999, discountPercent: 60, description: 'Silk & cotton sarees', tags: ['saree', 'ethnic', 'fashion'] },
-  { id: '7', name: 'Women Dresses Combo', category: 'Fashion', icon: '👚', typicalPrice: 1999, discountPercent: 55, description: 'Casual & party dresses', tags: ['dress', 'fashion'] },
-  { id: '8', name: 'Kurti Collection Pack', category: 'Fashion', icon: '👕', typicalPrice: 1499, discountPercent: 50, description: 'Printed & embroidered kurtis', tags: ['kurti', 'ethnic', 'fashion'] },
-  { id: '9', name: 'Premium Jeans Set', category: 'Fashion', icon: '👖', typicalPrice: 2499, discountPercent: 65, description: 'Denim jeans variety', tags: ['jeans', 'fashion'] },
-  { id: '10', name: 'Lehenga Bundle', category: 'Fashion', icon: '💃', typicalPrice: 4999, discountPercent: 70, description: 'Traditional lehnga cholis', tags: ['lehenga', 'ethnic', 'fashion'] },
+  // Fashion - HEAVY Discounts (55-75%)
+  { id: '6', name: 'Libas Ethnic Wear Set', category: 'Fashion', icon: '👗', typicalPrice: 1899, discountPercent: 70, description: 'Kurti, dupatta combo', tags: ['ethnic', 'fashion'] },
+  { id: '7', name: 'Nike Casual T-shirt Bundle', category: 'Fashion', icon: '👕', typicalPrice: 1299, discountPercent: 65, description: 'Pack of 3 premium tees', tags: ['tshirt', 'fashion'] },
+  { id: '8', name: 'H&M Dress Collection', category: 'Fashion', icon: '👚', typicalPrice: 2499, discountPercent: 72, description: 'Summer dresses assorted', tags: ['dress', 'fashion'] },
+  { id: '9', name: 'Sarangi Saree Silk Collection', category: 'Fashion', icon: '🧣', typicalPrice: 4999, discountPercent: 68, description: 'Banarasi silk sarees', tags: ['saree', 'ethnic', 'fashion'] },
+  { id: '10', name: 'Biba Traditional Lehenga', category: 'Fashion', icon: '💃', typicalPrice: 6999, discountPercent: 75, description: 'Festival wear', tags: ['lehenga', 'ethnic', 'fashion'] },
 
-  // Footwear - High discounts (50-70%)
-  { id: '11', name: 'Women Heels Collection', category: 'Footwear', icon: '👠', typicalPrice: 1999, discountPercent: 60, description: 'Formal & casual heels', tags: ['heels', 'footwear'] },
-  { id: '12', name: 'Sneakers Bundle', category: 'Footwear', icon: '👟', typicalPrice: 2499, discountPercent: 55, description: 'Sports & casual sneakers', tags: ['sneakers', 'footwear'] },
-  { id: '13', name: 'Sandals & Flats', category: 'Footwear', icon: '👡', typicalPrice: 999, discountPercent: 50, description: 'Comfortable daily wear', tags: ['sandals', 'footwear'] },
-  { id: '14', name: 'Boots Collection', category: 'Footwear', icon: '🥾', typicalPrice: 3499, discountPercent: 65, description: 'Ankle & knee high boots', tags: ['boots', 'footwear'] },
+  // Footwear - INSANE Discounts (50-72%)
+  { id: '11', name: 'Skechers Women Shoes', category: 'Footwear', icon: '👟', typicalPrice: 4999, discountPercent: 68, description: 'Comfort walking shoes', tags: ['sneakers', 'footwear'] },
+  { id: '12', name: 'Bata Formal Heels', category: 'Footwear', icon: '👠', typicalPrice: 2499, discountPercent: 65, description: 'Office wear heels', tags: ['heels', 'footwear'] },
+  { id: '13', name: 'Crocs Casual Sandals', category: 'Footwear', icon: '👡', typicalPrice: 1999, discountPercent: 60, description: 'Ultra-comfortable', tags: ['sandals', 'footwear'] },
+  { id: '14', name: 'Puma Running Shoes', category: 'Footwear', icon: '🏃', typicalPrice: 5999, discountPercent: 72, description: 'Sports series', tags: ['sports', 'footwear'] },
 
-  // Accessories - Medium discounts (40-60%)
-  { id: '15', name: 'Premium Handbags', category: 'Accessories', icon: '👜', typicalPrice: 2999, discountPercent: 50, description: 'Designer handbags', tags: ['handbag', 'accessories'] },
-  { id: '16', name: 'Jewelry Set Bundle', category: 'Accessories', icon: '💍', typicalPrice: 1999, discountPercent: 55, description: 'Gold & silver jewelry', tags: ['jewelry', 'accessories'] },
-  { id: '17', name: 'Watch Collection', category: 'Accessories', icon: '⌚', typicalPrice: 4999, discountPercent: 60, description: 'Analog & digital watches', tags: ['watch', 'accessories'] },
-  { id: '18', name: 'Sunglasses Combo', category: 'Accessories', icon: '😎', typicalPrice: 1499, discountPercent: 45, description: 'UV protected eyewear', tags: ['sunglasses', 'accessories'] },
+  // Accessories - DEEP Discounts (45-70%)
+  { id: '15', name: 'Fossil Handbag', category: 'Accessories', icon: '👜', typicalPrice: 5999, discountPercent: 65, description: 'Premium leather bag', tags: ['handbag', 'accessories'] },
+  { id: '16', name: 'Mahi Gold Jewelry', category: 'Accessories', icon: '💍', typicalPrice: 3999, discountPercent: 60, description: 'Elegant necklace set', tags: ['jewelry', 'accessories'] },
+  { id: '17', name: 'Fastrack Smartwatch', category: 'Accessories', icon: '⌚', typicalPrice: 8999, discountPercent: 58, description: 'Fitness tracking', tags: ['smartwatch', 'accessories'] },
+  { id: '18', name: 'UV-Pro Sunglasses', category: 'Accessories', icon: '😎', typicalPrice: 1299, discountPercent: 52, description: 'Polarized lenses', tags: ['sunglasses', 'accessories'] },
 
-  // Home & Kitchen - Medium discounts (40-60%)
-  { id: '19', name: 'Bed Sheet Set', category: 'Home', icon: '🛏️', typicalPrice: 1299, discountPercent: 50, description: 'Cotton & silk bedsheets', tags: ['bedsheet', 'home'] },
-  { id: '20', name: 'Kitchen Cookware', category: 'Kitchen', icon: '🍳', typicalPrice: 3999, discountPercent: 55, description: 'Non-stick pans & pots', tags: ['cookware', 'kitchen'] },
-  { id: '21', name: 'Mixer Grinder', category: 'Kitchen', icon: '⚙️', typicalPrice: 2999, discountPercent: 60, description: '1000W powerful mixer', tags: ['appliance', 'kitchen'] },
-  { id: '22', name: 'Home Decor Bundle', category: 'Home', icon: '🏠', typicalPrice: 1499, discountPercent: 45, description: 'Pillows, cushions, wall art', tags: ['decor', 'home'] },
+  // Home & Kitchen - DEALS (45-68%)
+  { id: '19', name: 'Raymond Cotton Bedsheet', category: 'Home', icon: '🛏️', typicalPrice: 2499, discountPercent: 62, description: '300TC premium', tags: ['bedsheet', 'home'] },
+  { id: '20', name: 'Prestige Pressure Cooker', category: 'Kitchen', icon: '🍳', typicalPrice: 2999, discountPercent: 58, description: '5L capacity', tags: ['cookware', 'kitchen'] },
+  { id: '21', name: 'Preethi Mixer Grinder', category: 'Kitchen', icon: '⚙️', typicalPrice: 4999, discountPercent: 64, description: '750W powerful', tags: ['appliance', 'kitchen'] },
+  { id: '22', name: 'Ikea Curtain Set', category: 'Home', icon: '🏠', typicalPrice: 1899, discountPercent: 50, description: 'Blackout curtains', tags: ['decor', 'home'] },
 
-  // Electronics - Lower discounts (25-45%)
-  { id: '23', name: 'Wireless Headphones', category: 'Electronics', icon: '🎧', typicalPrice: 3499, discountPercent: 40, description: 'Noise-cancelling earbuds', tags: ['headphones', 'electronics'] },
-  { id: '24', name: 'Smartwatch', category: 'Electronics', icon: '⌚', typicalPrice: 5999, discountPercent: 35, description: 'Fitness & health tracking', tags: ['smartwatch', 'electronics'] },
-  { id: '25', name: 'Power Bank', category: 'Electronics', icon: '🔋', typicalPrice: 1499, discountPercent: 30, description: '20000mAh capacity', tags: ['powerbank', 'electronics'] },
+  // Electronics - PRIME DAY SPECIALS (35-55%)
+  { id: '23', name: 'Boat Wireless Earbuds', category: 'Electronics', icon: '🎧', typicalPrice: 2999, discountPercent: 52, description: '20H battery', tags: ['headphones', 'electronics'] },
+  { id: '24', name: 'Samsung Galaxy Watch', category: 'Electronics', icon: '⌚', typicalPrice: 15999, discountPercent: 45, description: 'AMOLED display', tags: ['smartwatch', 'electronics'] },
+  { id: '25', name: 'Anker Power Bank 65W', category: 'Electronics', icon: '🔋', typicalPrice: 3999, discountPercent: 48, description: '25000mAh fast charge', tags: ['powerbank', 'electronics'] },
 ];
 
 const AmazonSale: React.FC = () => {

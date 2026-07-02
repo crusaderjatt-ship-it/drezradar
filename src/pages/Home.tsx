@@ -91,7 +91,11 @@ const Home = () => {
         <link rel="canonical" href={`https://drezradar.com/${activeTab === "All Fashion" ? "" : `?category=${encodeURIComponent(activeTab)}`}`} />
       </Helmet>
 
-      <Tabs defaultValue={fashionCategories[0].name} className="w-full max-w-6xl mx-auto px-4 md:px-8 py-4 md:py-8" onValueChange={setActiveTab}>
+      <Tabs defaultValue={fashionCategories[0].name} className="w-full max-w-6xl mx-auto px-4 md:px-8 py-4 md:py-8" onValueChange={(value) => {
+        // Prevent scroll jump when switching tabs
+        window.scrollTo(0, 0);
+        setActiveTab(value);
+      }}>
         <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 bg-muted p-1 rounded-lg mb-8 h-auto">
           {fashionCategories.map((category) => (
             <TabsTrigger

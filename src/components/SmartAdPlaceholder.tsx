@@ -16,79 +16,77 @@ const SmartAdPlaceholder: React.FC<SmartAdPlaceholderProps> = ({
   className = '',
 }) => {
   const adContainerRef = useRef<HTMLDivElement>(null);
+  const insRef = useRef<HTMLElement>(null);
   const [hasContent, setHasContent] = useState(false);
-  const [containerHeight, setContainerHeight] = useState(0);
 
   useEffect(() => {
     if (!adContainerRef.current) return;
 
-    // Use ResizeObserver to detect when ad content is loaded
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        const height = entry.contentRect.height;
-        setContainerHeight(height);
-        // Consider it "has content" if height is more than 50px
-        setHasContent(height > 50);
+    // Check for ad content multiple times with increasing delays
+    const checkForContent = () => {
+      if (insRef.current) {
+        const height = insRef.current.offsetHeight;
+        const innerHTML = insRef.current.innerHTML;
+        // Has content if height > 50px OR has child elements (ads loaded)
+        const hasAds = height > 50 || innerHTML.includes('iframe') || innerHTML.includes('img');
+        setHasContent(hasAds);
       }
+    };
+
+    // Initial check
+    checkForContent();
+
+    // Re-check after ad loading delays
+    const timeouts = [
+      setTimeout(checkForContent, 500),
+      setTimeout(checkForContent, 1000),
+      setTimeout(checkForContent, 2000),
+      setTimeout(checkForContent, 3000),
+    ];
+
+    // Use ResizeObserver for continuous monitoring
+    const resizeObserver = new ResizeObserver(() => {
+      checkForContent();
     });
 
-    resizeObserver.observe(adContainerRef.current);
-
-    // Also check after a delay in case ResizeObserver doesn't catch the initial load
-    const checkTimeout = setTimeout(() => {
-      if (adContainerRef.current) {
-        const height = adContainerRef.current.offsetHeight;
-        setContainerHeight(height);
-        setHasContent(height > 50);
-      }
-    }, 1000);
-
-    // Push ads after component mounts
-    try {
-      if (window.adsbygoogle) {
-        (window.adsbygoogle as any[]).push({});
-      }
-    } catch (e) {
-      console.error('AdSense push failed:', e);
+    if (adContainerRef.current) {
+      resizeObserver.observe(adContainerRef.current);
     }
 
     return () => {
+      timeouts.forEach(t => clearTimeout(t));
       resizeObserver.disconnect();
-      clearTimeout(checkTimeout);
     };
   }, []);
 
   return (
-    <div
-      className={`
-        ad-container
-        ${hasContent ? 'min-h-[100px]' : 'min-h-0'}
-        overflow-hidden
-        transition-all duration-300 ease-in-out
-        ${className}
-      `}
-    >
-      <div
-        ref={adContainerRef}
-        className="w-full"
-        style={{
-          height: hasContent ? 'auto' : '0px',
-          overflow: 'hidden',
-        }}
-      >
-        <ins
-          className="adsbygoogle"
-          style={{
-            display: 'block',
-            minHeight: hasContent ? 'auto' : '0px',
-          }}
-          data-ad-client="ca-pub-7039562928200716"
-          data-ad-slot={adSlot}
-          data-ad-format={adFormat}
-          data-full-width-responsive="true"
-        ></ins>
-      </div>
-    </div>
+    <>
+      {/* Only render container if has content, completely hide otherwise */}
+      {hasContent && (
+        <div
+          className={`
+            ad-container
+            min-h-[90px]
+            overflow-hidden
+            transition-all duration-300 ease-in-out
+            ${className}
+          `}
+          ref={adContainerRef}
+        >
+          <ins
+            ref={insRef}
+            className="adsbygoogle"
+            style={{
+              display: 'block',
+            }}
+            data-ad-client="ca-pub-7039562928200716"
+            data-ad-slot={adSlot}
+            data-ad-format={adFormat}
+            data-full-width-responsive="true"
+          ></ins>
+        </div>
+      )}
+    </>
   );
 };
 
