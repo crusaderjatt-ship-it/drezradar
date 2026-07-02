@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchFashionNews } from "@/lib/newsapi";
 import { Helmet } from "react-helmet-async";
 import SignUpCallToAction from "@/components/SignUpCallToAction";
+import { ShopButton } from "@/components/ShopButton";
+import { getShopSuggestions } from "@/lib/affiliateLinks";
 
 interface Article {
   title: string;
@@ -49,10 +51,16 @@ const Home = () => {
   }, [activeTab]);
 
   // Effect to push AdSense ads after component mounts
+  // Push ads for each ad unit on the page
   useEffect(() => {
     try {
-      if (window.adsbygoogle && process.env.NODE_ENV === 'production' && fashionNews.length > 0) {
+      if (window.adsbygoogle && fashionNews.length > 0) {
+        // Push ads multiple times to load all ad units on the page
         (window.adsbygoogle as any[]).push({});
+        // Small delay before second push to ensure async loading
+        setTimeout(() => {
+          (window.adsbygoogle as any[]).push({});
+        }, 100);
       }
     } catch (e) {
       console.error("Adsense script failed to load:", e);
@@ -118,63 +126,97 @@ const Home = () => {
             ) : error ? (
               <div className="text-center text-destructive">{error}</div>
             ) : fashionNews.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {fashionNews.map((article, index) => (
-                  <Card
-                    key={index}
-                    className="bg-card text-card-foreground rounded-lg shadow-md
-                               transition-all duration-300 ease-in-out
-                               hover:shadow-xl hover:scale-[1.02]
-                               hover:bg-gradient-to-br hover:from-gray-50 hover:to-gray-100
-                               dark:hover:from-gray-800 dark:hover:to-gray-700
-                               hover:border-2 hover:border-primary
-                               overflow-hidden flex flex-col"
-                  >
-                    <script type="application/ld+json">
-                      {JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "NewsArticle",
-                        "headline": article.title,
-                        "image": [
-                          article.image_url,
-                        ],
-                        "datePublished": article.published_at,
-                        "dateModified": article.published_at,
-                        "author": {
-                          "@type": "Organization",
-                          "name": article.source_name
-                        },
-                        "publisher": {
-                          "@type": "Organization",
-                          "name": "DrezRadar News",
-                          "logo": {
-                            "@type": "ImageObject",
-                            "url": "https://www.dyad.sh/favicon.ico"
-                          }
-                        },
-                        "description": article.description,
-                        "mainEntityOfPage": {
-                          "@type": "WebPage",
-                          "@id": article.url
-                        },
-                        "url": article.url
-                      })}
-                    </script>
-                    {article.image_url && (
-                      <img src={article.image_url} alt={`Image for ${article.title}`} className="w-full h-48 object-cover" />
-                    )}
-                    <CardHeader className="flex-grow">
-                      <CardTitle className="text-lg font-semibold text-charcoal line-clamp-2">{article.title}</CardTitle>
-                      <p className="text-sm text-muted-foreground mt-1">{article.source_name} - {new Date(article.published_at).toLocaleDateString()}</p>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-charcoal-light line-clamp-3 mb-3">{article.description}</p>
-                      <a href={article.url} target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:underline">
-                        Read More
-                      </a>
-                    </CardContent>
-                  </Card>
-                ))}
+              <div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                  {fashionNews.map((article, index) => {
+                    const affiliateLinks = getShopSuggestions(article.title, article.description);
+
+                    return (
+                      <React.Fragment key={index}>
+                        <Card
+                          className="bg-card text-card-foreground rounded-lg shadow-md
+                                     transition-all duration-300 ease-in-out
+                                     hover:shadow-xl hover:scale-[1.02]
+                                     hover:bg-gradient-to-br hover:from-gray-50 hover:to-gray-100
+                                     dark:hover:from-gray-800 dark:hover:to-gray-700
+                                     hover:border-2 hover:border-primary
+                                     overflow-hidden flex flex-col"
+                        >
+                          <script type="application/ld+json">
+                            {JSON.stringify({
+                              "@context": "https://schema.org",
+                              "@type": "NewsArticle",
+                              "headline": article.title,
+                              "image": [
+                                article.image_url,
+                              ],
+                              "datePublished": article.published_at,
+                              "dateModified": article.published_at,
+                              "author": {
+                                "@type": "Organization",
+                                "name": article.source_name
+                              },
+                              "publisher": {
+                                "@type": "Organization",
+                                "name": "DrezRadar News",
+                                "logo": {
+                                  "@type": "ImageObject",
+                                  "url": "https://www.dyad.sh/favicon.ico"
+                                }
+                              },
+                              "description": article.description,
+                              "mainEntityOfPage": {
+                                "@type": "WebPage",
+                                "@id": article.url
+                              },
+                              "url": article.url
+                            })}
+                          </script>
+                          {article.image_url && (
+                            <img src={article.image_url} alt={`Image for ${article.title}`} className="w-full h-48 object-cover" />
+                          )}
+                          <CardHeader className="flex-grow">
+                            <CardTitle className="text-lg font-semibold text-charcoal line-clamp-2">{article.title}</CardTitle>
+                            <p className="text-sm text-muted-foreground mt-1">{article.source_name} - {new Date(article.published_at).toLocaleDateString()}</p>
+                          </CardHeader>
+                          <CardContent className="flex flex-col gap-3">
+                            <p className="text-sm text-charcoal-light line-clamp-3">{article.description}</p>
+                            <div className="flex gap-2 mt-auto">
+                              <a href={article.url} target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:underline flex-1">
+                                Read More
+                              </a>
+                              {affiliateLinks.length > 0 && (
+                                <ShopButton affiliateLinks={affiliateLinks} articleTitle={article.title} />
+                              )}
+                            </div>
+                          </CardContent>
+                        </Card>
+
+                        {/* Insert ads every 3 articles */}
+                        {(index + 1) % 3 === 0 && index !== fashionNews.length - 1 && (
+                          <div key={`ad-${index}`} className="col-span-1 sm:col-span-2 lg:col-span-3 my-4">
+                            <ins className="adsbygoogle"
+                                 style={{ display: "block" }}
+                                 data-ad-client="ca-pub-7039562928200716"
+                                 data-ad-slot="4536248322"
+                                 data-ad-format="auto"
+                                 data-full-width-responsive="true"></ins>
+                          </div>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                </div>
+
+                {/* Final ad at the bottom */}
+                <div className="my-8 text-center">
+                  <ins className="adsbygoogle"
+                       style={{ display: "block" }}
+                       data-ad-client="ca-pub-7039562928200716"
+                       data-ad-slot="4536248322"
+                       data-ad-format="auto"
+                       data-full-width-responsive="true"></ins>
+                </div>
               </div>
             ) : (
               <div className="text-center text-charcoal-light">No news found for this category.</div>
