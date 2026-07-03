@@ -112,13 +112,16 @@ serve(async (req) => {
     for (const post of mockTrendPosts) {
       const { data, error } = await supabase
         .from('trend_posts')
-        .upsert(post, { onConflict: 'platform_post_id', ignoreDuplicates: false })
+        .upsert(post, {
+          onConflict: 'platform_post_id',
+          ignoreDuplicates: true  // Skip duplicates instead of inserting them
+        })
         .select();
 
       if (error) {
         console.error(`Error upserting trend post ${post.platform_post_id}:`, error);
       } else {
-        console.log(`Successfully upserted trend post ${post.platform_post_id}.`);
+        console.log(`Successfully processed trend post ${post.platform_post_id}.`);
         totalPostsProcessed += data?.length || 0;
       }
     }

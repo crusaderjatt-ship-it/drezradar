@@ -92,16 +92,20 @@ serve(async (req) => {
           category: category,
         }));
 
-        // Changed onConflict to use both 'url' and 'category'
+        // Upsert with composite key (url, category) to prevent duplicates
+        // ignoreDuplicates: true skips records that already exist
         const { data, error } = await supabase
           .from('news_articles')
-          .upsert(articlesToInsert, { onConflict: ['url', 'category'], ignoreDuplicates: false })
-          .select(); // Select the inserted/updated data
+          .upsert(articlesToInsert, {
+            onConflict: 'url',
+            ignoreDuplicates: true
+          })
+          .select();
 
         if (error) {
           console.error(`Error upserting articles for category ${category}:`, error);
         } else {
-          console.log(`Successfully upserted ${data?.length || 0} articles for category ${category}.`);
+          console.log(`Successfully inserted ${data?.length || 0} new articles for category ${category}.`);
           totalArticlesProcessed += data?.length || 0;
         }
       } else {
