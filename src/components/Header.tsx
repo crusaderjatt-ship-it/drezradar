@@ -21,6 +21,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isMobile = useIsMobile();
+  const [isSheetOpen, setIsSheetOpen] = React.useState(false);
 
   const handleLogout = async () => {
     const { error } = await supabase.auth.signOut();
@@ -76,16 +77,7 @@ const Header: React.FC = () => {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      ) : (
-        <Button
-          variant="ghost"
-          onClick={handleSignUpClick}
-          className="text-charcoal-light hover:text-primary dark:text-gray-300 dark:hover:text-primary
-                     hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-        >
-          Sign Up
-        </Button>
-      )}
+      ) : null}
     </>
   );
 
@@ -110,7 +102,7 @@ const Header: React.FC = () => {
 
       <nav className="flex items-center space-x-4" role="navigation" aria-label="Main navigation">
         {isMobile ? (
-          <Sheet>
+          <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
@@ -123,43 +115,37 @@ const Header: React.FC = () => {
             </SheetTrigger>
             <SheetContent side="right" className="w-[250px] sm:w-[300px] bg-background p-6 flex flex-col space-y-4">
               <div className="flex flex-col space-y-4">
-                <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white">
+                <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white" onClick={() => setIsSheetOpen(false)}>
                   <Link to="/" className="w-full text-charcoal-light dark:text-gray-300">Home</Link>
                 </Button>
-                <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-orange-100 dark:hover:bg-orange-900 hover:text-orange-600 dark:hover:text-orange-400 font-semibold">
+                <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-orange-100 dark:hover:bg-orange-900 hover:text-orange-600 dark:hover:text-orange-400 font-semibold" onClick={() => setIsSheetOpen(false)}>
                   <Link to="/amazon-sale" className="w-full text-charcoal-light dark:text-gray-300">🔥 Amazon Sale</Link>
                 </Button>
-                <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-purple-100 dark:hover:bg-purple-900 hover:text-purple-600 dark:hover:text-purple-400">
+                <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-purple-100 dark:hover:bg-purple-900 hover:text-purple-600 dark:hover:text-purple-400" onClick={() => setIsSheetOpen(false)}>
                   <Link to="/trend-analysis" className="w-full text-charcoal-light dark:text-gray-300">📊 Trend Analysis</Link>
                 </Button>
                 {session ? (
                   <>
-                    <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white">
+                    <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white" onClick={() => setIsSheetOpen(false)}>
                       <Link to="/profile" className="w-full text-charcoal-light dark:text-gray-300">Profile</Link>
                     </Button>
                     {session.user?.email === 'randhawa.m@gmail.com' && (
-                      <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white">
+                      <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white" onClick={() => setIsSheetOpen(false)}>
                         <Link to="/admin" className="w-full text-charcoal-light dark:text-gray-300">Admin Dashboard</Link>
                       </Button>
                     )}
                     <Button
                       variant="ghost"
-                      onClick={handleLogout}
+                      onClick={() => {
+                        handleLogout();
+                        setIsSheetOpen(false);
+                      }}
                       className="justify-start px-4 py-2 rounded-md text-destructive dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                     >
                       Log out
                     </Button>
                   </>
-                ) : (
-                  <Button
-                    variant="ghost"
-                    onClick={handleSignUpClick}
-                    className="justify-start px-4 py-2 rounded-md text-charcoal-light dark:text-gray-300
-                               hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white"
-                  >
-                    Sign Up
-                  </Button>
-                )}
+                ) : null}
               </div>
               <div className="mt-auto">
                 <ThemeToggle />

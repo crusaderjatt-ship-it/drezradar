@@ -64,8 +64,8 @@ const TrendAnalysis: React.FC = () => {
                 sustainability without compromising on trends. This generation isn't just buying clothes—they're making a statement.
               </p>
               <div className="bg-purple-50 dark:bg-purple-900/30 p-4 rounded-lg" role="region" aria-label="Gen Z fashion key insights">
-                <h4 className="font-semibold mb-2">Key Insights:</h4>
-                <ul className="list-disc list-inside space-y-1 text-gray-700" role="list">
+                <h4 className="font-semibold mb-2 text-gray-900 dark:text-white">Key Insights:</h4>
+                <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-200" role="list">
                   <li role="listitem"><strong>70% prefer</strong> thrifted or second-hand fashion over fast fashion</li>
                   <li role="listitem"><strong>65% research</strong> brand ethics before purchasing</li>
                   <li role="listitem"><strong>Streetwear dominates</strong> with 80% wearing casual-luxury blends daily</li>
@@ -93,8 +93,8 @@ const TrendAnalysis: React.FC = () => {
                 How? Through digital scarcity and limited drops.
               </p>
               <div className="bg-pink-50 dark:bg-pink-900/30 p-4 rounded-lg" role="region" aria-label="Luxury fashion market analysis">
-                <h4 className="font-semibold mb-2">Market Analysis:</h4>
-                <ul className="list-disc list-inside space-y-1 text-gray-700" role="list">
+                <h4 className="font-semibold mb-2 text-gray-900 dark:text-white">Market Analysis:</h4>
+                <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-200" role="list">
                   <li role="listitem">Luxury brands using NFTs and digital-first launches</li>
                   <li role="listitem">Resale market growing at 25% YoY (influencing new production)</li>
                   <li role="listitem">High-end brands partnering with fast-fashion (lowering brand exclusivity)</li>
@@ -118,7 +118,7 @@ const TrendAnalysis: React.FC = () => {
                 2026 marks the mainstream adoption of AI in personal fashion. Retailers are leveraging AI for:
               </p>
               <div className="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg" role="region" aria-label="AI fashion technology applications">
-                <ul className="list-disc list-inside space-y-2 text-gray-700" role="list">
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-200" role="list">
                   <li role="listitem"><strong>Virtual try-ons</strong> - Reducing returns by 40%+ for fashion retailers</li>
                   <li role="listitem"><strong>Personalized recommendations</strong> - 3x increase in conversion when used</li>
                   <li role="listitem"><strong>Size prediction</strong> - ML models predicting fit with 92% accuracy</li>
@@ -141,8 +141,8 @@ const TrendAnalysis: React.FC = () => {
                 The Indian fashion market is experiencing unique trends driven by cultural factors, income growth, and digital adoption:
               </p>
               <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg" role="region" aria-label="India-specific fashion market opportunities">
-                <h4 className="font-semibold mb-2">India-Specific Opportunities:</h4>
-                <ul className="list-disc list-inside space-y-2 text-gray-700" role="list">
+                <h4 className="font-semibold mb-2 text-gray-900 dark:text-white">India-Specific Opportunities:</h4>
+                <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-200" role="list">
                   <li role="listitem"><strong>Fusion wear dominance</strong> - Indo-Western blends capturing 35% of women's fashion market</li>
                   <li role="listitem"><strong>Ethnic revival</strong> - Sarees, kurtis seeing 15% YoY growth</li>
                   <li role="listitem"><strong>Tier 2/3 cities emerging</strong> - 60% of online fashion purchases now from non-metro cities</li>
@@ -165,12 +165,12 @@ const TrendAnalysis: React.FC = () => {
               <p className="text-gray-700 dark:text-gray-300">
                 Fashion in 2026 is at an inflection point. Three forces are reshaping the industry:
               </p>
-              <ol className="list-decimal list-inside space-y-2 text-gray-700" role="list">
+              <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-200" role="list">
                 <li role="listitem"><strong>Sustainability:</strong> No longer optional—it's mandatory for brand relevance</li>
                 <li role="listitem"><strong>Personalization:</strong> AI-driven customization is becoming the baseline expectation</li>
                 <li role="listitem"><strong>Localization:</strong> Global brands must adapt to local preferences to compete</li>
               </ol>
-              <p className="text-gray-700 font-semibold mt-4">
+              <p className="text-gray-700 dark:text-gray-200 font-semibold mt-4">
                 Retailers and brands that navigate these three trends will capture the majority of market growth.
                 The winners won't be the biggest—they'll be the most adaptive.
               </p>
