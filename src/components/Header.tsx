@@ -90,28 +90,47 @@ const Header: React.FC = () => {
   );
 
   return (
-    <header className="flex items-center justify-between px-4 md:px-8 pt-4 md:pt-8 bg-background border-b border-border sticky top-0 z-50">
+    <>
+      {/* Skip to main content link for accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-[60] focus:bg-primary focus:text-white focus:p-2 focus:font-bold"
+      >
+        Skip to main content
+      </a>
+      <header
+        className="flex items-center justify-between px-4 md:px-8 pt-4 md:pt-8 bg-background border-b border-border sticky top-0 z-50"
+        role="banner"
+      >
       <div className="flex-grow flex flex-col items-center justify-center md:flex-row md:justify-start md:items-center">
         <Link to="/">
           <img src={`${import.meta.env.BASE_URL}DrezRadarLogoS.png`} alt="DrezRadar Logo" className="max-h-24 md:max-h-32 w-auto" />
         </Link>
       </div>
 
-      <div className="flex items-center space-x-4">
+      <nav className="flex items-center space-x-4" role="navigation" aria-label="Main navigation">
         {isMobile ? (
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white">
-                <span>
-                  <MenuIcon className="h-6 w-6 text-charcoal-light dark:text-gray-300" />
-                  <span className="sr-only">Toggle navigation menu</span>
-                </span>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="bg-transparent hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white"
+                aria-label="Toggle navigation menu"
+              >
+                <MenuIcon className="h-6 w-6 text-charcoal-light dark:text-gray-300" aria-hidden="true" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[250px] sm:w-[300px] bg-background p-6 flex flex-col space-y-4">
               <div className="flex flex-col space-y-4">
                 <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-primary dark:hover:text-white">
                   <Link to="/" className="w-full text-charcoal-light dark:text-gray-300">Home</Link>
+                </Button>
+                <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-orange-100 dark:hover:bg-orange-900 hover:text-orange-600 dark:hover:text-orange-400 font-semibold">
+                  <Link to="/amazon-sale" className="w-full text-charcoal-light dark:text-gray-300">🔥 Amazon Sale</Link>
+                </Button>
+                <Button variant="ghost" asChild className="justify-start px-4 py-2 rounded-md hover:bg-purple-100 dark:hover:bg-purple-900 hover:text-purple-600 dark:hover:text-purple-400">
+                  <Link to="/trend-analysis" className="w-full text-charcoal-light dark:text-gray-300">📊 Trend Analysis</Link>
                 </Button>
                 {session ? (
                   <>
@@ -153,8 +172,9 @@ const Header: React.FC = () => {
             <ThemeToggle />
           </nav>
         )}
-      </div>
+      </nav>
     </header>
+    </>
   );
 };
 

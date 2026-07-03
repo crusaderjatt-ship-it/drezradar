@@ -113,91 +113,107 @@ const Home = () => {
           ))}
         </TabsList>
 
-        <TabsContent value={activeTab}>
+        <TabsContent value={activeTab} role="region" aria-label={`${activeTab} fashion news`}>
             {/* Trend Stats and Key Metrics */}
             {!loading && fashionNews.length > 0 && (
-              <div className="mb-10">
+              <section className="mb-10" aria-label="Trend statistics">
                 <TrendStats category={activeTab} />
-              </div>
+              </section>
             )}
 
             {/* Smart Ad Placeholder - Collapses when no ads */}
             {!loading && fashionNews.length > 0 && (
-              <div className="my-6">
+              <section className="my-6" aria-label="Advertisement region">
                 <SmartAdPlaceholder adSlot="4536248322" />
-              </div>
+              </section>
             )}
 
             {loading ? (
-              <div className="text-center text-charcoal-light">Loading news...</div>
+              <div
+                className="text-center text-charcoal-light"
+                role="status"
+                aria-live="polite"
+                aria-label="Loading news articles"
+              >
+                Loading news...
+              </div>
             ) : error ? (
-              <div className="text-center text-destructive">{error}</div>
+              <div
+                className="text-center text-destructive"
+                role="alert"
+                aria-live="assertive"
+                aria-label="Error loading news"
+              >
+                {error}
+              </div>
             ) : fashionNews.length > 0 ? (
               <div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8" role="list">
                   {fashionNews.map((article, index) => {
                     const affiliateLinks = getShopSuggestions(article.title, article.description);
 
                     return (
                       <React.Fragment key={index}>
-                        <Card
-                          className="bg-card text-card-foreground rounded-lg shadow-md
-                                     transition-all duration-300 ease-in-out
-                                     hover:shadow-xl hover:scale-[1.02]
-                                     hover:bg-gradient-to-br hover:from-gray-50 hover:to-gray-100
-                                     dark:hover:from-gray-800 dark:hover:to-gray-700
-                                     hover:border-2 hover:border-primary
-                                     overflow-hidden flex flex-col"
-                        >
-                          <script type="application/ld+json">
-                            {JSON.stringify({
-                              "@context": "https://schema.org",
-                              "@type": "NewsArticle",
-                              "headline": article.title,
-                              "image": [
-                                article.image_url,
-                              ],
-                              "datePublished": article.published_at,
-                              "dateModified": article.published_at,
-                              "author": {
-                                "@type": "Organization",
-                                "name": article.source_name
-                              },
-                              "publisher": {
-                                "@type": "Organization",
-                                "name": "DrezRadar News",
-                                "logo": {
-                                  "@type": "ImageObject",
-                                  "url": "https://www.dyad.sh/favicon.ico"
-                                }
-                              },
-                              "description": article.description,
-                              "mainEntityOfPage": {
-                                "@type": "WebPage",
-                                "@id": article.url
-                              },
-                              "url": article.url
-                            })}
-                          </script>
-                          {article.image_url && (
-                            <img src={article.image_url} alt={`Image for ${article.title}`} className="w-full h-48 object-cover" />
-                          )}
-                          <CardHeader className="flex-grow">
-                            <CardTitle className="text-lg font-semibold text-charcoal line-clamp-2">{article.title}</CardTitle>
-                            <p className="text-sm text-muted-foreground mt-1">{article.source_name} - {new Date(article.published_at).toLocaleDateString()}</p>
-                          </CardHeader>
-                          <CardContent className="flex flex-col gap-3">
-                            <p className="text-sm text-charcoal-light line-clamp-3">{article.description}</p>
-                            <div className="flex gap-2 mt-auto">
-                              <a href={article.url} target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:underline flex-1">
-                                Read More
-                              </a>
-                              {affiliateLinks.length > 0 && (
-                                <ShopButton affiliateLinks={affiliateLinks} articleTitle={article.title} />
-                              )}
-                            </div>
-                          </CardContent>
-                        </Card>
+                        <article role="listitem">
+                          <Card
+                            className="bg-card text-card-foreground rounded-lg shadow-md
+                                       transition-all duration-300 ease-in-out
+                                       hover:shadow-xl hover:scale-[1.02]
+                                       hover:bg-gradient-to-br hover:from-gray-50 hover:to-gray-100
+                                       dark:hover:from-gray-800 dark:hover:to-gray-700
+                                       hover:border-2 hover:border-primary
+                                       overflow-hidden flex flex-col"
+                          >
+                            <script type="application/ld+json">
+                              {JSON.stringify({
+                                "@context": "https://schema.org",
+                                "@type": "NewsArticle",
+                                "headline": article.title,
+                                "image": [
+                                  article.image_url,
+                                ],
+                                "datePublished": article.published_at,
+                                "dateModified": article.published_at,
+                                "author": {
+                                  "@type": "Organization",
+                                  "name": article.source_name
+                                },
+                                "publisher": {
+                                  "@type": "Organization",
+                                  "name": "DrezRadar News",
+                                  "logo": {
+                                    "@type": "ImageObject",
+                                    "url": "https://www.dyad.sh/favicon.ico"
+                                  }
+                                },
+                                "description": article.description,
+                                "mainEntityOfPage": {
+                                  "@type": "WebPage",
+                                  "@id": article.url
+                                },
+                                "url": article.url
+                              })}
+                            </script>
+                            {article.image_url && (
+                              <img src={article.image_url} alt={`Image for ${article.title}`} className="w-full h-48 object-cover" />
+                            )}
+                            <CardHeader className="flex-grow">
+                              <CardTitle className="text-lg font-semibold text-charcoal line-clamp-2">{article.title}</CardTitle>
+                              <p className="text-sm text-muted-foreground mt-1">{article.source_name} - {new Date(article.published_at).toLocaleDateString()}</p>
+                            </CardHeader>
+                            <CardContent className="flex flex-col gap-3">
+                              <p className="text-sm text-charcoal-light line-clamp-3">{article.description}</p>
+                              <div className="flex gap-2 mt-auto">
+                                <a href={article.url} target="_blank" rel="noopener noreferrer" className="text-primary text-sm hover:underline flex-1">
+                                  Read More
+                                </a>
+                                {affiliateLinks.length > 0 && (
+                                  <ShopButton affiliateLinks={affiliateLinks} articleTitle={article.title} />
+                                )}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </article>
 
                         {/* Insert smart ads every 3 articles */}
                         {(index + 1) % 3 === 0 && index !== fashionNews.length - 1 && (
@@ -214,7 +230,13 @@ const Home = () => {
                 <SmartAdPlaceholder adSlot="4536248322" className="my-8 text-center" />
               </div>
             ) : (
-              <div className="text-center text-charcoal-light">No news found for this category.</div>
+              <div
+                className="text-center text-charcoal-light"
+                role="status"
+                aria-label="No news available"
+              >
+                No news found for this category.
+              </div>
             )}
           </TabsContent>
       </Tabs>

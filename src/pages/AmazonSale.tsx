@@ -139,125 +139,140 @@ const AmazonSale: React.FC = () => {
       </Helmet>
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white py-8 px-4">
+      <header className="bg-gradient-to-r from-orange-600 to-red-600 text-white py-8 px-4" role="banner">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-2">Amazon India Mega Sale</h1>
           <p className="text-lg text-orange-100 mb-4">Discover best deals with actual prices & discounts</p>
 
           {/* Affiliate Disclosure */}
-          <div className="bg-white/20 backdrop-blur p-3 rounded-lg flex gap-2 items-start">
-            <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
+          <div className="bg-white/20 backdrop-blur p-3 rounded-lg flex gap-2 items-start" role="region" aria-label="Affiliate disclosure">
+            <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" aria-hidden="true" />
             <p className="text-sm">
               ⓘ <strong>Affiliate Disclosure:</strong> We are Amazon affiliates. When you click a product and buy on Amazon,
               we earn a small commission at no extra cost to you. This helps us keep this free deal finder running.
             </p>
           </div>
         </div>
-      </div>
+      </header>
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Key Stats as Filter Buttons */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <button
-            onClick={() => setMinDiscount(0)}
-            className={`p-4 rounded-lg text-center transition-all ${
-              minDiscount === 0 ? 'bg-white shadow-lg border-2 border-orange-600' : 'bg-white shadow'
-            }`}
-          >
-            <div className="text-3xl font-bold text-orange-600">70%</div>
-            <div className="text-sm text-gray-600">Max Discount</div>
-          </button>
-          <button
-            onClick={() => setMinDiscount(50)}
-            className={`p-4 rounded-lg text-center transition-all ${
-              minDiscount === 50 ? 'bg-white shadow-lg border-2 border-orange-600' : 'bg-white shadow'
-            }`}
-          >
-            <div className="text-3xl font-bold text-orange-600">50%+</div>
-            <div className="text-sm text-gray-600">Off Filter</div>
-          </button>
-          <button
-            onClick={() => setMinDiscount(60)}
-            className={`p-4 rounded-lg text-center transition-all ${
-              minDiscount === 60 ? 'bg-white shadow-lg border-2 border-orange-600' : 'bg-white shadow'
-            }`}
-          >
-            <div className="text-3xl font-bold text-orange-600">60%+</div>
-            <div className="text-sm text-gray-600">Off Filter</div>
-          </button>
-          <button
-            onClick={handleRefresh}
-            className="p-4 rounded-lg bg-white shadow hover:shadow-lg transition-all flex items-center justify-center gap-2"
-          >
-            <RefreshCw className="w-5 h-5" />
-            <span className="text-sm">Refresh</span>
-          </button>
-        </div>
+        <section className="mb-8" role="region" aria-label="Quick discount filter">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <button
+              onClick={() => setMinDiscount(0)}
+              className={`p-4 rounded-lg text-center transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-600 ${
+                minDiscount === 0 ? 'bg-white shadow-lg border-2 border-orange-600' : 'bg-white shadow'
+              }`}
+              aria-pressed={minDiscount === 0}
+              aria-label="Show all deals (up to 70% off)"
+            >
+              <div className="text-3xl font-bold text-orange-600">70%</div>
+              <div className="text-sm text-gray-600">Max Discount</div>
+            </button>
+            <button
+              onClick={() => setMinDiscount(50)}
+              className={`p-4 rounded-lg text-center transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-600 ${
+                minDiscount === 50 ? 'bg-white shadow-lg border-2 border-orange-600' : 'bg-white shadow'
+              }`}
+              aria-pressed={minDiscount === 50}
+              aria-label="Filter products with 50% or more discount"
+            >
+              <div className="text-3xl font-bold text-orange-600">50%+</div>
+              <div className="text-sm text-gray-600">Off Filter</div>
+            </button>
+            <button
+              onClick={() => setMinDiscount(60)}
+              className={`p-4 rounded-lg text-center transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-600 ${
+                minDiscount === 60 ? 'bg-white shadow-lg border-2 border-orange-600' : 'bg-white shadow'
+              }`}
+              aria-pressed={minDiscount === 60}
+              aria-label="Filter products with 60% or more discount"
+            >
+              <div className="text-3xl font-bold text-orange-600">60%+</div>
+              <div className="text-sm text-gray-600">Off Filter</div>
+            </button>
+            <button
+              onClick={handleRefresh}
+              className="p-4 rounded-lg bg-white shadow hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-600 flex items-center justify-center gap-2"
+              aria-label="Refresh product deals"
+            >
+              <RefreshCw className="w-5 h-5" aria-hidden="true" />
+              <span className="text-sm">Refresh</span>
+            </button>
+          </div>
+        </section>
 
         {/* Search & Filters */}
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg dark:shadow-gray-900/50 mb-8 space-y-4">
+        <form className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg dark:shadow-gray-900/50 mb-8 space-y-4" onSubmit={e => e.preventDefault()}>
           {/* Search Bar */}
           <div>
-            <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Search Products</label>
+            <label htmlFor="product-search" className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Search Products</label>
             <div className="relative">
-              <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3 top-3 w-5 h-5 text-gray-400" aria-hidden="true" />
               <Input
+                id="product-search"
                 type="text"
                 placeholder="Search sarees, heels, lipstick, etc..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="pl-10 py-6 text-base"
+                className="pl-10 py-6 text-base focus:outline-none focus:ring-2 focus:ring-orange-600"
+                aria-label="Search for products by name, description, or tags"
               />
             </div>
           </div>
 
           {/* Category Filter */}
-          <div>
-            <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Category</label>
+          <fieldset>
+            <legend className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Category</legend>
             <div className="flex flex-wrap gap-2">
               {categories.map(cat => (
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-600 ${
                     selectedCategory === cat
                       ? 'bg-orange-600 text-white'
                       : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                   }`}
+                  aria-pressed={selectedCategory === cat}
+                  aria-label={`Filter by ${cat} category`}
                 >
                   {cat}
                 </button>
               ))}
             </div>
-          </div>
+          </fieldset>
 
           {/* Discount Filter */}
-          <div>
-            <label className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Discount Level</label>
+          <fieldset>
+            <legend className="block text-sm font-semibold mb-2 text-gray-900 dark:text-white">Discount Level</legend>
             <div className="flex flex-wrap gap-2">
               {discountLevels.map(level => (
                 <button
                   key={level.value}
                   onClick={() => setMinDiscount(level.value)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-600 ${
                     minDiscount === level.value
                       ? 'bg-orange-600 text-white'
                       : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                   }`}
+                  aria-pressed={minDiscount === level.value}
+                  aria-label={`Filter by ${level.label}`}
                 >
                   {level.label}
                 </button>
               ))}
             </div>
-          </div>
+          </fieldset>
 
           <p className="text-xs text-gray-500 dark:text-gray-400">
             Last refreshed: {lastRefresh.toLocaleTimeString()} | Updates every 30 minutes
           </p>
-        </div>
+        </form>
 
         {/* Results Count */}
-        <div className="mb-6">
+        <div className="mb-6" role="status" aria-live="polite" aria-atomic="true">
           <p className="text-lg font-semibold text-gray-800 dark:text-white">
             Showing {filteredProducts.length} of {PRODUCTS.length} deals
             {searchQuery && ` for "${searchQuery}"`}
@@ -266,12 +281,17 @@ const AmazonSale: React.FC = () => {
 
         {/* Product Grid */}
         {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <section className="mb-12" aria-label="Product search results">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="list">
             {filteredProducts.map(product => (
-              <Card
+              <article
                 key={product.id}
-                className="hover:shadow-xl dark:hover:shadow-gray-900/50 transition-all duration-300 transform hover:scale-105 cursor-pointer overflow-hidden dark:bg-gray-800 dark:border-gray-700"
+                role="listitem"
+                aria-label={`${product.name} - ${product.discountPercent}% off`}
               >
+                <Card
+                  className="hover:shadow-xl dark:hover:shadow-gray-900/50 transition-all duration-300 transform hover:scale-105 cursor-pointer overflow-hidden dark:bg-gray-800 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-600"
+                >
                 <CardHeader className="pb-4">
                   <div className="flex justify-between items-start gap-4">
                     <div className="text-5xl">{product.icon}</div>
@@ -315,34 +335,38 @@ const AmazonSale: React.FC = () => {
                   {/* Buy Button */}
                   <Button
                     onClick={() => handleProductClick(product.name)}
-                    className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-bold py-6"
+                    className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-bold py-6 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-600"
                     size="lg"
+                    aria-label={`View ${product.name} deal on Amazon - save ₹${Math.round(product.typicalPrice * (product.discountPercent / 100)).toLocaleString()}`}
                   >
-                    <ShoppingBag className="mr-2 h-5 w-5" />
+                    <ShoppingBag className="mr-2 h-5 w-5" aria-hidden="true" />
                     View Deal on Amazon
                   </Button>
                 </CardContent>
               </Card>
+              </article>
             ))}
-          </div>
+            </div>
+          </section>
         ) : (
-          <div className="text-center py-12">
+          <section className="text-center py-12" role="status" aria-live="polite" aria-atomic="true">
             <p className="text-xl text-gray-600 dark:text-gray-400">No products match your search. Try different keywords!</p>
-          </div>
+          </section>
         )}
 
         {/* Call to Action */}
-        <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg p-8 text-center">
+        <section className="bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg p-8 text-center" aria-label="Additional deals call to action">
           <h2 className="text-3xl font-bold mb-4">More Deals Available</h2>
           <p className="text-lg mb-6 text-orange-100">Browse the complete Amazon India sale for more products and deals</p>
           <Button
             onClick={() => window.open('https://amazon.in/?tag=randhawa-21', '_blank')}
             size="lg"
-            className="bg-white text-orange-600 hover:bg-gray-100 font-bold"
+            className="bg-white text-orange-600 hover:bg-gray-100 font-bold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+            aria-label="Visit Amazon India to see more deals"
           >
             Visit Amazon India
           </Button>
-        </div>
+        </section>
       </div>
     </div>
   );

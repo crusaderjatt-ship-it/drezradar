@@ -34,7 +34,7 @@ const App = () => (
             <SessionContextProvider>
               <div className="flex flex-col min-h-screen">
                 <Header />
-                <main className="flex-grow">
+                <main className="flex-grow" id="main-content" role="main">
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/amazon-sale" element={<AmazonSale />} />
