@@ -8,6 +8,7 @@ import { ShopButton } from "@/components/ShopButton";
 import { getShopSuggestions } from "@/lib/affiliateLinks";
 import { TrendStats } from "@/components/TrendStats";
 import SmartAdPlaceholder from "@/components/SmartAdPlaceholder";
+import TrendAnalysis from "./TrendAnalysis";
 
 interface Article {
   title: string;
@@ -20,6 +21,7 @@ interface Article {
 }
 
 const fashionCategories = [
+  { name: "Trend Analysis" },
   { name: "Gen Z Trending" },
   { name: "Fast Fashion" },
   { name: "Royal Classics" },
@@ -36,6 +38,10 @@ const Home = () => {
 
   useEffect(() => {
     const getFashionNews = async () => {
+      if (activeTab === "Trend Analysis") {
+        setLoading(false);
+        return;
+      }
       setLoading(true);
       setError(null);
       try {
@@ -96,7 +102,7 @@ const Home = () => {
         window.scrollTo(0, 0);
         setActiveTab(value);
       }}>
-        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 bg-muted p-1 rounded-lg mb-8 h-auto">
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-6 bg-muted p-1 rounded-lg mb-8 h-auto">
           {fashionCategories.map((category) => (
             <TabsTrigger
               key={category.name}
@@ -114,6 +120,10 @@ const Home = () => {
         </TabsList>
 
         <TabsContent value={activeTab} role="region" aria-label={`${activeTab} fashion news`}>
+            {activeTab === "Trend Analysis" ? (
+              <TrendAnalysis />
+            ) : (
+              <>
             {/* Trend Stats and Key Metrics */}
             {!loading && fashionNews.length > 0 && (
               <section className="mb-10" aria-label="Trend statistics">
@@ -237,6 +247,8 @@ const Home = () => {
               >
                 No news found for this category.
               </div>
+            )}
+            </>
             )}
           </TabsContent>
       </Tabs>
